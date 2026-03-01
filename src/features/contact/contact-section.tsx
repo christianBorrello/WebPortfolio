@@ -7,14 +7,16 @@ export function ContactSection() {
   return (
     <section
       id="contact"
-      className="flex flex-col items-center gap-6 px-6 py-24 text-center"
+      className="bg-foreground/[0.03] px-6 py-20 sm:px-10 sm:py-28"
     >
-      <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-        {t("heading")}
-      </h2>
-      <p className="max-w-lg text-base leading-relaxed text-foreground/60">
-        {t("subtext")}
-      </p>
+      <div className="mx-auto flex max-w-xl flex-col items-center gap-4 text-center">
+        <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+          {t("heading")}
+        </h2>
+        <p className="max-w-lg text-base leading-relaxed text-foreground/60 sm:text-lg sm:leading-relaxed">
+          {t("subtext")}
+        </p>
+      </div>
       <ContactForm />
     </section>
   );
