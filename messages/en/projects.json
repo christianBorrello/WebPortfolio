@@ -3,5 +3,14 @@
   "subtext": "Each project below is a case study — not what I built, but how I thought about it.",
   "read_case_study": "Read case study",
   "type_work": "Work",
-  "type_personal": "Exploration"
+  "type_personal": "Exploration",
+  "section_the_problem": "The Problem",
+  "section_what_i_saw": "What I Saw",
+  "section_the_decisions": "The Decisions",
+  "section_beyond": "Beyond the Assignment",
+  "section_what_didnt_work": "What Didn't Work",
+  "section_bigger_picture": "The Bigger Picture",
+  "section_for_non_specialists": "For Non-Specialists",
+  "section_stack": "Stack",
+  "back_to_projects": "Back to projects"
 }
