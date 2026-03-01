@@ -1,0 +1,72 @@
+slug: azure-infrastructure
+title: Azure Infrastructure Consolidation
+subtitle: "46 Cloud Resources, One Coherent Architecture"
+hook: "46 cloud resources optimized. Targeting ~60% cost reduction."
+type: work
+
+tags:
+  - Azure
+  - Terraform
+  - IaC
+  - DevOps
+
+metrics:
+  - label: Resources Managed
+    value: "46"
+  - label: Cost Target
+    value: "~60% reduction"
+
+sections:
+  theProblem: |
+    The Azure infrastructure had grown organically alongside the application development. Each tool and service got its own set of cloud resources -- separate App Service instances, separate storage accounts, separate everything. With 46 resources and a monthly bill around 380 euros, the cost was not dramatic in absolute terms, but the architecture was. Resources that should have been shared were duplicated. Services that could scale to zero were running 24/7. There was no Infrastructure as Code -- changes were made through the Azure Portal, which meant no version history, no reproducibility, and no way to spin up a staging environment that actually matched production.
+
+    The problem was not just cost. It was operational risk: an infrastructure nobody could reconstruct from scratch if something went wrong.
+
+  whatISaw: |
+    Looking at the Azure resource groups, I could see a pattern of isolated thinking -- each deployment was self-contained, as if it existed in a vacuum. Three separate App Service plans for workloads that could share one. Storage accounts created per-module when a single account with containers would suffice. No resource tagging, so attributing costs to specific services was guesswork.
+
+    The bigger issue was the absence of any codified infrastructure. Every Azure Portal click was a one-way door: no rollback, no audit trail, no ability to review changes before applying them. This is exactly the problem Infrastructure as Code solves.
+
+  theDecisions: |
+    **Terraform over ARM templates.** Azure-native ARM templates (or Bicep) would have been the path of least resistance. I chose Terraform because it is cloud-agnostic, has a stronger state management model, and the HCL syntax is more readable than JSON-based templates. If the company ever needs to run workloads on another cloud provider, the Terraform knowledge transfers directly.
+
+    **Shared App Service Plan.** Instead of one App Service Plan per application, I consolidated workloads onto a shared plan. The applications are not CPU-intensive -- they are I/O-bound (waiting on external APIs and database queries). A single plan with appropriate scaling rules handles the combined load at a fraction of the cost.
+
+    **Container Apps for Selenium scrapers.** The web scraping workloads (Automa Visure Ipotecarie, Automa Telemaco) are bursty: they run for a few minutes, process a batch, then sit idle. Azure Container Apps with scale-to-zero means these workloads cost nothing when idle, compared to a dedicated App Service that runs 24/7 regardless of load.
+
+    **Deployment slots for zero-downtime.** Staging/production deployment slots allow testing in an environment identical to production before swapping. This eliminates the "it works on my machine" problem for infrastructure configuration and gives a one-click rollback path.
+
+  beyondTheAssignment: |
+    The original ask was informal: "can we reduce the Azure bill?" I turned it into a proper infrastructure project with Terraform state management, environment parity between staging and production, and documented runbooks for common operations. The cost reduction is the visible outcome, but the real value is that the infrastructure is now reproducible, auditable, and version-controlled.
+
+    I also introduced resource tagging and cost allocation, so the team can see exactly which service costs what. This changes the conversation from "Azure is expensive" to "this specific workload costs X, and here is how we can optimize it."
+
+  whatDidntWork: |
+    **Migration sequencing.** Moving live workloads to new infrastructure requires careful sequencing. I underestimated the dependencies between some services -- a database migration that seemed independent actually affected a background worker's connection string, which was hardcoded rather than pulled from Key Vault. The lesson: audit all configuration sources before migrating, not just the ones you know about.
+
+    **Terraform state management in a small team.** For a team of one (myself), Terraform's remote state and locking mechanism is important but adds operational overhead. The state file needs to be stored securely, backed up, and the locking mechanism needs to work reliably. Getting this right took more time than expected.
+
+    **The project is still in progress.** The target is a reduction from approximately 380 euros per month to the 100-160 euro range. As of now, the consolidation is partially complete. The final savings will only be confirmed once all workloads have been migrated and the old resources decommissioned.
+
+  theBiggerPicture: |
+    Infrastructure work is often invisible -- nobody notices it until something breaks. This project is a good example of engineering that pays for itself: the monthly savings will compound over time, and the operational improvements (reproducibility, auditability, environment parity) reduce risk in ways that are hard to quantify but easy to appreciate when you need them.
+
+    The experience reinforced that Infrastructure as Code is not optional for any serious deployment. Manual portal clicks are fine for experimentation, but production infrastructure needs the same rigor as application code: version control, code review, automated testing, and rollback capability.
+
+  forNonSpecialists: |
+    Think of cloud infrastructure like renting office space. When a company grows organically, they might end up renting five small offices on different floors instead of one well-organized office that fits everyone. Each small office has its own reception, its own internet connection, and its own utilities -- all paid separately. The cost adds up, and managing five separate spaces is more work than managing one.
+
+    This project is about consolidating those "offices" into a smarter arrangement. Some workloads that ran 24/7 now only run when needed (like turning off the lights when you leave the room). Resources that were duplicated are now shared. And everything is documented in code, so if something goes wrong, we can rebuild the entire setup automatically -- like having a blueprint for the office instead of relying on someone's memory of how things were arranged.
+
+    The target is to reduce the monthly cloud bill by roughly 60%, from about 380 euros to somewhere between 100 and 160 euros per month. The project is still in progress, so the final number will be confirmed once everything is migrated.
+
+stack:
+  - Terraform
+  - Azure App Service
+  - Azure Container Apps
+  - Azure Service Bus
+  - PostgreSQL
+  - Azure Key Vault
+  - Application Insights
+  - Docker
+  - GitHub Actions

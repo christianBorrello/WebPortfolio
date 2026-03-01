@@ -1,0 +1,78 @@
+slug: sagitterhub
+title: SagitterHub
+subtitle: "Enterprise Platform -- VisureHub Module"
+hook: "Enterprise platform built right. TDD >90%. Hexagonal Architecture."
+type: work
+
+tags:
+  - .NET
+  - React
+  - Azure
+  - DDD
+  - CQRS
+
+metrics:
+  - label: Code Coverage
+    value: ">90%"
+    unit: TDD
+
+sections:
+  theProblem: |
+    Sagitter S.p.A. managed credit recovery and NPL operations using a fragmented set of internal tools -- VisureHub, Automa Visure Ipotecarie, Automa Telemaco, RateWatch -- each built independently, with no shared infrastructure, no unified data model, and no consistent user experience. Operators had to context-switch between tools, manually correlate data across systems, and deal with inconsistent error handling. The operational cost was not just in infrastructure, but in human attention wasted on system complexity that should have been invisible.
+
+    The core challenge was not "build a dashboard." It was: how do you unify four distinct automation domains under a single architectural vision without creating a monolith that collapses under its own weight?
+
+  whatISaw: |
+    When I joined, each tool solved its problem in isolation. The architecture was pragmatic but accidental -- each module had grown organically with no shared contracts, no event system, and no separation between business logic and infrastructure. Adding a new feature in one module required understanding the specific wiring of that module, because there was no common pattern.
+
+    I saw that the real problem was not the individual tools, but the lack of architectural boundaries. Without clear domain separation, every change risked breaking something unrelated. Without ports and adapters, every test required spinning up real infrastructure. Without a shared event model, modules could not communicate without tight coupling.
+
+    The opportunity was architectural: create a platform where each module operates independently but speaks the same language.
+
+  theDecisions: |
+    **Hexagonal Architecture over MVC.** MVC would have been simpler to start with, and most .NET tutorials push you toward it. I chose Hexagonal because the platform needed clear boundaries between business logic and infrastructure. The domain -- credit recovery, document extraction, real-time monitoring -- is complex enough that mixing it with HTTP concerns would make it untestable and fragile. With ports and adapters, I can swap infrastructure (move from Azure Blob Storage to S3, or from PostgreSQL to another database) without touching a single line of domain code.
+
+    **DDD for domain complexity.** The business domain involves legal documents, financial instruments, regulatory deadlines, and multi-step automated workflows. This is not a CRUD application. Bounded contexts let each module own its language: a "visura" in VisureHub means something different from a "visura" in Automa Visure Ipotecarie. Aggregates enforce invariants that the business actually cares about. Domain events carry meaning, not just data.
+
+    **CQRS for read/write separation.** The platform has very different read and write patterns. Operators query dashboards constantly (read-heavy), while background workers process extractions and notifications (write-heavy). Separating these paths means the read side can be optimized for speed (Dapper, denormalized views) while the write side maintains full consistency (Entity Framework Core, domain validation).
+
+    **TDD as a design discipline.** Test-Driven Development is not just about coverage numbers. Writing tests first forced me to design clean interfaces before implementing them. The >90% coverage is a side effect of the discipline, not the goal. Every port has a contract. Every adapter is tested through its port. The test suite runs in seconds because it never touches real infrastructure -- Testcontainers handle integration tests, and everything else runs against in-memory implementations.
+
+  beyondTheAssignment: |
+    The assignment was to build VisureHub as a standalone tool. I proposed and designed the unified platform architecture instead, because I could see that the company would need it. Each new tool they built would face the same problems -- no shared auth, no shared infrastructure, no shared patterns -- unless someone created the foundation.
+
+    I introduced TDD to the codebase. It was not part of the existing development culture. I set up the CI/CD pipeline with GitHub Actions, including automated builds, static analysis, test execution, and deployment with health checks. I introduced Docker multi-stage builds for consistent environments. I set up OpenTelemetry for distributed tracing and Serilog for structured logging -- observability that did not exist before.
+
+    The Polly resilience layer (circuit breakers, retry policies, timeout management) was not requested but was essential for a system that depends on external government portals that go down regularly. Self-healing and automatic fallback mean the system recovers without human intervention.
+
+  whatDidntWork: |
+    **Event Sourcing complexity.** I introduced Event Sourcing early because it seemed like the right architectural choice for auditability and traceability. In practice, the added complexity was not justified for all modules. Some workflows are simple enough that a well-designed relational model with proper audit logging would have been sufficient. The lesson: architectural patterns should be applied where they solve a real problem, not uniformly across the system.
+
+    **Initial over-engineering of the domain model.** My first pass at the DDD model was too granular. I created value objects and aggregates for concepts that did not carry enough business invariants to justify the abstraction cost. I had to simplify -- removing unnecessary indirection, merging aggregates that were artificially separated. Getting the boundary right took iteration.
+
+    **SignalR scaling challenges.** Real-time notifications via SignalR work well in a single-instance deployment. The scaling story for multi-instance scenarios (Azure App Service with multiple instances) required rethinking connection management. This is still an area of ongoing refinement.
+
+  theBiggerPicture: |
+    SagitterHub represents the kind of engineering I care about: building systems that are honest about their complexity. The platform does not hide behind "clean code" as an aesthetic -- it uses architectural boundaries to make the system genuinely maintainable over time. When a new module needs to be added, the path is clear: define the domain, implement the ports, wire the adapters.
+
+    This project shaped my thinking about when to apply heavyweight patterns (DDD, CQRS, Event Sourcing) versus simpler approaches. Not every problem deserves a domain model. Not every read path needs CQRS. The skill is in knowing where the complexity actually lives and addressing it there, while keeping everything else simple.
+
+    It also taught me that introducing engineering practices (TDD, CI/CD, observability) into an existing team is as much a communication challenge as a technical one. The code has to prove the value before the practice gains adoption.
+
+  forNonSpecialists: |
+    Imagine a company that manages debt recovery. They need to look up property records, check business registrations, monitor interest rates, and automate document retrieval -- all from different government websites that are slow and unreliable. Before this project, each of these tasks had its own separate tool with its own login, its own way of showing data, and its own set of problems.
+
+    SagitterHub brings all of these tools under one roof. An operator logs in once and can access everything from a single dashboard. Behind the scenes, the system automatically retries when government websites are slow, stores documents securely in the cloud, and sends real-time notifications when something needs attention.
+
+    The engineering approach means the system is built to last: each piece is independent enough that you can fix or replace one part without breaking the others. The extensive testing (over 90% of the code is covered) means changes can be made with confidence that nothing else will break.
+
+stack:
+  - .NET 8.0
+  - ASP.NET Core
+  - React 19
+  - TypeScript
+  - Azure
+  - Docker
+  - SignalR
+  - MongoDB
+  - PostgreSQL

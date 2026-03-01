@@ -1,0 +1,47 @@
+slug: unity-soulslike
+title: Unity Soulslike Game
+subtitle: "Game Development as a Learning Domain"
+hook: "Exploring a completely different domain. Game development as learning."
+type: personal
+
+tags:
+  - Unity
+  - C#
+  - Game Development
+
+metrics:
+  - label: Engine
+    value: "Unity"
+  - label: Status
+    value: "In progress"
+
+sections:
+  theProblem: |
+    Software engineering, as practiced in enterprise environments, operates within a narrow slice of what programming can be. Game development is a fundamentally different domain: real-time physics, animation state machines, spatial reasoning, player input handling, and frame-rate-sensitive performance constraints. I wanted to explore this domain not to become a game developer, but to expand my understanding of what software can do when the constraints are completely different from web APIs and database queries.
+
+  whatISaw: |
+    The soulslike genre (inspired by Dark Souls) demands precise mechanics: hitboxes, stamina systems, enemy AI state machines, and tight input-response loops. These are engineering problems dressed in game design language. An enemy AI state machine is fundamentally similar to a workflow engine. A hitbox collision system is spatial querying. The domain is different, but the engineering thinking transfers.
+
+  theDecisions: |
+    **Unity over Unreal or Godot.** Unity uses C#, which is my strongest language from professional work. This let me focus on learning game development concepts rather than fighting a new language simultaneously. Unreal's C++ would have split my attention. Godot's GDScript would have added unnecessary friction.
+
+    **3D soulslike over a simpler genre.** I could have started with a 2D platformer. I chose the harder path because the complexity is where the learning happens: 3D camera systems, skeletal animation, physics-based movement, and AI behavior trees are all problems I would never encounter in enterprise web development.
+
+  beyondTheAssignment: |
+    This is a passion project born from my love of gaming. The soulslike genre is one I have spent hundreds of hours playing, and building one is a way to understand the craft behind the experience. It is also a demonstration of continuous learning: enterprise C# and game C# are the same language but entirely different disciplines. The fact that I spend my free time building things in a completely different domain says something about how I approach engineering.
+
+  whatDidntWork: |
+    **Scope management.** Soulslike games are complex by nature. My initial scope was too ambitious -- trying to implement too many mechanics at once instead of building incrementally. I had to step back and focus on one system at a time: movement first, then combat, then AI.
+
+    **Performance intuition.** In web development, performance optimization is about database queries and network latency. In game development, it is about frame time budgets measured in milliseconds. Learning to think in terms of "this needs to complete in under 16ms" required a complete shift in performance intuition.
+
+  theBiggerPicture: |
+    Game development stretches engineering skills in directions that enterprise software never does. Real-time constraints, spatial reasoning, state machine design, and user experience at 60 frames per second -- these are problems that make you a more versatile engineer. The project is ongoing, and every session teaches me something about C# that I would never learn writing web APIs.
+
+  forNonSpecialists: |
+    Dark Souls is a famous video game known for its challenging combat and intricate world design. This project is about building a similar game from scratch using Unity, a professional game development tool. It is like a chef who works in a restaurant during the day but experiments with a completely different cuisine at home -- not to change careers, but because understanding different approaches to the same craft (making something people experience and enjoy) makes you better at all of them.
+
+stack:
+  - Unity
+  - C#
+  - Blender

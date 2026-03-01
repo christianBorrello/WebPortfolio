@@ -1,0 +1,49 @@
+slug: opengl-renderer
+title: OpenGL Renderer
+subtitle: "Understanding Rendering From the Ground Up"
+hook: "Low-level graphics exploration. Understanding rendering from scratch."
+type: personal
+
+tags:
+  - OpenGL
+  - C++
+  - Computer Graphics
+
+metrics:
+  - label: Level
+    value: "Low-level"
+  - label: Status
+    value: "In progress"
+
+sections:
+  theProblem: |
+    Most developers interact with graphics through high-level abstractions -- game engines, UI frameworks, CSS. I wanted to understand what happens beneath those layers. How does a triangle actually get drawn on screen? What does a rendering pipeline look like when you have to build it yourself? The problem was not a business need but a learning need: I wanted to close the gap between "I use a framework" and "I understand what the framework does."
+
+  whatISaw: |
+    Graphics programming is one of the few areas where you interact directly with hardware capabilities through a well-defined API. It forces you to think about memory layout, GPU state management, and the mathematics of transforming 3D geometry into 2D images. These concepts transfer to any domain where performance and hardware awareness matter.
+
+  theDecisions: |
+    **OpenGL over Vulkan.** Vulkan gives more control but requires significantly more boilerplate to get anything on screen. OpenGL provides enough low-level access to understand rendering concepts without drowning in API ceremony. The goal was learning rendering, not learning an API.
+
+    **C++ as the language.** Graphics programming in C++ is the standard for a reason: manual memory management, direct pointer arithmetic, and zero-overhead abstractions match what the GPU expects. Using a managed language would have added a layer of indirection that defeats the purpose of going low-level.
+
+  beyondTheAssignment: |
+    This is a personal project with no assignment. The motivation is straightforward: when I want to understand something, I go to the lowest level I can reach. Working in enterprise .NET during the day, I deliberately chose a completely different stack and problem domain for personal exploration. It is the same curiosity that drives my professional work -- wanting to know how things actually work, not just how to use them.
+
+  whatDidntWork: |
+    **Shader debugging.** When a shader does not produce the expected output, the debugging tools are primitive compared to what I am used to in .NET. GPU debugging requires a different mindset: you cannot step through code line by line. Learning to reason about parallel execution on the GPU is an ongoing challenge.
+
+    **Time management.** Balancing a personal low-level C++ project with a full-time enterprise .NET job means progress is slow. The project advances in bursts when I have the mental bandwidth for a fundamentally different programming paradigm.
+
+  theBiggerPicture: |
+    This project is not about becoming a graphics programmer. It is about understanding computation at a deeper level. The concepts I learn here -- memory management, pipeline architecture, mathematical transformations -- make me a better engineer in my day job, even when I am writing C# and TypeScript. Understanding what happens at the hardware level changes how you think about performance and system design at every level of abstraction.
+
+  forNonSpecialists: |
+    Every time you see a 3D game, a map rotating on your phone, or an animated chart on a website, something is turning mathematical descriptions of shapes into colored pixels on your screen. This project is about building that "something" from scratch -- writing the code that talks directly to the graphics card to draw shapes, apply lighting, and create visual scenes. It is like learning to paint by first understanding how pigments, light, and canvas interact at a physical level.
+
+stack:
+  - C++
+  - OpenGL
+  - GLFW
+  - GLAD
+  - GLM

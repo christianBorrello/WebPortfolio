@@ -1,0 +1,48 @@
+slug: ios-habit-tracker
+title: iOS Habit Tracker
+subtitle: "Choosing the Technology for the Problem"
+hook: "First time on iOS. Swift chosen for the problem, not for comfort."
+type: personal
+
+tags:
+  - Swift
+  - iOS
+  - SwiftUI
+
+metrics:
+  - label: Platform
+    value: "iOS"
+  - label: Status
+    value: "In progress"
+
+sections:
+  theProblem: |
+    I wanted a habit tracking app that worked the way I think about habits -- not as a gamified streak counter, but as a simple, honest tool that shows patterns over time. The existing options were either too complex (dozens of features I would never use) or too simplistic (just a checkbox). The real problem was building something I would actually use daily, which meant it had to be native, fast, and frictionless.
+
+  whatISaw: |
+    A habit tracker lives on your phone. It needs to launch instantly, feel responsive, and integrate with the device's notification system. A web app or cross-platform solution would have added latency and friction -- exactly what kills daily-use tools. Native iOS was the right choice for the problem, even though I had zero experience with Swift or the Apple ecosystem.
+
+  theDecisions: |
+    **Swift and SwiftUI over cross-platform.** React Native or Flutter would have let me stay closer to my comfort zone (TypeScript, React). I chose Swift because the problem demanded a native solution, and I believe in choosing technologies based on what the problem needs, not what I already know. SwiftUI's declarative approach also resonates with my preference for functional, state-driven UI patterns.
+
+    **iOS over Android.** I use an iPhone daily. Building for the platform I use means I am my own user -- I feel every friction point, every slow animation, every awkward interaction. Dogfooding is the most honest form of quality assurance.
+
+  beyondTheAssignment: |
+    There is no assignment here -- this is a deliberate choice to step outside my comfort zone. My professional stack is .NET, React, and Azure. Learning Swift and iOS development is about proving (to myself and others) that I pick technologies for the problem, not from habit. The architectural thinking transfers: separation of concerns, testability, and clean boundaries apply regardless of the platform.
+
+  whatDidntWork: |
+    **SwiftUI learning curve.** Coming from React, I expected SwiftUI's declarative model to feel familiar. It does in concept, but the specifics -- property wrappers (@State, @Binding, @ObservedObject), the view lifecycle, and the way SwiftUI manages state -- required unlearning some React assumptions. The mental model is similar but not identical.
+
+    **Xcode versus my usual tooling.** After working primarily with JetBrains IDEs and VS Code, Xcode feels opinionated in ways I am still adjusting to. The build system, the storyboard/SwiftUI preview system, and the simulator management are all different from what I am used to.
+
+  theBiggerPicture: |
+    This project is a concrete demonstration of technology agnosticism. Saying "I choose the right tool for the job" is easy. Actually learning a new language, a new platform, and a new ecosystem to build something real is the proof. The skills I am developing -- Swift's type system, iOS design patterns, Apple's Human Interface Guidelines -- broaden my perspective on how different ecosystems solve the same fundamental problems.
+
+  forNonSpecialists: |
+    This is a phone app for tracking daily habits -- things like exercise, reading, or any routine you want to build. What makes it different from the dozens of habit trackers already available is that it is designed to be minimal and honest: it shows your patterns without trying to manipulate you with streaks, badges, or social pressure. I built it from scratch using Apple's native tools, specifically because a habit tracker needs to be fast and seamless on your phone -- not a slow website pretending to be an app.
+
+stack:
+  - Swift
+  - SwiftUI
+  - Xcode
+  - iOS SDK
