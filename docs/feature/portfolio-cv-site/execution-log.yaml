@@ -19,5 +19,30 @@ events:
   s: EXECUTED
   sid: 01-01
   t: '2026-03-01T22:19:23Z'
+- d: PASS
+  p: COMMIT
+  s: EXECUTED
+  sid: 01-01
+  t: '2026-03-01T22:21:55Z'
+- d: PASS
+  p: PREPARE
+  s: EXECUTED
+  sid: 01-02
+  t: '2026-03-01T22:24:39Z'
+- d: 'NOT_APPLICABLE: infrastructure step'
+  p: RED_ACCEPTANCE
+  s: SKIPPED
+  sid: 01-02
+  t: '2026-03-01T22:24:46Z'
+- d: 'NOT_APPLICABLE: infrastructure step'
+  p: RED_UNIT
+  s: SKIPPED
+  sid: 01-02
+  t: '2026-03-01T22:24:48Z'
+- d: PASS
+  p: GREEN
+  s: EXECUTED
+  sid: 01-02
+  t: '2026-03-01T22:24:49Z'
 project_id: portfolio-cv-site
 schema_version: '3.0'
