@@ -8,6 +8,7 @@ async function loadMessages(locale: Locale) {
     hero: (await import(`@/../messages/${locale}/hero.json`)).default,
     about: (await import(`@/../messages/${locale}/about.json`)).default,
     contact: (await import(`@/../messages/${locale}/contact.json`)).default,
+    projects: (await import(`@/../messages/${locale}/projects.json`)).default,
   };
 }
 
