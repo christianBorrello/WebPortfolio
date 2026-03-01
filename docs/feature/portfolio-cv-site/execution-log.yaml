@@ -269,5 +269,30 @@ events:
   s: EXECUTED
   sid: 04-01
   t: '2026-03-01T23:03:18Z'
+- d: PASS
+  p: COMMIT
+  s: EXECUTED
+  sid: 04-01
+  t: '2026-03-01T23:06:09Z'
+- d: PASS
+  p: PREPARE
+  s: EXECUTED
+  sid: 05-01
+  t: '2026-03-01T23:18:47Z'
+- d: 'NOT_APPLICABLE: build-time loader'
+  p: RED_ACCEPTANCE
+  s: SKIPPED
+  sid: 05-01
+  t: '2026-03-01T23:18:55Z'
+- d: 'NOT_APPLICABLE: build-time loader'
+  p: RED_UNIT
+  s: SKIPPED
+  sid: 05-01
+  t: '2026-03-01T23:18:56Z'
+- d: PASS
+  p: GREEN
+  s: EXECUTED
+  sid: 05-01
+  t: '2026-03-01T23:19:01Z'
 project_id: portfolio-cv-site
 schema_version: '3.0'
