@@ -1,0 +1,13 @@
+{
+  "heading": "Let's talk",
+  "subtext": "Whether you're looking for a new team member or want to collaborate on something meaningful — I'm open to conversations.",
+  "name_label": "Name",
+  "name_placeholder": "Your name",
+  "email_label": "Email",
+  "email_placeholder": "your@email.com",
+  "message_label": "Message",
+  "message_placeholder": "Tell me about your project or opportunity...",
+  "submit": "Send message",
+  "success": "Message sent. I'll get back to you within a few days.",
+  "error": "Something went wrong. Please try again or email me directly."
+}
