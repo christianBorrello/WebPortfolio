@@ -1,0 +1,23 @@
+events:
+- d: PASS
+  p: PREPARE
+  s: EXECUTED
+  sid: 01-01
+  t: '2026-03-01T22:18:51Z'
+- d: 'NOT_APPLICABLE: scaffolding step has no tests'
+  p: RED_ACCEPTANCE
+  s: SKIPPED
+  sid: 01-01
+  t: '2026-03-01T22:18:53Z'
+- d: 'NOT_APPLICABLE: scaffolding step has no tests'
+  p: RED_UNIT
+  s: SKIPPED
+  sid: 01-01
+  t: '2026-03-01T22:18:55Z'
+- d: PASS
+  p: GREEN
+  s: EXECUTED
+  sid: 01-01
+  t: '2026-03-01T22:19:23Z'
+project_id: portfolio-cv-site
+schema_version: '3.0'
