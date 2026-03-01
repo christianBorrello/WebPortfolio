@@ -4,20 +4,28 @@ export function HeroSection() {
   const t = useTranslations("hero");
 
   return (
-    <section className="flex min-h-[85vh] flex-col items-center justify-center gap-6 px-6 text-center">
-      <h1 className="text-5xl font-bold tracking-tight sm:text-6xl">
-        {t("name")}
-      </h1>
-      <p className="text-xl font-medium text-foreground/80 sm:text-2xl">
-        {t("title")}
-      </p>
-      <p className="max-w-lg text-lg italic text-foreground/70">
+    <section
+      id="hero"
+      className="flex min-h-[85vh] flex-col items-center justify-center gap-6 px-6 text-center"
+    >
+      <header className="flex flex-col items-center gap-2">
+        <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
+          {t("name")}
+        </h1>
+        <p className="text-lg font-medium text-foreground/70 sm:text-xl">
+          {t("title")}
+        </p>
+      </header>
+
+      <blockquote className="max-w-2xl text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
+        {t("statement")}
+      </blockquote>
+
+      <p className="max-w-lg text-lg italic text-foreground/60 sm:text-xl">
         {t("tagline")}
       </p>
-      <p className="max-w-xl text-base leading-relaxed text-foreground/60">
-        {t("statement")}
-      </p>
-      <div className="mt-6 flex gap-4">
+
+      <nav className="mt-6 flex gap-4" aria-label="Primary actions">
         <a
           href="#projects"
           className="rounded-md bg-foreground px-6 py-3 text-sm font-medium text-background transition-opacity hover:opacity-90"
@@ -30,7 +38,7 @@ export function HeroSection() {
         >
           {t("cta_contact")}
         </a>
-      </div>
+      </nav>
     </section>
   );
 }
