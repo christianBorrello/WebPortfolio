@@ -6,35 +6,35 @@ export function HeroSection() {
   return (
     <section
       id="hero"
-      className="flex min-h-[85vh] flex-col items-center justify-center gap-6 px-6 text-center"
+      className="flex min-h-screen flex-col items-center justify-center gap-8 bg-[#0b0f1a] px-6 py-20 text-center text-[#f0f0f0] sm:px-10 md:py-0"
     >
-      <header className="flex flex-col items-center gap-2">
-        <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
+      <header className="flex flex-col items-center gap-3">
+        <h1 className="text-2xl font-semibold tracking-tight text-[#e0e0e0] sm:text-3xl md:text-4xl">
           {t("name")}
         </h1>
-        <p className="text-lg font-medium text-foreground/70 sm:text-xl">
+        <p className="text-base font-medium text-[#9ca3af] sm:text-lg md:text-xl">
           {t("title")}
         </p>
       </header>
 
-      <blockquote className="max-w-2xl text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
+      <blockquote className="max-w-3xl text-3xl font-bold leading-snug tracking-tight sm:text-4xl md:text-5xl lg:text-6xl">
         {t("statement")}
       </blockquote>
 
-      <p className="max-w-lg text-lg italic text-foreground/60 sm:text-xl">
+      <p className="max-w-lg text-base text-[#8b95a5] sm:text-lg md:text-xl">
         {t("tagline")}
       </p>
 
-      <nav className="mt-6 flex gap-4" aria-label="Primary actions">
+      <nav className="mt-4 flex flex-col gap-4 sm:flex-row" aria-label="Primary actions">
         <a
           href="#projects"
-          className="rounded-md bg-foreground px-6 py-3 text-sm font-medium text-background transition-opacity hover:opacity-90"
+          className="rounded-lg bg-[#f0f0f0] px-7 py-3 text-sm font-semibold text-[#0b0f1a] transition-opacity hover:opacity-85 sm:text-base"
         >
           {t("cta_work")}
         </a>
         <a
           href="#contact"
-          className="rounded-md border border-foreground/20 px-6 py-3 text-sm font-medium transition-colors hover:bg-foreground/5"
+          className="rounded-lg border border-[#f0f0f0]/20 px-7 py-3 text-sm font-semibold text-[#f0f0f0] transition-colors hover:border-[#f0f0f0]/50 hover:bg-[#f0f0f0]/5 sm:text-base"
         >
           {t("cta_contact")}
         </a>
