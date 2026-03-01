@@ -94,5 +94,30 @@ events:
   s: EXECUTED
   sid: 01-04
   t: '2026-03-01T22:34:55Z'
+- d: PASS
+  p: COMMIT
+  s: EXECUTED
+  sid: 01-04
+  t: '2026-03-01T22:36:52Z'
+- d: PASS
+  p: PREPARE
+  s: EXECUTED
+  sid: 01-05
+  t: '2026-03-01T22:39:24Z'
+- d: 'NOT_APPLICABLE: E2E form testing deferred to Playwright'
+  p: RED_ACCEPTANCE
+  s: SKIPPED
+  sid: 01-05
+  t: '2026-03-01T22:39:29Z'
+- d: 'NOT_APPLICABLE: E2E form testing deferred to Playwright'
+  p: RED_UNIT
+  s: SKIPPED
+  sid: 01-05
+  t: '2026-03-01T22:39:30Z'
+- d: PASS
+  p: GREEN
+  s: EXECUTED
+  sid: 01-05
+  t: '2026-03-01T22:39:31Z'
 project_id: portfolio-cv-site
 schema_version: '3.0'
