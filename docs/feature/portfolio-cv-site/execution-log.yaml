@@ -169,5 +169,55 @@ events:
   s: EXECUTED
   sid: 02-01
   t: '2026-03-01T22:48:10Z'
+- d: PASS
+  p: COMMIT
+  s: EXECUTED
+  sid: 02-01
+  t: '2026-03-01T22:48:44Z'
+- d: PASS
+  p: PREPARE
+  s: EXECUTED
+  sid: 02-02
+  t: '2026-03-01T22:51:11Z'
+- d: 'NOT_APPLICABLE: visual styling'
+  p: RED_ACCEPTANCE
+  s: SKIPPED
+  sid: 02-02
+  t: '2026-03-01T22:51:16Z'
+- d: 'NOT_APPLICABLE: visual styling'
+  p: RED_UNIT
+  s: SKIPPED
+  sid: 02-02
+  t: '2026-03-01T22:51:19Z'
+- d: PASS
+  p: GREEN
+  s: EXECUTED
+  sid: 02-02
+  t: '2026-03-01T22:51:20Z'
+- d: PASS
+  p: COMMIT
+  s: EXECUTED
+  sid: 02-02
+  t: '2026-03-01T22:52:22Z'
+- d: PASS
+  p: PREPARE
+  s: EXECUTED
+  sid: 03-01
+  t: '2026-03-01T22:55:43Z'
+- d: 'NOT_APPLICABLE: presentational component'
+  p: RED_ACCEPTANCE
+  s: SKIPPED
+  sid: 03-01
+  t: '2026-03-01T22:55:48Z'
+- d: 'NOT_APPLICABLE: presentational component'
+  p: RED_UNIT
+  s: SKIPPED
+  sid: 03-01
+  t: '2026-03-01T22:55:49Z'
+- d: PASS
+  p: GREEN
+  s: EXECUTED
+  sid: 03-01
+  t: '2026-03-01T22:55:50Z'
 project_id: portfolio-cv-site
 schema_version: '3.0'
