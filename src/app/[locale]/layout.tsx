@@ -7,8 +7,15 @@ import { Locale } from "@/i18n/config";
 import "../globals.css";
 
 export const metadata: Metadata = {
-  title: "Christian Borrello",
-  description: "Personal portfolio website",
+  title: {
+    template: "%s | Christian Borrello",
+    default: "Christian Borrello — Software Engineer",
+  },
+  description:
+    "Software Engineer who sees architectures where others see tasks. Portfolio and case studies.",
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ?? "https://christianborrello.dev"
+  ),
 };
 
 type Props = {

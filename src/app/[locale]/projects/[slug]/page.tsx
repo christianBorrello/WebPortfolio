@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   try {
     const project = getProjectBySlug(slug);
-    return buildCaseStudyMetadata(project.title, project.hook);
+    return buildCaseStudyMetadata(project.title, project.hook, project.slug);
   } catch {
     return {};
   }
