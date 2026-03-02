@@ -2,7 +2,7 @@
 
 ## Status
 
-Accepted
+Superseded by [ADR-006](adr-006-resend-over-formspree.md)
 
 ## Context
 
