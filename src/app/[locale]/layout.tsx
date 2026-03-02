@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Dynalight } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
@@ -7,13 +6,6 @@ import { routing } from "@/i18n/routing";
 import { Locale } from "@/i18n/config";
 import { Navigation } from "@/shared/ui/navigation";
 import { Footer } from "@/shared/ui/footer";
-import "../globals.css";
-
-const dynalight = Dynalight({
-  weight: "400",
-  subsets: ["latin"],
-  variable: "--font-dynalight",
-});
 
 export const metadata: Metadata = {
   title: {
@@ -48,14 +40,10 @@ export default async function LocaleLayout({ children, params }: Props) {
   const messages = await getMessages();
 
   return (
-    <html lang={locale} className={dynalight.variable}>
-      <body className="antialiased">
-        <NextIntlClientProvider messages={messages}>
-          <Navigation />
-          {children}
-          <Footer />
-        </NextIntlClientProvider>
-      </body>
-    </html>
+    <NextIntlClientProvider messages={messages}>
+      <Navigation />
+      {children}
+      <Footer />
+    </NextIntlClientProvider>
   );
 }
