@@ -5,7 +5,6 @@ import { useTranslations } from "next-intl";
 import type { FormStatus } from "@/shared/types/contact";
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const FORMSPREE_URL = `https://formspree.io/f/${process.env.NEXT_PUBLIC_FORMSPREE_ID}`;
 
 export function ContactForm() {
   const t = useTranslations("contact");
@@ -27,10 +26,14 @@ export function ContactForm() {
     setStatus("submitting");
 
     try {
-      const response = await fetch(FORMSPREE_URL, {
+      const response = await fetch("/api/contact", {
         method: "POST",
-        body: data,
-        headers: { Accept: "application/json" },
+        body: JSON.stringify({
+          name: data.get("name"),
+          email,
+          message: data.get("message"),
+        }),
+        headers: { "Content-Type": "application/json" },
       });
 
       if (response.ok) {
