@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
+import { render } from "@react-email/components";
 import { Resend } from "resend";
 import { z } from "zod";
+import { ContactNotification } from "@/features/contact/emails/contact-notification";
 import type {
   ContactFieldError,
   ContactValidationErrorResponse,
@@ -37,17 +39,15 @@ export async function POST(request: Request) {
   const { name, email, message } = result.data;
 
   try {
+    const html = await render(
+      ContactNotification({ name, email, message })
+    );
+
     await resend.emails.send({
       from: "Portfolio Contact <contact@christianborrello.dev>",
       to: "christian.borrello@live.it",
       subject: `Portfolio contact from ${name || "Anonymous"}`,
-      text: [
-        `Name: ${name || "Not provided"}`,
-        `Email: ${email}`,
-        "",
-        "Message:",
-        message || "No message provided",
-      ].join("\n"),
+      html,
       replyTo: email,
     });
 
