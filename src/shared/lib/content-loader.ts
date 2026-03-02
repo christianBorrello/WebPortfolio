@@ -9,8 +9,11 @@ import type {
   ProjectSummary,
   ProjectType,
 } from "@/shared/types/project";
+import type { Locale } from "@/i18n/config";
 
-const PROJECTS_DIR = path.join(process.cwd(), "content", "projects");
+function projectsDir(locale: Locale): string {
+  return path.join(process.cwd(), "content", "projects", locale);
+}
 
 const REQUIRED_SECTIONS: readonly (keyof CaseStudySections)[] = [
   "theProblem",
@@ -170,15 +173,17 @@ function sortWorkFirst(
   return a.type === "work" ? -1 : 1;
 }
 
-export function getAllProjects(): readonly ProjectCaseStudy[] {
-  if (!fs.existsSync(PROJECTS_DIR)) {
+export function getAllProjects(locale: Locale): readonly ProjectCaseStudy[] {
+  const dir = projectsDir(locale);
+
+  if (!fs.existsSync(dir)) {
     throw new Error(
-      `[content-loader] Projects directory not found: ${PROJECTS_DIR}`
+      `[content-loader] Projects directory not found: ${dir}`
     );
   }
 
   const files = fs
-    .readdirSync(PROJECTS_DIR)
+    .readdirSync(dir)
     .filter((file) => file.endsWith(".yaml") || file.endsWith(".yml"));
 
   if (files.length === 0) {
@@ -186,12 +191,12 @@ export function getAllProjects(): readonly ProjectCaseStudy[] {
   }
 
   return files
-    .map((file) => parseProjectFile(path.join(PROJECTS_DIR, file)))
+    .map((file) => parseProjectFile(path.join(dir, file)))
     .sort(sortWorkFirst);
 }
 
-export function getProjectBySlug(slug: string): ProjectCaseStudy {
-  const projects = getAllProjects();
+export function getProjectBySlug(slug: string, locale: Locale): ProjectCaseStudy {
+  const projects = getAllProjects(locale);
   const project = projects.find((p) => p.slug === slug);
 
   if (!project) {
