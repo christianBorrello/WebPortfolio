@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
-import { Locale } from "@/i18n/config";
+import type { Locale } from "@/i18n/config";
 import { routing } from "@/i18n/routing";
 import { getAllProjects, getProjectBySlug } from "@/shared/lib/content-loader";
 import { buildCaseStudyMetadata } from "@/shared/lib/metadata";

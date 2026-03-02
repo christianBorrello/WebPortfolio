@@ -2,9 +2,7 @@ import type { MetadataRoute } from "next";
 import type { Locale } from "@/i18n/config";
 import { locales } from "@/i18n/config";
 import { getAllProjects } from "@/shared/lib/content-loader";
-
-const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://christianborrello.dev";
+import { SITE_URL } from "@/shared/lib/site-config";
 
 function buildAlternates(
   pathByLocale: (locale: Locale) => string

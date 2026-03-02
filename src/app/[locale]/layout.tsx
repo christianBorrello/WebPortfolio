@@ -3,9 +3,10 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
-import { Locale } from "@/i18n/config";
+import type { Locale } from "@/i18n/config";
 import { Navigation } from "@/shared/ui/navigation";
 import { Footer } from "@/shared/ui/footer";
+import { SITE_URL } from "@/shared/lib/site-config";
 
 export const metadata: Metadata = {
   title: {
@@ -14,9 +15,7 @@ export const metadata: Metadata = {
   },
   description:
     "Software Engineer who sees architectures where others see tasks. Portfolio and case studies.",
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL ?? "https://christianborrello.dev"
-  ),
+  metadataBase: new URL(SITE_URL),
 };
 
 type Props = {

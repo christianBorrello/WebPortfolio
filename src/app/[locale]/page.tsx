@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
-import { Locale } from "@/i18n/config";
+import type { Locale } from "@/i18n/config";
 import { buildHomeMetadata } from "@/shared/lib/metadata";
 import { HeroSection } from "@/features/hero/hero-section";
 import { AboutSection } from "@/features/about/about-section";

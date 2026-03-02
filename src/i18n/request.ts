@@ -1,7 +1,7 @@
 import { getRequestConfig } from "next-intl/server";
 import { hasLocale } from "next-intl";
 import { routing } from "./routing";
-import { Locale } from "./config";
+import type { Locale } from "./config";
 
 async function loadMessages(locale: Locale) {
   return {

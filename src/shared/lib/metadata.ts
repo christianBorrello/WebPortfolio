@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { type Locale, locales } from "@/i18n/config";
-
-const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://christianborrello.dev";
+import { SITE_URL } from "./site-config";
 
 const DEFAULT_OG_IMAGE = `${SITE_URL}/og-image.png`;
 
@@ -51,13 +49,12 @@ export function buildCaseStudyMetadata(
   locale: Locale,
   slug?: string
 ): Metadata {
-  const fullTitle = title;
   const canonicalUrl = slug
     ? `${SITE_URL}/${locale}/projects/${slug}`
     : undefined;
 
   return {
-    title: fullTitle,
+    title,
     description,
     alternates: {
       ...(canonicalUrl ? { canonical: canonicalUrl } : {}),
@@ -70,7 +67,7 @@ export function buildCaseStudyMetadata(
         : {}),
     },
     openGraph: {
-      title: `${fullTitle} | Christian Borrello`,
+      title: `${title} | Christian Borrello`,
       description,
       ...(canonicalUrl ? { url: canonicalUrl } : {}),
       siteName: "Christian Borrello",
@@ -79,7 +76,7 @@ export function buildCaseStudyMetadata(
     },
     twitter: {
       card: "summary_large_image",
-      title: `${fullTitle} | Christian Borrello`,
+      title: `${title} | Christian Borrello`,
       description,
       images: [DEFAULT_OG_IMAGE],
     },
