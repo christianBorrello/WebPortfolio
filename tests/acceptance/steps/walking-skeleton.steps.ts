@@ -41,14 +41,14 @@ test.describe("Walking Skeleton", () => {
     expect(response!.status()).toBe(200);
   });
 
-  test("contact form shows success state after valid submission", async ({
+  test("contact form full submission smoke test", async ({
     page,
   }) => {
-    await page.route("**/formspree.io/**", async (route) => {
+    await page.route("**/api/contact", async (route) => {
       await route.fulfill({
         status: 200,
         contentType: "application/json",
-        body: JSON.stringify({ ok: true }),
+        body: JSON.stringify({ success: true }),
       });
     });
 

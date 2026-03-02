@@ -10,7 +10,15 @@ Feature: Contact Section -- Low-Friction Conversation Starter
   Background:
     Given a visitor navigates to the contact section
 
-  # --- Milestone 1: Form structure and copy ---
+  # --- Walking skeleton: simplest user journey with observable value ---
+
+  @walking-skeleton
+  Scenario: Visitor sends a message and sees confirmation
+    Given the visitor enters "visitor@example.com" as their email
+    When the visitor clicks "Send message"
+    Then the visitor sees "Message sent. I'll get back to you within a few days."
+
+  # --- Form structure and copy ---
 
   @milestone-1 @skip
   Scenario: Contact form has exactly three fields
@@ -26,7 +34,7 @@ Feature: Contact Section -- Low-Friction Conversation Starter
     Then the headline is conversational, such as "Let's talk"
     And the subtext mentions openness to both employment and collaboration
 
-  # --- Milestone 1: Form validation (error paths) ---
+  # --- Form validation (error paths) ---
 
   @milestone-1 @skip
   Scenario: Submitting without email shows a clear error
@@ -43,7 +51,7 @@ Feature: Contact Section -- Low-Friction Conversation Starter
     Then the email field shows a format validation error
     And no submission is sent to the external service
 
-  # --- Milestone 1: Form submission (happy paths) ---
+  # --- Form submission (happy paths) ---
 
   @milestone-1 @skip
   Scenario: Marco sends a message with only his email
@@ -62,7 +70,24 @@ Feature: Contact Section -- Low-Friction Conversation Starter
     Then the form is submitted successfully
     And Giulia sees the success confirmation message
 
-  # --- Milestone 1: Error recovery ---
+  # --- Submission feedback ---
+
+  @milestone-1 @skip
+  Scenario: Submit button shows progress while sending
+    Given the visitor enters "visitor@example.com" as their email
+    When the visitor clicks "Send message"
+    Then the submit button shows "Sending..." while the message is being delivered
+
+  @milestone-1 @skip
+  Scenario: Form is cleared after successful submission
+    Given the visitor enters "Visitor" as their name
+    And the visitor enters "visitor@example.com" as their email
+    And the visitor enters "Hello there" as their message
+    When the visitor clicks "Send message"
+    Then the form is submitted successfully
+    And the form fields are cleared
+
+  # --- Error recovery ---
 
   @milestone-1 @skip
   Scenario: Submission failure preserves the visitor's input
@@ -72,6 +97,16 @@ Feature: Contact Section -- Low-Friction Conversation Starter
     Then the visitor sees an error message indicating the submission failed
     And all previously entered data remains in the form fields
     And the visitor can retry without re-entering their information
+
+  @milestone-1 @skip
+  Scenario: Network interruption shows a friendly error
+    Given the visitor enters "visitor@example.com" as their email
+    And the network connection is lost
+    When the visitor clicks "Send message"
+    Then the visitor sees an error message indicating the submission failed
+    And all previously entered data remains in the form fields
+
+  # --- Miscellaneous ---
 
   @milestone-1 @skip
   Scenario: No CAPTCHA is shown in version one
