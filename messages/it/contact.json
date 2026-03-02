@@ -1,0 +1,15 @@
+{
+  "heading": "Parliamone",
+  "subtext": "Che tu stia cercando un nuovo membro del team o un collaboratore freelance — sono aperto a entrambi. Iniziamo una conversazione.",
+  "name_label": "Nome",
+  "name_placeholder": "Il tuo nome",
+  "email_label": "Email",
+  "email_placeholder": "tua@email.com",
+  "message_label": "Messaggio",
+  "message_placeholder": "Raccontami del tuo progetto o opportunità...",
+  "submit": "Invia messaggio",
+  "sending": "Invio in corso...",
+  "email_error": "Inserisci un indirizzo email valido.",
+  "success": "Messaggio inviato. Ti risponderò entro qualche giorno.",
+  "error": "Qualcosa è andato storto. Riprova o scrivimi direttamente via email."
+}

@@ -1,0 +1,15 @@
+{
+  "site_name": "Christian Borrello",
+  "nav": {
+    "about": "Chi sono",
+    "projects": "Progetti",
+    "contact": "Contatti",
+    "back_to_projects": "Torna ai progetti",
+    "menu_open": "Apri menu",
+    "menu_close": "Chiudi menu"
+  },
+  "footer": {
+    "copyright": "{year} Christian Borrello. Tutti i diritti riservati.",
+    "built_with": "Realizzato con Next.js e distribuito su Vercel"
+  }
+}
