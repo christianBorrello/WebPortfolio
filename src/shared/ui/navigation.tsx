@@ -35,6 +35,12 @@ export function Navigation() {
           href={showBackLink ? `/${pathname.split("/")[1]}` : "#hero"}
           className="text-foreground transition-opacity hover:opacity-80"
           aria-label={t("site_name")}
+          onClick={(e) => {
+            if (!showBackLink) {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }
+          }}
         >
           <Logo height={36} />
         </a>
