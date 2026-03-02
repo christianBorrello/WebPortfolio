@@ -11,9 +11,11 @@ type Props = {
   params: Promise<{ locale: string }>;
 };
 
-export function generateMetadata(): Metadata {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
   return buildHomeMetadata(
-    "Software Engineer who sees architectures where others see tasks. Portfolio and case studies."
+    "Software Engineer who sees architectures where others see tasks. Portfolio and case studies.",
+    locale as Locale
   );
 }
 

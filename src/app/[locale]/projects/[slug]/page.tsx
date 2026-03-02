@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, slug } = await params;
   try {
     const project = getProjectBySlug(slug, locale as Locale);
-    return buildCaseStudyMetadata(project.title, project.hook, project.slug);
+    return buildCaseStudyMetadata(project.title, project.hook, locale as Locale, project.slug);
   } catch {
     return {};
   }

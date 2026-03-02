@@ -126,5 +126,31 @@ events:
   s: EXECUTED
   sid: 03-01
   t: '2026-03-02T21:11:20Z'
+- d: PASS
+  p: PREPARE
+  s: EXECUTED
+  sid: 03-02
+  t: '2026-03-02T21:33:40Z'
+- d: PASS
+  p: RED_ACCEPTANCE
+  s: EXECUTED
+  sid: 03-02
+  t: '2026-03-02T21:33:51Z'
+- d: 'NOT_APPLICABLE: metadata helpers are declarative config, no behavioral logic
+    to unit test'
+  p: RED_UNIT
+  s: SKIPPED
+  sid: 03-02
+  t: '2026-03-02T21:33:55Z'
+- d: PASS
+  p: GREEN
+  s: EXECUTED
+  sid: 03-02
+  t: '2026-03-02T21:34:54Z'
+- d: PASS
+  p: COMMIT
+  s: EXECUTED
+  sid: 03-02
+  t: '2026-03-02T21:35:18Z'
 project_id: italian-localization
 schema_version: '3.0'
