@@ -1,0 +1,49 @@
+slug: opengl-renderer
+title: Renderer OpenGL
+subtitle: "Capire il rendering partendo dalle fondamenta"
+hook: "Esplorazione grafica a basso livello. Capire il rendering da zero."
+type: personal
+
+tags:
+  - OpenGL
+  - C++
+  - Computer Graphics
+
+metrics:
+  - label: Livello
+    value: "Low-level"
+  - label: Stato
+    value: "In progress"
+
+sections:
+  theProblem: |
+    La maggior parte degli sviluppatori interagisce con la grafica attraverso astrazioni di alto livello -- game engine, framework UI, CSS. Volevo capire cosa succede sotto quei livelli. Come viene effettivamente disegnato un triangolo sullo schermo? Come appare una pipeline di rendering quando devi costruirla tu stesso? Il problema non era un'esigenza di business ma di apprendimento: volevo colmare il divario tra "uso un framework" e "capisco cosa fa il framework."
+
+  whatISaw: |
+    La programmazione grafica è una delle poche aree in cui si interagisce direttamente con le capacità hardware attraverso un'API ben definita. Ti costringe a ragionare sul layout della memoria, sulla gestione dello stato della GPU e sulla matematica che trasforma geometria 3D in immagini 2D. Questi concetti si trasferiscono a qualsiasi dominio in cui contano le prestazioni e la consapevolezza dell'hardware.
+
+  theDecisions: |
+    **OpenGL invece di Vulkan.** Vulkan offre più controllo ma richiede molto più boilerplate per ottenere qualcosa a schermo. OpenGL fornisce un accesso a basso livello sufficiente per comprendere i concetti di rendering senza annegare nella cerimonia dell'API. L'obiettivo era imparare il rendering, non imparare un'API.
+
+    **C++ come linguaggio.** La programmazione grafica in C++ è lo standard per un motivo: gestione manuale della memoria, aritmetica diretta dei puntatori e astrazioni a costo zero corrispondono a ciò che la GPU si aspetta. Usare un linguaggio managed avrebbe aggiunto un livello di indirezione che vanifica lo scopo di andare a basso livello.
+
+  beyondTheAssignment: |
+    Questo è un progetto personale senza incarico. La motivazione è semplice: quando voglio capire qualcosa, vado al livello più basso che riesco a raggiungere. Lavorando in ambito enterprise .NET durante il giorno, ho scelto deliberatamente uno stack e un dominio completamente diversi per l'esplorazione personale. È la stessa curiosità che guida il mio lavoro professionale -- voler sapere come funzionano davvero le cose, non solo come usarle.
+
+  whatDidntWork: |
+    **Debug degli shader.** Quando uno shader non produce l'output atteso, gli strumenti di debug sono primitivi rispetto a quelli a cui sono abituato in .NET. Il debug sulla GPU richiede una mentalità diversa: non puoi eseguire il codice passo passo riga per riga. Imparare a ragionare sull'esecuzione parallela sulla GPU è una sfida continua.
+
+    **Gestione del tempo.** Bilanciare un progetto personale in C++ a basso livello con un lavoro enterprise .NET a tempo pieno significa che i progressi sono lenti. Il progetto avanza a raffiche quando ho la lucidità mentale per un paradigma di programmazione fondamentalmente diverso.
+
+  theBiggerPicture: |
+    Questo progetto non riguarda il diventare un programmatore grafico. Riguarda la comprensione del calcolo a un livello più profondo. I concetti che imparo qui -- gestione della memoria, architettura della pipeline, trasformazioni matematiche -- mi rendono un ingegnere migliore nel mio lavoro quotidiano, anche quando scrivo C# e TypeScript. Capire cosa succede a livello hardware cambia il modo in cui pensi alle prestazioni e alla progettazione dei sistemi a ogni livello di astrazione.
+
+  forNonSpecialists: |
+    Ogni volta che vedi un gioco 3D, una mappa che ruota sul telefono o un grafico animato su un sito web, qualcosa sta trasformando descrizioni matematiche di forme in pixel colorati sullo schermo. Questo progetto consiste nel costruire quel "qualcosa" da zero -- scrivere il codice che parla direttamente alla scheda grafica per disegnare forme, applicare illuminazione e creare scene visive. È come imparare a dipingere partendo prima dalla comprensione di come pigmenti, luce e tela interagiscono a livello fisico.
+
+stack:
+  - C++
+  - OpenGL
+  - GLFW
+  - GLAD
+  - GLM

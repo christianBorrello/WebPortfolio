@@ -1,0 +1,48 @@
+slug: ios-habit-tracker
+title: Habit Tracker per iOS
+subtitle: "Scegliere la tecnologia giusta per il problema"
+hook: "Prima volta su iOS. Swift scelto per il problema, non per comodità."
+type: personal
+
+tags:
+  - Swift
+  - iOS
+  - SwiftUI
+
+metrics:
+  - label: Piattaforma
+    value: "iOS"
+  - label: Stato
+    value: "In progress"
+
+sections:
+  theProblem: |
+    Volevo un'app per tracciare le abitudini che funzionasse come ragiono io sulle abitudini -- non come un contatore di serie gamificato, ma come uno strumento semplice e onesto che mostra i pattern nel tempo. Le opzioni disponibili erano o troppo complesse (decine di funzionalità che non avrei mai usato) o troppo semplicistiche (solo una checkbox). Il vero problema era costruire qualcosa che avrei effettivamente usato ogni giorno, il che significava che doveva essere nativo, veloce e senza attriti.
+
+  whatISaw: |
+    Un habit tracker vive sul telefono. Deve avviarsi istantaneamente, risultare reattivo e integrarsi con il sistema di notifiche del dispositivo. Un'app web o una soluzione cross-platform avrebbe aggiunto latenza e attrito -- esattamente ciò che uccide gli strumenti di uso quotidiano. Il nativo iOS era la scelta giusta per il problema, anche se non avevo alcuna esperienza con Swift o l'ecosistema Apple.
+
+  theDecisions: |
+    **Swift e SwiftUI invece del cross-platform.** React Native o Flutter mi avrebbero permesso di restare più vicino alla mia comfort zone (TypeScript, React). Ho scelto Swift perché il problema richiedeva una soluzione nativa, e credo nella scelta delle tecnologie in base a ciò che il problema necessita, non a ciò che già conosco. L'approccio dichiarativo di SwiftUI risuona anche con la mia preferenza per pattern UI funzionali e guidati dallo stato.
+
+    **iOS invece di Android.** Uso un iPhone ogni giorno. Sviluppare per la piattaforma che uso significa che sono il mio stesso utente -- percepisco ogni punto di attrito, ogni animazione lenta, ogni interazione scomoda. Il dogfooding è la forma più onesta di quality assurance.
+
+  beyondTheAssignment: |
+    Non c'è nessun incarico -- è una scelta deliberata di uscire dalla mia comfort zone. Il mio stack professionale è .NET, React e Azure. Imparare Swift e lo sviluppo iOS serve a dimostrare (a me stesso e agli altri) che scelgo le tecnologie per il problema, non per abitudine. Il pensiero architetturale si trasferisce: separazione delle responsabilità, testabilità e confini puliti si applicano indipendentemente dalla piattaforma.
+
+  whatDidntWork: |
+    **Curva di apprendimento di SwiftUI.** Venendo da React, mi aspettavo che il modello dichiarativo di SwiftUI risultasse familiare. Lo è nel concetto, ma i dettagli -- i property wrapper (@State, @Binding, @ObservedObject), il ciclo di vita delle view e il modo in cui SwiftUI gestisce lo stato -- hanno richiesto di disimparare alcune assunzioni tipiche di React. Il modello mentale è simile ma non identico.
+
+    **Xcode rispetto ai miei strumenti abituali.** Dopo aver lavorato principalmente con gli IDE JetBrains e VS Code, Xcode risulta opinato in modi a cui mi sto ancora adattando. Il sistema di build, il sistema di preview storyboard/SwiftUI e la gestione del simulatore sono tutti diversi da ciò a cui sono abituato.
+
+  theBiggerPicture: |
+    Questo progetto è una dimostrazione concreta di agnosticismo tecnologico. Dire "scelgo lo strumento giusto per il lavoro" è facile. Imparare davvero un nuovo linguaggio, una nuova piattaforma e un nuovo ecosistema per costruire qualcosa di reale è la prova. Le competenze che sto sviluppando -- il type system di Swift, i design pattern iOS, le Human Interface Guidelines di Apple -- ampliano la mia prospettiva su come ecosistemi diversi risolvono gli stessi problemi fondamentali.
+
+  forNonSpecialists: |
+    Questa è un'app per telefono per tracciare le abitudini quotidiane -- cose come l'esercizio fisico, la lettura o qualsiasi routine che si vuole costruire. Ciò che la rende diversa dalle decine di habit tracker già disponibili è che è progettata per essere minimale e onesta: mostra i tuoi pattern senza cercare di manipolarti con serie, badge o pressione sociale. L'ho costruita da zero usando gli strumenti nativi di Apple, specificamente perché un habit tracker deve essere veloce e fluido sul telefono -- non un sito web lento che finge di essere un'app.
+
+stack:
+  - Swift
+  - SwiftUI
+  - Xcode
+  - iOS SDK

@@ -1,0 +1,72 @@
+slug: azure-infrastructure
+title: Consolidamento Infrastruttura Azure
+subtitle: "46 risorse cloud, un'architettura coerente"
+hook: "46 risorse cloud ottimizzate. Obiettivo: riduzione costi di circa il 60%."
+type: work
+
+tags:
+  - Azure
+  - Terraform
+  - IaC
+  - DevOps
+
+metrics:
+  - label: Risorse gestite
+    value: "46"
+  - label: Obiettivo di riduzione
+    value: "~60% reduction"
+
+sections:
+  theProblem: |
+    L'infrastruttura Azure era cresciuta in modo organico insieme allo sviluppo applicativo. Ogni strumento e servizio aveva ricevuto il proprio set di risorse cloud -- istanze App Service separate, storage account separati, tutto separato. Con 46 risorse e una bolletta mensile di circa 380 euro, il costo non era drammatico in termini assoluti, ma l'architettura sì. Risorse che avrebbero dovuto essere condivise erano duplicate. Servizi che potevano scalare a zero giravano 24/7. Non esisteva Infrastructure as Code -- le modifiche venivano fatte tramite il portale Azure, il che significava nessuno storico delle versioni, nessuna riproducibilità e nessun modo di creare un ambiente di staging che rispecchiasse davvero la produzione.
+
+    Il problema non era solo il costo. Era il rischio operativo: un'infrastruttura che nessuno avrebbe potuto ricostruire da zero se qualcosa fosse andato storto.
+
+  whatISaw: |
+    Guardando i resource group di Azure, vedevo un pattern di ragionamento isolato -- ogni deployment era autonomo, come se esistesse nel vuoto. Tre App Service Plan separati per carichi di lavoro che avrebbero potuto condividerne uno. Storage account creati per singolo modulo quando un singolo account con container sarebbe bastato. Nessun tagging delle risorse, quindi attribuire i costi a specifici servizi era un esercizio di approssimazione.
+
+    Il problema più grande era l'assenza di qualsiasi infrastruttura codificata. Ogni click sul portale Azure era una porta senza ritorno: nessun rollback, nessuna traccia di audit, nessuna possibilità di revisionare le modifiche prima di applicarle. Questo è esattamente il problema che l'Infrastructure as Code risolve.
+
+  theDecisions: |
+    **Terraform invece di ARM template.** I template ARM nativi di Azure (o Bicep) sarebbero stati la via di minor resistenza. Ho scelto Terraform perché è cloud-agnostic, ha un modello di gestione dello stato più robusto, e la sintassi HCL è più leggibile dei template basati su JSON. Se l'azienda dovesse mai eseguire carichi di lavoro su un altro cloud provider, la conoscenza di Terraform si trasferisce direttamente.
+
+    **App Service Plan condiviso.** Invece di un App Service Plan per applicazione, ho consolidato i carichi di lavoro su un piano condiviso. Le applicazioni non sono CPU-intensive -- sono I/O-bound (in attesa di API esterne e query al database). Un singolo piano con regole di scaling appropriate gestisce il carico combinato a una frazione del costo.
+
+    **Container Apps per gli scraper Selenium.** I carichi di lavoro di web scraping (Automa Visure Ipotecarie, Automa Telemaco) sono a raffiche: girano per qualche minuto, processano un batch, poi restano inattivi. Azure Container Apps con scale-to-zero significa che questi carichi non costano nulla quando sono inattivi, rispetto a un App Service dedicato che gira 24/7 indipendentemente dal carico.
+
+    **Slot di deployment per zero downtime.** Gli slot staging/produzione permettono di testare in un ambiente identico alla produzione prima dello swap. Questo elimina il problema "funziona sulla mia macchina" per la configurazione infrastrutturale e offre un percorso di rollback con un solo click.
+
+  beyondTheAssignment: |
+    La richiesta originale era informale: "possiamo ridurre la bolletta Azure?" L'ho trasformata in un progetto infrastrutturale vero e proprio con gestione dello stato Terraform, parità tra ambiente di staging e produzione, e runbook documentati per le operazioni comuni. La riduzione dei costi è il risultato visibile, ma il vero valore sta nel fatto che l'infrastruttura è ora riproducibile, auditabile e versionata.
+
+    Ho anche introdotto il tagging delle risorse e l'allocazione dei costi, così il team può vedere esattamente quanto costa ogni servizio. Questo cambia la conversazione da "Azure è caro" a "questo specifico carico di lavoro costa X, ed ecco come possiamo ottimizzarlo."
+
+  whatDidntWork: |
+    **Sequenziamento della migrazione.** Spostare carichi di lavoro in produzione su una nuova infrastruttura richiede un sequenziamento attento. Ho sottostimato le dipendenze tra alcuni servizi -- una migrazione di database che sembrava indipendente in realtà influenzava la stringa di connessione di un background worker, che era hardcoded anziché letta dal Key Vault. La lezione: prima di migrare, auditare tutte le fonti di configurazione, non solo quelle note.
+
+    **Gestione dello stato Terraform in un team piccolo.** Per un team di una persona (io stesso), il remote state e il meccanismo di locking di Terraform sono importanti ma aggiungono overhead operativo. Il file di stato deve essere archiviato in modo sicuro, avere un backup, e il meccanismo di locking deve funzionare in modo affidabile. Far funzionare tutto correttamente ha richiesto più tempo del previsto.
+
+    **Il progetto è ancora in corso.** L'obiettivo è una riduzione da circa 380 euro al mese alla fascia 100-160 euro. Al momento, il consolidamento è parzialmente completato. I risparmi definitivi saranno confermati solo quando tutti i carichi di lavoro saranno migrati e le vecchie risorse dismesse.
+
+  theBiggerPicture: |
+    Il lavoro infrastrutturale è spesso invisibile -- nessuno lo nota finché qualcosa non si rompe. Questo progetto è un buon esempio di ingegneria che si ripaga da sola: i risparmi mensili si accumuleranno nel tempo, e i miglioramenti operativi (riproducibilità, auditabilità, parità degli ambienti) riducono il rischio in modi difficili da quantificare ma facili da apprezzare quando servono.
+
+    L'esperienza ha confermato che l'Infrastructure as Code non è opzionale per qualsiasi deployment serio. I click manuali sul portale vanno bene per la sperimentazione, ma l'infrastruttura di produzione necessita dello stesso rigore del codice applicativo: version control, code review, test automatizzati e capacità di rollback.
+
+  forNonSpecialists: |
+    Pensa all'infrastruttura cloud come all'affitto di uffici. Quando un'azienda cresce in modo organico, può ritrovarsi ad affittare cinque piccoli uffici su piani diversi invece di un unico ufficio ben organizzato che ospita tutti. Ogni piccolo ufficio ha la propria reception, la propria connessione internet e le proprie utenze -- tutto pagato separatamente. I costi si sommano, e gestire cinque spazi separati richiede più lavoro che gestirne uno.
+
+    Questo progetto consiste nel consolidare quegli "uffici" in una disposizione più intelligente. Alcuni carichi di lavoro che giravano 24/7 ora funzionano solo quando necessario (come spegnere le luci quando si esce dalla stanza). Le risorse duplicate ora sono condivise. E tutto è documentato nel codice, così se qualcosa va storto, possiamo ricostruire l'intero assetto automaticamente -- come avere un progetto architettonico dell'ufficio invece di affidarsi alla memoria di qualcuno su come erano disposte le cose.
+
+    L'obiettivo è ridurre la bolletta cloud mensile di circa il 60%, da circa 380 euro a una cifra compresa tra 100 e 160 euro al mese. Il progetto è ancora in corso, quindi il numero definitivo sarà confermato una volta completata la migrazione.
+
+stack:
+  - Terraform
+  - Azure App Service
+  - Azure Container Apps
+  - Azure Service Bus
+  - PostgreSQL
+  - Azure Key Vault
+  - Application Insights
+  - Docker
+  - GitHub Actions

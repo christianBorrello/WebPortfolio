@@ -1,0 +1,78 @@
+slug: sagitterhub
+title: SagitterHub
+subtitle: "Piattaforma Enterprise -- Modulo VisureHub"
+hook: "Piattaforma enterprise costruita come si deve. TDD >90%. Architettura Esagonale."
+type: work
+
+tags:
+  - .NET
+  - React
+  - Azure
+  - DDD
+  - CQRS
+
+metrics:
+  - label: Copertura del codice
+    value: ">90%"
+    unit: TDD
+
+sections:
+  theProblem: |
+    Sagitter S.p.A. gestiva le operazioni di recupero crediti e NPL con un insieme frammentato di strumenti interni -- VisureHub, Automa Visure Ipotecarie, Automa Telemaco, RateWatch -- ciascuno sviluppato in modo indipendente, senza infrastruttura condivisa, senza un modello dati unificato e senza un'esperienza utente coerente. Gli operatori dovevano passare continuamente da uno strumento all'altro, correlare manualmente i dati tra sistemi diversi e gestire errori trattati in modo incoerente. Il costo operativo non era solo infrastrutturale, ma si misurava nell'attenzione umana sprecata su una complessità di sistema che avrebbe dovuto essere invisibile.
+
+    La sfida principale non era "costruire una dashboard." Era: come unificare quattro domini di automazione distinti sotto un'unica visione architetturale senza creare un monolite destinato a crollare sotto il proprio peso?
+
+  whatISaw: |
+    Quando sono entrato nel progetto, ogni strumento risolveva il proprio problema in isolamento. L'architettura era pragmatica ma accidentale -- ogni modulo era cresciuto organicamente senza contratti condivisi, senza un sistema di eventi e senza separazione tra logica di business e infrastruttura. Aggiungere una nuova funzionalità in un modulo richiedeva di comprendere il cablaggio specifico di quel modulo, perché non esisteva un pattern comune.
+
+    Ho capito che il vero problema non erano i singoli strumenti, ma l'assenza di confini architetturali. Senza una chiara separazione dei domini, ogni modifica rischiava di rompere qualcosa di non correlato. Senza porte e adattatori, ogni test richiedeva di avviare infrastruttura reale. Senza un modello di eventi condiviso, i moduli non potevano comunicare senza accoppiamento stretto.
+
+    L'opportunità era architetturale: creare una piattaforma dove ogni modulo opera in modo indipendente ma parla la stessa lingua.
+
+  theDecisions: |
+    **Architettura Esagonale invece di MVC.** MVC sarebbe stato più semplice all'inizio, e la maggior parte dei tutorial .NET spinge in quella direzione. Ho scelto l'Architettura Esagonale perché la piattaforma necessitava di confini netti tra logica di business e infrastruttura. Il dominio -- recupero crediti, estrazione documenti, monitoraggio in tempo reale -- è sufficientemente complesso da rendere il codice non testabile e fragile se mescolato con le preoccupazioni HTTP. Con porte e adattatori, posso sostituire l'infrastruttura (passare da Azure Blob Storage a S3, o da PostgreSQL a un altro database) senza toccare una singola riga di codice di dominio.
+
+    **DDD per la complessità del dominio.** Il dominio di business coinvolge documenti legali, strumenti finanziari, scadenze normative e workflow automatizzati multi-step. Questa non è un'applicazione CRUD. I bounded context permettono a ogni modulo di possedere il proprio linguaggio: una "visura" in VisureHub significa qualcosa di diverso da una "visura" in Automa Visure Ipotecarie. Gli aggregati impongono invarianti che al business interessano davvero. Gli eventi di dominio trasportano significato, non solo dati.
+
+    **CQRS per la separazione lettura/scrittura.** La piattaforma ha pattern di lettura e scrittura molto diversi. Gli operatori interrogano le dashboard costantemente (lettura intensiva), mentre i worker in background processano estrazioni e notifiche (scrittura intensiva). Separare questi percorsi significa che il lato lettura può essere ottimizzato per la velocità (Dapper, viste denormalizzate) mentre il lato scrittura mantiene la piena consistenza (Entity Framework Core, validazione di dominio).
+
+    **TDD come disciplina di progettazione.** Il Test-Driven Development non riguarda solo i numeri di copertura. Scrivere i test prima mi ha costretto a progettare interfacce pulite prima di implementarle. La copertura >90% è un effetto collaterale della disciplina, non l'obiettivo. Ogni porta ha un contratto. Ogni adattatore è testato attraverso la sua porta. La suite di test gira in pochi secondi perché non tocca mai infrastruttura reale -- i Testcontainer gestiscono i test di integrazione, e tutto il resto gira su implementazioni in memoria.
+
+  beyondTheAssignment: |
+    L'incarico era costruire VisureHub come strumento standalone. Ho proposto e progettato l'architettura della piattaforma unificata, perché vedevo che l'azienda ne avrebbe avuto bisogno. Ogni nuovo strumento che avrebbero costruito avrebbe affrontato gli stessi problemi -- nessuna autenticazione condivisa, nessuna infrastruttura condivisa, nessun pattern condiviso -- a meno che qualcuno non creasse le fondamenta.
+
+    Ho introdotto il TDD nel codebase. Non faceva parte della cultura di sviluppo esistente. Ho configurato la pipeline CI/CD con GitHub Actions, includendo build automatiche, analisi statica, esecuzione dei test e deployment con health check. Ho introdotto le build Docker multi-stage per ambienti consistenti. Ho configurato OpenTelemetry per il tracing distribuito e Serilog per il logging strutturato -- osservabilità che prima non esisteva.
+
+    Il layer di resilienza con Polly (circuit breaker, policy di retry, gestione dei timeout) non era stato richiesto ma era essenziale per un sistema che dipende da portali governativi esterni che vanno offline regolarmente. Self-healing e fallback automatico significano che il sistema si ripristina senza intervento umano.
+
+  whatDidntWork: |
+    **Complessità dell'Event Sourcing.** Ho introdotto l'Event Sourcing nelle fasi iniziali perché sembrava la scelta architetturale giusta per auditabilità e tracciabilità. Nella pratica, la complessità aggiuntiva non era giustificata per tutti i moduli. Alcuni workflow sono sufficientemente semplici da poter essere gestiti con un modello relazionale ben progettato e un adeguato logging di audit. La lezione: i pattern architetturali vanno applicati dove risolvono un problema reale, non in modo uniforme su tutto il sistema.
+
+    **Over-engineering iniziale del modello di dominio.** La mia prima stesura del modello DDD era troppo granulare. Avevo creato value object e aggregati per concetti che non portavano abbastanza invarianti di business da giustificare il costo di astrazione. Ho dovuto semplificare -- rimuovendo indirezioni non necessarie, unendo aggregati che erano stati separati artificialmente. Trovare il confine giusto ha richiesto iterazione.
+
+    **Sfide di scalabilità con SignalR.** Le notifiche in tempo reale tramite SignalR funzionano bene in un deployment a singola istanza. La scalabilità per scenari multi-istanza (Azure App Service con più istanze) ha richiesto di ripensare la gestione delle connessioni. Questa è ancora un'area in continuo perfezionamento.
+
+  theBiggerPicture: |
+    SagitterHub rappresenta il tipo di ingegneria a cui tengo: costruire sistemi onesti riguardo alla propria complessità. La piattaforma non si nasconde dietro il "codice pulito" come estetica -- usa i confini architetturali per rendere il sistema genuinamente manutenibile nel tempo. Quando un nuovo modulo deve essere aggiunto, il percorso è chiaro: definire il dominio, implementare le porte, collegare gli adattatori.
+
+    Questo progetto ha plasmato il mio modo di ragionare su quando applicare pattern pesanti (DDD, CQRS, Event Sourcing) rispetto ad approcci più semplici. Non ogni problema merita un modello di dominio. Non ogni percorso di lettura ha bisogno di CQRS. La competenza sta nel sapere dove risiede davvero la complessità e affrontarla lì, mantenendo tutto il resto semplice.
+
+    Mi ha anche insegnato che introdurre pratiche ingegneristiche (TDD, CI/CD, osservabilità) in un team esistente è tanto una sfida comunicativa quanto tecnica. Il codice deve dimostrare il valore prima che la pratica venga adottata.
+
+  forNonSpecialists: |
+    Immagina un'azienda che gestisce il recupero crediti. Ha bisogno di consultare registri immobiliari, verificare iscrizioni al registro delle imprese, monitorare i tassi di interesse e automatizzare il recupero di documenti -- tutto da diversi siti web governativi, lenti e inaffidabili. Prima di questo progetto, ciascuna di queste attività aveva il proprio strumento separato con il proprio login, il proprio modo di mostrare i dati e i propri problemi.
+
+    SagitterHub riunisce tutti questi strumenti sotto un unico tetto. Un operatore effettua un solo accesso e può raggiungere tutto da un'unica dashboard. Dietro le quinte, il sistema ritenta automaticamente quando i siti governativi sono lenti, archivia i documenti in modo sicuro nel cloud e invia notifiche in tempo reale quando qualcosa richiede attenzione.
+
+    L'approccio ingegneristico fa sì che il sistema sia costruito per durare: ogni componente è sufficientemente indipendente da poter essere corretto o sostituito senza rompere gli altri. I test estesi (oltre il 90% del codice è coperto) permettono di apportare modifiche con la certezza che nient'altro si romperà.
+
+stack:
+  - .NET 8.0
+  - ASP.NET Core
+  - React 19
+  - TypeScript
+  - Azure
+  - Docker
+  - SignalR
+  - MongoDB
+  - PostgreSQL

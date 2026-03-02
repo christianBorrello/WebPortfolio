@@ -1,0 +1,47 @@
+slug: unity-soulslike
+title: Gioco Soulslike in Unity
+subtitle: "Lo sviluppo di videogiochi come dominio di apprendimento"
+hook: "Esplorare un dominio completamente diverso. Lo sviluppo di videogiochi come apprendimento."
+type: personal
+
+tags:
+  - Unity
+  - C#
+  - Game Development
+
+metrics:
+  - label: Motore
+    value: "Unity"
+  - label: Stato
+    value: "In progress"
+
+sections:
+  theProblem: |
+    L'ingegneria del software, come viene praticata negli ambienti enterprise, opera in una fetta ristretta di ciò che la programmazione può essere. Lo sviluppo di videogiochi è un dominio fondamentalmente diverso: fisica in tempo reale, macchine a stati per le animazioni, ragionamento spaziale, gestione dell'input del giocatore e vincoli di prestazione sensibili al framerate. Volevo esplorare questo dominio non per diventare un game developer, ma per ampliare la mia comprensione di ciò che il software può fare quando i vincoli sono completamente diversi da API web e query al database.
+
+  whatISaw: |
+    Il genere soulslike (ispirato a Dark Souls) richiede meccaniche precise: hitbox, sistemi di stamina, macchine a stati per l'IA nemica e loop input-risposta serrati. Sono problemi ingegneristici vestiti con il linguaggio del game design. Una macchina a stati per l'IA nemica è fondamentalmente simile a un motore di workflow. Un sistema di collisione hitbox è interrogazione spaziale. Il dominio è diverso, ma il pensiero ingegneristico si trasferisce.
+
+  theDecisions: |
+    **Unity invece di Unreal o Godot.** Unity usa C#, che è il mio linguaggio più forte dal lavoro professionale. Questo mi ha permesso di concentrarmi sull'apprendimento dei concetti di game development piuttosto che combattere simultaneamente con un nuovo linguaggio. Il C++ di Unreal avrebbe diviso la mia attenzione. Il GDScript di Godot avrebbe aggiunto attrito non necessario.
+
+    **Soulslike 3D invece di un genere più semplice.** Avrei potuto iniziare con un platformer 2D. Ho scelto il percorso più difficile perché la complessità è dove avviene l'apprendimento: sistemi di telecamera 3D, animazione scheletrica, movimento basato sulla fisica e alberi di comportamento per l'IA sono tutti problemi che non incontrerei mai nello sviluppo web enterprise.
+
+  beyondTheAssignment: |
+    Questo è un progetto di passione nato dal mio amore per i videogiochi. Il genere soulslike è uno in cui ho passato centinaia di ore a giocare, e costruirne uno è un modo per comprendere il mestiere dietro l'esperienza. È anche una dimostrazione di apprendimento continuo: il C# enterprise e il C# per videogiochi sono lo stesso linguaggio ma discipline completamente diverse. Il fatto che nel tempo libero costruisca cose in un dominio completamente diverso dice qualcosa sul mio approccio all'ingegneria.
+
+  whatDidntWork: |
+    **Gestione dello scope.** I giochi soulslike sono complessi per natura. Il mio scope iniziale era troppo ambizioso -- cercavo di implementare troppe meccaniche contemporaneamente invece di costruire in modo incrementale. Ho dovuto fare un passo indietro e concentrarmi su un sistema alla volta: prima il movimento, poi il combattimento, poi l'IA.
+
+    **Intuizione sulle prestazioni.** Nello sviluppo web, l'ottimizzazione delle prestazioni riguarda query al database e latenza di rete. Nello sviluppo di videogiochi, si tratta di budget temporali per frame misurati in millisecondi. Imparare a ragionare in termini di "questo deve completarsi in meno di 16ms" ha richiesto un cambio completo nell'intuizione sulle prestazioni.
+
+  theBiggerPicture: |
+    Lo sviluppo di videogiochi spinge le competenze ingegneristiche in direzioni che il software enterprise non tocca mai. Vincoli in tempo reale, ragionamento spaziale, progettazione di macchine a stati e user experience a 60 fotogrammi al secondo -- sono problemi che ti rendono un ingegnere più versatile. Il progetto è in corso, e ogni sessione mi insegna qualcosa sul C# che non imparerei mai scrivendo API web.
+
+  forNonSpecialists: |
+    Dark Souls è un videogioco famoso per il suo combattimento impegnativo e il design intricato del mondo di gioco. Questo progetto consiste nel costruire un gioco simile da zero usando Unity, uno strumento professionale per lo sviluppo di videogiochi. È come uno chef che lavora in un ristorante durante il giorno ma sperimenta con una cucina completamente diversa a casa -- non per cambiare carriera, ma perché comprendere approcci diversi allo stesso mestiere (creare qualcosa che le persone vivono e apprezzano) ti rende migliore in tutti quanti.
+
+stack:
+  - Unity
+  - C#
+  - Blender
