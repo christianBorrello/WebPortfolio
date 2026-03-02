@@ -1,0 +1,135 @@
+import { test, expect } from "@playwright/test";
+import * as fs from "node:fs";
+import * as path from "node:path";
+
+const LOCALE_DIR = path.resolve("messages/en");
+
+function loadLocaleValues(): string[] {
+  const values: string[] = [];
+  const files = fs.readdirSync(LOCALE_DIR).filter((f) => f.endsWith(".json"));
+
+  for (const file of files) {
+    const content = JSON.parse(
+      fs.readFileSync(path.join(LOCALE_DIR, file), "utf-8")
+    );
+    extractStrings(content, values);
+  }
+
+  return values;
+}
+
+function extractStrings(obj: unknown, result: string[]): void {
+  if (typeof obj === "string") {
+    const trimmed = obj.trim();
+    if (trimmed.length > 2) {
+      result.push(trimmed);
+    }
+    return;
+  }
+  if (obj !== null && typeof obj === "object") {
+    for (const value of Object.values(obj as Record<string, unknown>)) {
+      extractStrings(value, result);
+    }
+  }
+}
+
+test.describe("Walking Skeleton", () => {
+  test("site is live and reachable with HTTP 200", async ({ page }) => {
+    const response = await page.goto("/en");
+
+    expect(response).not.toBeNull();
+    expect(response!.status()).toBe(200);
+  });
+
+  test("contact form shows success state after valid submission", async ({
+    page,
+  }) => {
+    await page.route("**/formspree.io/**", async (route) => {
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({ ok: true }),
+      });
+    });
+
+    await page.goto("/en");
+
+    const nameInput = page.getByLabel("Name");
+    const emailInput = page.getByLabel("Email");
+    const messageInput = page.getByLabel("Message");
+    const submitButton = page.getByRole("button", { name: "Send message" });
+
+    await nameInput.fill("Test User");
+    await emailInput.fill("test@example.com");
+    await messageInput.fill("Hello, this is a test message.");
+    await submitButton.click();
+
+    await expect(
+      page.getByText(
+        "Message sent. I'll get back to you within a few days."
+      )
+    ).toBeVisible();
+  });
+
+  test("all visible text originates from locale files", async ({ page }) => {
+    const localeValues = loadLocaleValues();
+
+    await page.goto("/en");
+    await page.waitForLoadState("networkidle");
+
+    const visibleTexts = await page.evaluate(() => {
+      const texts: string[] = [];
+      const walker = document.createTreeWalker(
+        document.body,
+        NodeFilter.SHOW_TEXT,
+        {
+          acceptNode(node) {
+            const parent = node.parentElement;
+            if (!parent) return NodeFilter.FILTER_REJECT;
+            const tag = parent.tagName.toLowerCase();
+            if (tag === "script" || tag === "style" || tag === "noscript") {
+              return NodeFilter.FILTER_REJECT;
+            }
+            const style = window.getComputedStyle(parent);
+            if (style.display === "none" || style.visibility === "hidden") {
+              return NodeFilter.FILTER_REJECT;
+            }
+            return NodeFilter.FILTER_ACCEPT;
+          },
+        }
+      );
+
+      let node: Node | null;
+      while ((node = walker.nextNode())) {
+        const text = (node.textContent ?? "").trim();
+        if (text.length > 2) {
+          texts.push(text);
+        }
+      }
+      return texts;
+    });
+
+    const unmatchedTexts: string[] = [];
+
+    for (const visibleText of visibleTexts) {
+      const matchesLocale = localeValues.some((localeValue) => {
+        const normalized = localeValue.replace(/\{[^}]+\}/g, "").trim();
+        return (
+          visibleText.includes(normalized) || normalized.includes(visibleText)
+        );
+      });
+
+      if (!matchesLocale) {
+        const isNumericOrSymbol = /^[\d\s.,%@:;/\-+()]+$/.test(visibleText);
+        if (!isNumericOrSymbol) {
+          unmatchedTexts.push(visibleText);
+        }
+      }
+    }
+
+    expect(
+      unmatchedTexts,
+      `Found hardcoded text not in locale files:\n${unmatchedTexts.join("\n")}`
+    ).toHaveLength(0);
+  });
+});
