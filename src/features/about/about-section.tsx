@@ -6,7 +6,7 @@ export function AboutSection() {
   return (
     <section
       id="about"
-      className="bg-background px-6 py-20 sm:px-10 sm:py-28"
+      className="flex min-h-screen flex-col justify-center bg-background px-6 py-20 sm:px-10 sm:py-28"
     >
       <div className="mx-auto flex max-w-[65ch] flex-col gap-8">
         <h2 className="font-display text-4xl text-foreground sm:text-5xl">

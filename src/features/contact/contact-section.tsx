@@ -7,7 +7,7 @@ export function ContactSection() {
   return (
     <section
       id="contact"
-      className="bg-foreground/[0.03] px-6 py-20 sm:px-10 sm:py-28"
+      className="flex min-h-screen flex-col justify-center bg-foreground/[0.03] px-6 py-20 sm:px-10 sm:py-28"
     >
       <div className="mx-auto flex max-w-xl flex-col items-center gap-4 text-center">
         <h2 className="font-display text-4xl text-foreground sm:text-5xl">

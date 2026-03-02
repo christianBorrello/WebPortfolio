@@ -9,7 +9,7 @@ export function ProjectGrid() {
   return (
     <section
       id="projects"
-      className="bg-foreground/[0.03] px-6 py-20 sm:px-10 sm:py-28"
+      className="flex min-h-screen flex-col justify-center bg-foreground/[0.03] px-6 py-20 sm:px-10 sm:py-28"
     >
       <div className="mx-auto max-w-5xl">
         <div className="mb-12 flex flex-col gap-3">

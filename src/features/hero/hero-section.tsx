@@ -6,13 +6,13 @@ export function HeroSection() {
   return (
     <section
       id="hero"
-      className="flex min-h-screen flex-col items-center justify-center gap-8 bg-[#0b0f1a] px-6 py-20 text-center text-[#f0f0f0] sm:px-10 md:py-0"
+      className="flex h-[calc(100dvh-3.5rem)] flex-col items-center justify-center gap-4 bg-[#0b0f1a] px-6 py-20 text-center text-[#f0f0f0] sm:px-10 md:py-0"
     >
       <header className="flex flex-col items-center">
-        <h1 className="font-display text-7xl text-[#e0e0e0] sm:text-8xl md:text-9xl">
+        <h1 className="font-display text-5xl text-[#e0e0e0] sm:text-6xl md:text-7xl">
           {t("name")}
         </h1>
-        <p className="-mt-2 text-xl font-medium text-[#9ca3af] sm:-mt-3 sm:text-2xl md:-mt-4 md:text-3xl">
+        <p className="-mt-2 text-lg font-medium text-[#9ca3af] sm:-mt-3 sm:text-xl md:-mt-4 md:text-2xl">
           {t("title")}
         </p>
       </header>
