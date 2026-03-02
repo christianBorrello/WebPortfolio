@@ -1,0 +1,105 @@
+roadmap:
+  project_id: contact-form-resend-migration
+  created_at: '2026-03-02T13:34:04Z'
+  total_steps: 7
+  phases: 5
+  step_decomposition_ratio: 2.33  # 7 steps / 3 production files
+phases:
+- id: '01'
+  name: Dependencies and API contract types
+  steps:
+  - id: 01-01
+    name: Install resend and zod, add API contract types
+    files:
+    - src/shared/types/contact.ts  # MODIFY
+    criteria:
+    - '`resend` ^4.x and `zod` ^3.x appear in package.json dependencies'
+    - '`npm install` succeeds without errors'
+    - 'contact.ts exports ContactResponse union type (success, validation error, server error)'
+    - 'Existing FormStatus type remains unchanged and exported'
+    - 'TypeScript compilation passes with no errors'
+
+- id: '02'
+  name: API route with server-side validation and email delivery
+  steps:
+  - id: 02-01
+    name: Create POST /api/contact route with Zod validation and Resend SDK
+    files:
+    - src/app/api/contact/route.ts  # CREATE
+    criteria:
+    - 'POST /api/contact with valid email returns 200 and { success: true }'
+    - 'POST /api/contact with missing email returns 400 with field-level error details'
+    - 'POST /api/contact with name >100 chars returns 400 with validation error'
+    - 'POST /api/contact with message >5000 chars returns 400 with validation error'
+    - 'Resend SDK failure returns 500 and { success: false, error: "send_failed" }'
+    - 'Email subject includes sender name or "Anonymous" fallback'
+    - 'Email body includes name, email, and message with fallback text for empty fields'
+    - 'Reply-To header set to the visitor email address'
+
+- id: '03'
+  name: Client migration from Formspree to API route
+  steps:
+  - id: 03-01
+    name: Update ContactForm to POST JSON to /api/contact
+    files:
+    - src/features/contact/contact-form.tsx  # MODIFY
+    criteria:
+    - 'Form submits to /api/contact instead of formspree.io'
+    - 'Request body is JSON with Content-Type application/json (not FormData)'
+    - 'Successful submission shows confirmation message'
+    - 'Failed submission shows error message and preserves input'
+    - 'FORMSPREE_URL constant is removed from the file'
+
+- id: '04'
+  name: Configuration and ADR documentation
+  steps:
+  - id: 04-01
+    name: Update .env.example with RESEND_API_KEY
+    files:
+    - .env.example  # MODIFY
+    criteria:
+    - '.env.example contains RESEND_API_KEY placeholder'
+    - 'NEXT_PUBLIC_FORMSPREE_ID is removed from .env.example'
+  - id: 04-02
+    name: Create ADR-006 and supersede ADR-004
+    files:
+    - docs/design/adrs/adr-006-resend-over-formspree.md  # CREATE
+    - docs/design/adrs/adr-004-formspree-over-api-route.md  # MODIFY
+    criteria:
+    - 'ADR-006 documents Resend decision with at least 2 rejected alternatives'
+    - 'ADR-004 status is "Superseded by ADR-006" with a link to ADR-006'
+    - 'ADR-004 body is preserved as historical record'
+
+- id: '05'
+  name: Test enablement and verification
+  steps:
+  - id: 05-01
+    name: Enable skipped acceptance tests and verify green suite
+    files:
+    - tests/acceptance/steps/contact-section.steps.ts  # MODIFY
+    criteria:
+    - 'All test.skip calls are replaced with test calls'
+    - 'Full acceptance test suite passes (npx playwright test)'
+    - 'Walking skeleton test still passes'
+  - id: 05-02
+    name: Verify walking skeleton test in walking-skeleton.steps.ts
+    files:
+    - tests/acceptance/steps/walking-skeleton.steps.ts  # NO CHANGE EXPECTED
+    criteria:
+    - 'Walking skeleton contact form smoke test passes'
+    - 'Route intercept uses /api/contact (already in place)'
+
+implementation_scope:
+  source_directories:
+  - src/app/api/contact/
+  - src/features/contact/
+  - src/shared/types/
+  test_directories:
+  - tests/acceptance/steps/
+  excluded_patterns:
+  - node_modules/**
+  - .next/**
+validation:
+  status: approved
+  reviewer: nw-software-crafter-reviewer
+  approved_at: '2026-03-02T13:40:00Z'
