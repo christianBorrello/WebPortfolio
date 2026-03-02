@@ -369,5 +369,57 @@ events:
   s: EXECUTED
   sid: 05-04
   t: '2026-03-01T23:47:26Z'
+- d: PASS
+  p: COMMIT
+  s: EXECUTED
+  sid: 05-04
+  t: '2026-03-01T23:58:11Z'
+- d: PASS
+  p: PREPARE
+  s: EXECUTED
+  sid: 06-01
+  t: '2026-03-01T23:59:45Z'
+- d: 'NOT_APPLICABLE: SEO configuration'
+  p: RED_ACCEPTANCE
+  s: SKIPPED
+  sid: 06-01
+  t: '2026-03-02T00:00:42Z'
+- d: 'NOT_APPLICABLE: SEO configuration'
+  p: RED_UNIT
+  s: SKIPPED
+  sid: 06-01
+  t: '2026-03-02T00:00:42Z'
+- d: PASS
+  p: GREEN
+  s: EXECUTED
+  sid: 06-01
+  t: '2026-03-02T00:34:49Z'
+- d: PASS
+  p: COMMIT
+  s: EXECUTED
+  sid: 06-01
+  t: '2026-03-02T00:38:02Z'
+- d: PASS
+  p: PREPARE
+  s: EXECUTED
+  sid: 06-02
+  t: '2026-03-02T00:39:14Z'
+- d: 'NOT_APPLICABLE: Presentational UI components with no business logic. No acceptance
+    test framework configured in project.'
+  p: RED_ACCEPTANCE
+  s: SKIPPED
+  sid: 06-02
+  t: '2026-03-02T00:39:20Z'
+- d: 'NOT_APPLICABLE: Presentational components with no domain logic. No test framework
+    configured. Unit tests would be Testing Theater (tautological).'
+  p: RED_UNIT
+  s: SKIPPED
+  sid: 06-02
+  t: '2026-03-02T00:39:26Z'
+- d: PASS
+  p: GREEN
+  s: EXECUTED
+  sid: 06-02
+  t: '2026-03-02T00:40:42Z'
 project_id: portfolio-cv-site
 schema_version: '3.0'

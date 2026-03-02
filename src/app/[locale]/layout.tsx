@@ -4,6 +4,8 @@ import { getMessages, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { Locale } from "@/i18n/config";
+import { Navigation } from "@/shared/ui/navigation";
+import { Footer } from "@/shared/ui/footer";
 import "../globals.css";
 
 export const metadata: Metadata = {
@@ -42,7 +44,9 @@ export default async function LocaleLayout({ children, params }: Props) {
     <html lang={locale}>
       <body className="antialiased">
         <NextIntlClientProvider messages={messages}>
+          <Navigation />
           {children}
+          <Footer />
         </NextIntlClientProvider>
       </body>
     </html>

@@ -3,6 +3,13 @@
   "nav": {
     "about": "About",
     "projects": "Projects",
-    "contact": "Contact"
+    "contact": "Contact",
+    "back_to_projects": "Back to projects",
+    "menu_open": "Open menu",
+    "menu_close": "Close menu"
+  },
+  "footer": {
+    "copyright": "{year} Christian Borrello. All rights reserved.",
+    "built_with": "Built with Next.js and deployed on Vercel"
   }
 }
