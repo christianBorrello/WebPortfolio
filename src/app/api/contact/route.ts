@@ -39,7 +39,7 @@ export async function POST(request: Request) {
   try {
     await resend.emails.send({
       from: "Portfolio Contact <contact@christianborrello.dev>",
-      to: "christian@christianborrello.dev",
+      to: "christian.borrello@live.it",
       subject: `Portfolio contact from ${name || "Anonymous"}`,
       text: [
         `Name: ${name || "Not provided"}`,
