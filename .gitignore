@@ -46,6 +46,15 @@ yarn-error.log*
 
 # temporary screenshots
 portfolio-*.png
+*-locale-test.png
+
+# claude code
+.claude/
+
+# nwave DES session artifacts
+.nwave/des/des-task-active*
+.nwave/des/deliver-session.json
+.nwave/des/logs/
 
 # typescript
 *.tsbuildinfo
