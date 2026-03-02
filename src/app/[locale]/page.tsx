@@ -25,7 +25,7 @@ export default async function HomePage({ params }: Props) {
     <main className="flex min-h-screen flex-col">
       <HeroSection />
       <AboutSection />
-      <ProjectGrid />
+      <ProjectGrid locale={locale as Locale} />
       <ContactSection />
     </main>
   );

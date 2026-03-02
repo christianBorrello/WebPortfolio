@@ -1,10 +1,15 @@
 import { useTranslations } from "next-intl";
+import type { Locale } from "@/i18n/config";
 import { getAllProjects, toSummary } from "@/shared/lib/content-loader";
 import { ProjectCard } from "./project-card";
 
-export function ProjectGrid() {
+type ProjectGridProps = {
+  readonly locale: Locale;
+};
+
+export function ProjectGrid({ locale }: ProjectGridProps) {
   const t = useTranslations("projects");
-  const projects = getAllProjects().map(toSummary);
+  const projects = getAllProjects(locale).map(toSummary);
 
   return (
     <section

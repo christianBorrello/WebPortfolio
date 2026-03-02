@@ -12,19 +12,19 @@ type Props = {
 };
 
 export function generateStaticParams() {
-  const projects = getAllProjects();
-  return routing.locales.flatMap((locale) =>
-    projects.map((project) => ({
+  return routing.locales.flatMap((locale) => {
+    const projects = getAllProjects(locale as Locale);
+    return projects.map((project) => ({
       locale,
       slug: project.slug,
-    }))
-  );
+    }));
+  });
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
+  const { locale, slug } = await params;
   try {
-    const project = getProjectBySlug(slug);
+    const project = getProjectBySlug(slug, locale as Locale);
     return buildCaseStudyMetadata(project.title, project.hook, project.slug);
   } catch {
     return {};
@@ -37,7 +37,7 @@ export default async function CaseStudyPage({ params }: Props) {
 
   let project;
   try {
-    project = getProjectBySlug(slug);
+    project = getProjectBySlug(slug, locale as Locale);
   } catch {
     notFound();
   }
