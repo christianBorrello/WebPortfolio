@@ -13,7 +13,7 @@ export function ProjectGrid() {
     >
       <div className="mx-auto max-w-5xl">
         <div className="mb-12 flex flex-col gap-3">
-          <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+          <h2 className="font-display text-4xl text-foreground sm:text-5xl">
             {t("heading")}
           </h2>
           <p className="max-w-2xl text-base leading-relaxed text-foreground/60 sm:text-lg sm:leading-relaxed">

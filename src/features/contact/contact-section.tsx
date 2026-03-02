@@ -10,7 +10,7 @@ export function ContactSection() {
       className="bg-foreground/[0.03] px-6 py-20 sm:px-10 sm:py-28"
     >
       <div className="mx-auto flex max-w-xl flex-col items-center gap-4 text-center">
-        <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+        <h2 className="font-display text-4xl text-foreground sm:text-5xl">
           {t("heading")}
         </h2>
         <p className="max-w-lg text-base leading-relaxed text-foreground/60 sm:text-lg sm:leading-relaxed">

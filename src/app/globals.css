@@ -12,6 +12,7 @@ html {
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --font-display: var(--font-dynalight);
 }
 
 @media (prefers-color-scheme: dark) {

@@ -9,7 +9,7 @@ export function AboutSection() {
       className="bg-background px-6 py-20 sm:px-10 sm:py-28"
     >
       <div className="mx-auto flex max-w-[65ch] flex-col gap-8">
-        <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+        <h2 className="font-display text-4xl text-foreground sm:text-5xl">
           {t("heading")}
         </h2>
 
@@ -18,7 +18,7 @@ export function AboutSection() {
         </p>
 
         <div className="flex flex-col gap-2">
-          <h3 className="text-lg font-semibold tracking-tight text-foreground sm:text-xl">
+          <h3 className="font-display text-2xl text-foreground sm:text-3xl">
             {t("adhd_title")}
           </h3>
           <p className="text-base leading-relaxed text-foreground/80 sm:text-lg sm:leading-relaxed">

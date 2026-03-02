@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
+import { Logo } from "./logo";
 
 const NAV_LINKS = [
   { key: "about", href: "#about" },
@@ -32,9 +33,10 @@ export function Navigation() {
       >
         <a
           href={showBackLink ? `/${pathname.split("/")[1]}` : "#hero"}
-          className="text-lg font-semibold tracking-tight text-foreground transition-opacity hover:opacity-80"
+          className="text-foreground transition-opacity hover:opacity-80"
+          aria-label={t("site_name")}
         >
-          {t("site_name")}
+          <Logo height={36} />
         </a>
 
         {showBackLink ? (
