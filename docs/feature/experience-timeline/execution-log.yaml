@@ -1,0 +1,24 @@
+events:
+- d: PASS
+  p: PREPARE
+  s: EXECUTED
+  sid: 01-01
+  t: '2026-03-03T21:53:38Z'
+- d: PASS
+  p: RED_ACCEPTANCE
+  s: EXECUTED
+  sid: 01-01
+  t: '2026-03-03T21:54:20Z'
+- d: 'NOT_APPLICABLE: type definitions have no runtime behavior - compilation IS the
+    test'
+  p: RED_UNIT
+  s: SKIPPED
+  sid: 01-01
+  t: '2026-03-03T21:54:28Z'
+- d: PASS
+  p: GREEN
+  s: EXECUTED
+  sid: 01-01
+  t: '2026-03-03T21:55:00Z'
+project_id: experience-timeline
+schema_version: '3.0'
