@@ -22,7 +22,16 @@ function zodToFieldErrors(error: z.ZodError): ContactFieldError[] {
 }
 
 export async function POST(request: Request) {
-  const body: unknown = await request.json();
+  let body: unknown;
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json(
+      { success: false, error: "validation_error", details: [{ field: "body", message: "Invalid JSON" }] } satisfies ContactValidationErrorResponse,
+      { status: 400 }
+    );
+  }
+
   const result = contactRequestSchema.safeParse(body);
 
   if (!result.success) {
@@ -35,6 +44,14 @@ export async function POST(request: Request) {
   }
 
   const { name, email, message } = result.data;
+
+  if (!process.env.RESEND_API_KEY) {
+    console.error("RESEND_API_KEY is not configured");
+    return NextResponse.json(
+      { success: false, error: "send_failed" },
+      { status: 500 }
+    );
+  }
 
   const resend = new Resend(process.env.RESEND_API_KEY);
 

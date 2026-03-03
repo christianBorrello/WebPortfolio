@@ -1,18 +1,30 @@
 import { test, expect } from "@playwright/test";
 import * as fs from "node:fs";
 import * as path from "node:path";
+import * as yaml from "js-yaml";
 
 const LOCALE_DIR = path.resolve("messages/en");
+const CONTENT_DIR = path.resolve("content/projects/en");
 
-function loadLocaleValues(): string[] {
+function loadExternalizedValues(): string[] {
   const values: string[] = [];
-  const files = fs.readdirSync(LOCALE_DIR).filter((f) => f.endsWith(".json"));
 
-  for (const file of files) {
+  const jsonFiles = fs.readdirSync(LOCALE_DIR).filter((f) => f.endsWith(".json"));
+  for (const file of jsonFiles) {
     const content = JSON.parse(
       fs.readFileSync(path.join(LOCALE_DIR, file), "utf-8")
     );
     extractStrings(content, values);
+  }
+
+  if (fs.existsSync(CONTENT_DIR)) {
+    const yamlFiles = fs.readdirSync(CONTENT_DIR).filter((f) => f.endsWith(".yaml"));
+    for (const file of yamlFiles) {
+      const content = yaml.load(
+        fs.readFileSync(path.join(CONTENT_DIR, file), "utf-8")
+      );
+      extractStrings(content, values);
+    }
   }
 
   return values;
@@ -72,7 +84,7 @@ test.describe("Walking Skeleton", () => {
   });
 
   test("all visible text originates from locale files", async ({ page }) => {
-    const localeValues = loadLocaleValues();
+    const localeValues = loadExternalizedValues();
 
     await page.goto("/en");
     await page.waitForLoadState("networkidle");
@@ -112,7 +124,7 @@ test.describe("Walking Skeleton", () => {
     const unmatchedTexts: string[] = [];
 
     for (const visibleText of visibleTexts) {
-      const matchesLocale = localeValues.some((localeValue) => {
+      const matchesLocale = localeValues.some((localeValue: string) => {
         const normalized = localeValue.replace(/\{[^}]+\}/g, "").trim();
         return (
           visibleText.includes(normalized) || normalized.includes(visibleText)
