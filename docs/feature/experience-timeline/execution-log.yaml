@@ -123,5 +123,32 @@ events:
   s: EXECUTED
   sid: 03-01
   t: '2026-03-03T22:34:55Z'
+- d: PASS
+  p: COMMIT
+  s: EXECUTED
+  sid: 03-01
+  t: '2026-03-03T22:35:49Z'
+- d: PASS
+  p: PREPARE
+  s: EXECUTED
+  sid: 03-02
+  t: '2026-03-03T22:38:03Z'
+- d: PASS
+  p: RED_ACCEPTANCE
+  s: EXECUTED
+  sid: 03-02
+  t: '2026-03-03T22:38:10Z'
+- d: 'NOT_APPLICABLE: page wiring is a composition concern with no new behavior -
+    acceptance tests verify the integration through the page driving port; no distinct
+    behavioral unit to test beyond what resolveProjects already covers'
+  p: RED_UNIT
+  s: SKIPPED
+  sid: 03-02
+  t: '2026-03-03T22:38:18Z'
+- d: PASS
+  p: GREEN
+  s: EXECUTED
+  sid: 03-02
+  t: '2026-03-03T22:38:36Z'
 project_id: experience-timeline
 schema_version: '3.0'

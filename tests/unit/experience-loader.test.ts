@@ -6,6 +6,24 @@ import { getExperience } from "@/shared/lib/experience-loader";
 import type { ExperienceData } from "@/shared/types/experience";
 
 const FIXTURE_DIR = path.join(process.cwd(), "content", "experience");
+const BACKUP_DIR = path.join(process.cwd(), "content", "experience-backup");
+
+function backupExistingContent(): void {
+  if (fs.existsSync(FIXTURE_DIR)) {
+    fs.cpSync(FIXTURE_DIR, BACKUP_DIR, { recursive: true });
+    fs.rmSync(FIXTURE_DIR, { recursive: true });
+  }
+}
+
+function restoreExistingContent(): void {
+  if (fs.existsSync(FIXTURE_DIR)) {
+    fs.rmSync(FIXTURE_DIR, { recursive: true });
+  }
+  if (fs.existsSync(BACKUP_DIR)) {
+    fs.cpSync(BACKUP_DIR, FIXTURE_DIR, { recursive: true });
+    fs.rmSync(BACKUP_DIR, { recursive: true });
+  }
+}
 
 function writeFixture(locale: string, data: unknown): void {
   fs.mkdirSync(FIXTURE_DIR, { recursive: true });
@@ -14,12 +32,6 @@ function writeFixture(locale: string, data: unknown): void {
     yaml.dump(data),
     "utf-8"
   );
-}
-
-function removeFixtureDir(): void {
-  if (fs.existsSync(FIXTURE_DIR)) {
-    fs.rmSync(FIXTURE_DIR, { recursive: true });
-  }
 }
 
 const validExperienceData = {
@@ -54,11 +66,11 @@ const validExperienceData = {
 
 describe("experience-loader", () => {
   beforeEach(() => {
-    removeFixtureDir();
+    backupExistingContent();
   });
 
   afterEach(() => {
-    removeFixtureDir();
+    restoreExistingContent();
   });
 
   it("loads and validates experience YAML returning ExperienceData", () => {
