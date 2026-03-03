@@ -45,5 +45,83 @@ events:
   s: EXECUTED
   sid: 01-02
   t: '2026-03-03T22:03:05Z'
+- d: PASS
+  p: COMMIT
+  s: EXECUTED
+  sid: 01-02
+  t: '2026-03-03T22:11:27Z'
+- d: PASS
+  p: PREPARE
+  s: EXECUTED
+  sid: 02-01
+  t: '2026-03-03T22:13:56Z'
+- d: PASS
+  p: RED_ACCEPTANCE
+  s: EXECUTED
+  sid: 02-01
+  t: '2026-03-03T22:14:42Z'
+- d: 'NOT_APPLICABLE: presentational React component with no vitest JSX/DOM support
+    configured - Playwright acceptance tests serve as driving-port tests'
+  p: RED_UNIT
+  s: SKIPPED
+  sid: 02-01
+  t: '2026-03-03T22:14:51Z'
+- d: PASS
+  p: PREPARE
+  s: EXECUTED
+  sid: 01-03
+  t: '2026-03-03T22:22:29Z'
+- d: PASS
+  p: RED_ACCEPTANCE
+  s: EXECUTED
+  sid: 01-03
+  t: '2026-03-03T22:22:32Z'
+- d: 'NOT_APPLICABLE: existing unit tests from step 01-02 already cover loader validation;
+    no new unit tests needed since content files are validated through acceptance
+    tests and the existing getExperience driving port'
+  p: RED_UNIT
+  s: SKIPPED
+  sid: 01-03
+  t: '2026-03-03T22:22:37Z'
+- d: PASS
+  p: GREEN
+  s: EXECUTED
+  sid: 02-01
+  t: '2026-03-03T22:22:57Z'
+- d: PASS
+  p: GREEN
+  s: EXECUTED
+  sid: 01-03
+  t: '2026-03-03T22:23:21Z'
+- d: PASS
+  p: COMMIT
+  s: EXECUTED
+  sid: 01-03
+  t: '2026-03-03T22:24:51Z'
+- d: PASS
+  p: COMMIT
+  s: EXECUTED
+  sid: 02-01
+  t: '2026-03-03T22:25:03Z'
+- d: PASS
+  p: PREPARE
+  s: EXECUTED
+  sid: 03-01
+  t: '2026-03-03T22:27:36Z'
+- d: PASS
+  p: RED_ACCEPTANCE
+  s: EXECUTED
+  sid: 03-01
+  t: '2026-03-03T22:28:51Z'
+- d: PASS
+  p: RED_UNIT
+  s: EXECUTED
+  sid: 03-01
+  t: '2026-03-03T22:30:21Z'
+- d: PASS
+  p: GREEN
+  s: EXECUTED
+  sid: 03-01
+  t: '2026-03-03T22:34:55Z'
 project_id: experience-timeline
 schema_version: '3.0'
