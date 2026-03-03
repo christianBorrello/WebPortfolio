@@ -8,8 +8,6 @@ import type {
   ContactValidationErrorResponse,
 } from "@/shared/types/contact";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 const contactRequestSchema = z.object({
   name: z.string().max(100).default(""),
   email: z.string().email("Invalid email address"),
@@ -37,6 +35,8 @@ export async function POST(request: Request) {
   }
 
   const { name, email, message } = result.data;
+
+  const resend = new Resend(process.env.RESEND_API_KEY);
 
   try {
     const html = await render(
