@@ -72,6 +72,7 @@ test.describe("Infrastructure -- SEO", () => {
 
 test.describe("Infrastructure -- Performance", () => {
   test("page loads within performance budget", async ({ page }) => {
+    test.skip(!!process.env.CI, "Skipped in CI -- runner performance varies");
     await page.goto("/en", { waitUntil: "load" });
 
     const lcp = await page.evaluate(() => {

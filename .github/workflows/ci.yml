@@ -24,3 +24,9 @@ jobs:
       - run: npm run lint
       - run: npm run typecheck
       - run: npm run build
+      - name: Install Playwright browsers
+        run: npx playwright install chromium --with-deps
+      - name: Run Playwright acceptance tests
+        run: npx playwright test --reporter=line
+        env:
+          CI: true
