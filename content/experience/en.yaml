@@ -1,0 +1,38 @@
+entries:
+  - type: work
+    title: "Senior Software Engineer"
+    organization: "Sagitter S.p.A."
+    period:
+      start: "2022"
+      end: null
+    description: "Led platform engineering and modernized legacy systems with TDD and clean architecture."
+    highlights:
+      - "Reduced deploy time by 60% through CI/CD pipeline redesign"
+      - "Achieved >90% TDD coverage on new modules"
+    technologies:
+      - ".NET"
+      - "React"
+      - "Azure"
+      - "TypeScript"
+    relatedProjects:
+      - sagitterhub
+      - azure-infrastructure
+
+  - type: project
+    title: "Unity Soulslike Game"
+    period:
+      start: "2023"
+      end: "2023"
+    description: "Explored game development patterns and real-time physics in a different domain."
+    technologies:
+      - "Unity"
+      - "C#"
+    projectSlug: unity-soulslike
+
+  - type: education
+    title: "Laurea in Informatica"
+    organization: "Universita' degli Studi"
+    period:
+      start: "2016"
+      end: "2020"
+    description: "Studied algorithms, systems programming, and software engineering fundamentals."
