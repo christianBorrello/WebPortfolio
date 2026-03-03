@@ -20,5 +20,30 @@ events:
   s: EXECUTED
   sid: 01-01
   t: '2026-03-03T21:55:00Z'
+- d: PASS
+  p: COMMIT
+  s: EXECUTED
+  sid: 01-01
+  t: '2026-03-03T21:57:22Z'
+- d: PASS
+  p: PREPARE
+  s: EXECUTED
+  sid: 01-02
+  t: '2026-03-03T21:59:09Z'
+- d: PASS
+  p: RED_ACCEPTANCE
+  s: EXECUTED
+  sid: 01-02
+  t: '2026-03-03T22:00:57Z'
+- d: PASS
+  p: RED_UNIT
+  s: EXECUTED
+  sid: 01-02
+  t: '2026-03-03T22:01:04Z'
+- d: PASS
+  p: GREEN
+  s: EXECUTED
+  sid: 01-02
+  t: '2026-03-03T22:03:05Z'
 project_id: experience-timeline
 schema_version: '3.0'
