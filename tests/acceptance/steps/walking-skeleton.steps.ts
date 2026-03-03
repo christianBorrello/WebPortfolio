@@ -144,4 +144,13 @@ test.describe("Walking Skeleton", () => {
       `Found hardcoded text not in locale files:\n${unmatchedTexts.join("\n")}`
     ).toHaveLength(0);
   });
+
+  test("custom domain resolves correctly over HTTPS", async ({ request }) => {
+    const response = await request.get("https://christianborrello.dev", {
+      maxRedirects: 5,
+    });
+
+    expect(response.status()).toBe(200);
+    expect(response.url()).toMatch(/^https:\/\//);
+  });
 });

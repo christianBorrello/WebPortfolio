@@ -1,20 +1,31 @@
 import { test, expect, type Page } from "@playwright/test";
 import * as fs from "node:fs";
 import * as path from "node:path";
+import * as yaml from "js-yaml";
 
 const IT_LOCALE_DIR = path.resolve("messages/it");
+const IT_CONTENT_DIR = path.resolve("content/projects/it");
 
-function loadItalianLocaleValues(): string[] {
+function loadItalianExternalizedValues(): string[] {
   const values: string[] = [];
   if (!fs.existsSync(IT_LOCALE_DIR)) return values;
 
-  const files = fs.readdirSync(IT_LOCALE_DIR).filter((f) => f.endsWith(".json"));
-
-  for (const file of files) {
+  const jsonFiles = fs.readdirSync(IT_LOCALE_DIR).filter((f) => f.endsWith(".json"));
+  for (const file of jsonFiles) {
     const content = JSON.parse(
       fs.readFileSync(path.join(IT_LOCALE_DIR, file), "utf-8")
     );
     extractStrings(content, values);
+  }
+
+  if (fs.existsSync(IT_CONTENT_DIR)) {
+    const yamlFiles = fs.readdirSync(IT_CONTENT_DIR).filter((f) => f.endsWith(".yaml"));
+    for (const file of yamlFiles) {
+      const content = yaml.load(
+        fs.readFileSync(path.join(IT_CONTENT_DIR, file), "utf-8")
+      );
+      extractStrings(content, values);
+    }
   }
 
   return values;
@@ -61,16 +72,16 @@ test.describe("Italian Localization -- Walking Skeleton", () => {
 // --- AC 1: Italian UI text across the homepage ---
 
 test.describe("Italian Localization -- Italian UI Text", () => {
-  test.skip("hero section displays Italian text", async ({ page }) => {
+  test("hero section displays Italian text", async ({ page }) => {
     await page.goto("/it");
 
-    await expect(page.getByText("Christian Borrello")).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Christian Borrello" })).toBeVisible();
     await expect(page.getByText("Vedo architetture dove gli altri vedono task.")).toBeVisible();
     await expect(page.getByRole("link", { name: "Guarda i miei lavori" })).toBeVisible();
     await expect(page.getByRole("link", { name: "Contattami" })).toBeVisible();
   });
 
-  test.skip("about section displays Italian text", async ({ page }) => {
+  test("about section displays Italian text", async ({ page }) => {
     await page.goto("/it");
 
     await expect(page.getByRole("heading", { name: "Chi sono" })).toBeVisible();
@@ -78,7 +89,7 @@ test.describe("Italian Localization -- Italian UI Text", () => {
     await expect(page.getByText("Come penso")).toBeVisible();
   });
 
-  test.skip("contact section displays Italian text", async ({ page }) => {
+  test("contact section displays Italian text", async ({ page }) => {
     await page.goto("/it");
 
     await expect(page.getByRole("heading", { name: "Parliamone" })).toBeVisible();
@@ -88,17 +99,17 @@ test.describe("Italian Localization -- Italian UI Text", () => {
     await expect(page.getByRole("button", { name: "Invia messaggio" })).toBeVisible();
   });
 
-  test.skip("footer displays Italian text", async ({ page }) => {
+  test("footer displays Italian text", async ({ page }) => {
     await page.goto("/it");
 
     await expect(page.getByText("Tutti i diritti riservati")).toBeVisible();
     await expect(page.getByText("Realizzato con Next.js")).toBeVisible();
   });
 
-  test.skip("all visible text on the Italian homepage originates from Italian locale files", async ({
+  test("all visible text on the Italian homepage originates from Italian locale files", async ({
     page,
   }) => {
-    const localeValues = loadItalianLocaleValues();
+    const localeValues = loadItalianExternalizedValues();
 
     await page.goto("/it");
     await page.waitForLoadState("networkidle");
@@ -163,7 +174,7 @@ test.describe("Italian Localization -- Italian UI Text", () => {
 // --- AC 2: Italian project content ---
 
 test.describe("Italian Localization -- Italian Project Content", () => {
-  test.skip("project cards display Italian hooks and labels", async ({
+  test("project cards display Italian hooks and labels", async ({
     page,
   }) => {
     await page.goto("/it");
@@ -172,19 +183,19 @@ test.describe("Italian Localization -- Italian Project Content", () => {
     await expect(page.getByText("Leggi il caso studio").first()).toBeVisible();
   });
 
-  test.skip("SagitterHub case study displays Italian content", async ({
+  test("SagitterHub case study displays Italian content", async ({
     page,
   }) => {
     await page.goto("/it/projects/sagitterhub");
 
-    await expect(page.getByText("SagitterHub")).toBeVisible();
-    await expect(page.getByText("Il problema")).toBeVisible();
-    await expect(page.getByText("Le decisioni")).toBeVisible();
-    await expect(page.getByText("Cosa non ha funzionato")).toBeVisible();
-    await expect(page.getByText("Il quadro generale")).toBeVisible();
+    await expect(page.getByRole("heading", { name: "SagitterHub" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Il problema" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Le decisioni" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Cosa non ha funzionato" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Il quadro generale" })).toBeVisible();
   });
 
-  test.skip("SagitterHub case study metrics are displayed on the Italian page", async ({
+  test("SagitterHub case study metrics are displayed on the Italian page", async ({
     page,
   }) => {
     await page.goto("/it/projects/sagitterhub");
@@ -246,10 +257,10 @@ test.describe("Italian Localization -- Language Switcher", () => {
     await expect(page).toHaveURL(/\/it\/projects\/sagitterhub/);
   });
 
-  test.skip("language switcher preserves current page on contact", async ({
+  test("language switcher preserves current page on homepage", async ({
     page,
   }) => {
-    await page.goto("/en/contact");
+    await page.goto("/en");
 
     await languageSwitcher(page).click();
 
@@ -260,7 +271,7 @@ test.describe("Italian Localization -- Language Switcher", () => {
 // --- Error paths and edge cases ---
 
 test.describe("Italian Localization -- Error Paths", () => {
-  test.skip("Italian contact form submission shows Italian success message", async ({
+  test("Italian contact form submission shows Italian success message", async ({
     page,
   }) => {
     await page.route("**/api/contact", async (route) => {
@@ -281,7 +292,7 @@ test.describe("Italian Localization -- Error Paths", () => {
     await expect(page.getByText("Messaggio inviato")).toBeVisible();
   });
 
-  test.skip("Italian contact form validation shows Italian error message", async ({
+  test("Italian contact form validation shows Italian error message", async ({
     page,
   }) => {
     await page.goto("/it");
@@ -294,7 +305,7 @@ test.describe("Italian Localization -- Error Paths", () => {
     await expect(page.getByText("Inserisci un indirizzo email valido")).toBeVisible();
   });
 
-  test.skip("navigating directly to an Italian project URL works", async ({
+  test("navigating directly to an Italian project URL works", async ({
     page,
   }) => {
     const response = await page.goto("/it/projects/sagitterhub");
@@ -303,7 +314,7 @@ test.describe("Italian Localization -- Error Paths", () => {
     expect(response!.status()).toBe(200);
   });
 
-  test.skip("Italian and English pages have equivalent structure", async ({
+  test("Italian and English pages have equivalent structure", async ({
     page,
   }) => {
     await page.goto("/en");
