@@ -25,7 +25,7 @@ type CaseStudyLayoutProps = {
 function BackLink({ label }: { readonly label: string }) {
   return (
     <Link
-      href="/#projects"
+      href="/#experience"
       className="inline-block text-sm font-medium text-foreground/60 underline underline-offset-4 transition-colors hover:text-foreground"
     >
       {label}
@@ -96,7 +96,7 @@ export function CaseStudyLayout({ project }: CaseStudyLayoutProps) {
   return (
     <article className="bg-background px-6 py-16 sm:px-10 sm:py-24">
       <div className="mx-auto flex max-w-[65ch] flex-col gap-10">
-        <BackLink label={t("back_to_projects")} />
+        <BackLink label={t("back_to_experience")} />
 
         <header className="flex flex-col gap-2">
           <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
@@ -122,7 +122,7 @@ export function CaseStudyLayout({ project }: CaseStudyLayoutProps) {
 
         <StackList stack={project.stack} label={t("section_stack")} />
 
-        <BackLink label={t("back_to_projects")} />
+        <BackLink label={t("back_to_experience")} />
       </div>
     </article>
   );

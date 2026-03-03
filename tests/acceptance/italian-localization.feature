@@ -8,7 +8,7 @@ Feature: Italian Localization -- Full Italian Experience for Visitors
   @italian-localization @walking-skeleton
   Scenario: Italian homepage displays navigation in Italian
     Given a visitor navigates to the Italian homepage
-    Then the navigation shows "Progetti" instead of "Projects"
+    Then the navigation shows "Esperienze" instead of "Experience"
     And the navigation shows "Contatti" instead of "Contact"
     And the navigation shows "Chi sono" instead of "About"
 
@@ -89,14 +89,14 @@ Feature: Italian Localization -- Full Italian Experience for Visitors
     Given a visitor is on the Italian homepage
     When the visitor clicks the language switcher
     Then the visitor is on the English homepage
-    And the navigation shows "Projects" instead of "Progetti"
+    And the navigation shows "Experience" instead of "Esperienze"
 
   @italian-localization
   Scenario: Switching from English to Italian on the homepage
     Given a visitor is on the English homepage
     When the visitor clicks the language switcher
     Then the visitor is on the Italian homepage
-    And the navigation shows "Progetti" instead of "Projects"
+    And the navigation shows "Esperienze" instead of "Experience"
 
   @italian-localization
   Scenario: Language switcher preserves current page on case study

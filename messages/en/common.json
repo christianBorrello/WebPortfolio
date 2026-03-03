@@ -2,9 +2,9 @@
   "site_name": "Christian Borrello",
   "nav": {
     "about": "About",
-    "projects": "Projects",
+    "experience": "Experience",
     "contact": "Contact",
-    "back_to_projects": "Back to projects",
+    "back_to_experience": "Back to experience",
     "menu_open": "Open menu",
     "menu_close": "Close menu"
   },

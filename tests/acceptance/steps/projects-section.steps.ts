@@ -131,7 +131,7 @@ test.describe("Projects Section -- Case Study Pages", () => {
   test("case study page has navigation back to projects", async ({ page }) => {
     await page.goto("/en/projects/sagitterhub");
 
-    const backLink = page.getByRole("link", { name: /back to projects/i }).first();
+    const backLink = page.getByRole("link", { name: /back to experience/i }).first();
     await expect(backLink).toBeVisible();
 
     await backLink.click();

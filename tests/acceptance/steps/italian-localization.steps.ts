@@ -63,7 +63,7 @@ test.describe("Italian Localization -- Walking Skeleton", () => {
     expect(response).not.toBeNull();
     expect(response!.status()).toBe(200);
 
-    await expect(navigationLink(page, "Progetti")).toBeVisible();
+    await expect(navigationLink(page, "Esperienze")).toBeVisible();
     await expect(navigationLink(page, "Contatti")).toBeVisible();
     await expect(navigationLink(page, "Chi sono")).toBeVisible();
   });
@@ -244,7 +244,7 @@ test.describe("Italian Localization -- Language Switcher", () => {
     await languageSwitcher(page).click();
 
     await expect(page).toHaveURL(/\/it\b/);
-    await expect(navigationLink(page, "Progetti")).toBeVisible();
+    await expect(navigationLink(page, "Esperienze")).toBeVisible();
   });
 
   test("language switcher preserves current page on case study", async ({

@@ -27,7 +27,7 @@ export function HeroSection() {
 
       <nav className="mt-4 flex flex-col gap-4 sm:flex-row" aria-label="Primary actions">
         <a
-          href="#projects"
+          href="#experience"
           className="rounded-lg bg-[#f0f0f0] px-7 py-3 text-sm font-semibold text-[#0b0f1a] transition-opacity hover:opacity-85 sm:text-base"
         >
           {t("cta_work")}

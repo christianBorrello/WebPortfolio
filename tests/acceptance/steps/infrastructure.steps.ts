@@ -288,14 +288,14 @@ test.describe("Infrastructure -- Navigation", () => {
   }) => {
     await page.goto("/en");
 
-    const projectsLink = page
+    const experienceLink = page
       .getByRole("navigation")
-      .getByRole("link", { name: "Projects" });
-    await projectsLink.click();
+      .getByRole("link", { name: "Experience" });
+    await experienceLink.click();
 
     await page.waitForTimeout(500);
-    const projectsSection = page.locator("section#projects, section:has(h2:text('Projects'))").first();
-    await expect(projectsSection).toBeInViewport();
+    const experienceSection = page.locator("section#experience, section:has(h2:text('Experience'))").first();
+    await expect(experienceSection).toBeInViewport();
 
     const contactLink = page
       .getByRole("navigation")

@@ -8,7 +8,7 @@ import { LanguageSwitcher } from "./language-switcher";
 
 const NAV_LINKS = [
   { key: "about", href: "#about" },
-  { key: "projects", href: "#projects" },
+  { key: "experience", href: "#experience" },
   { key: "contact", href: "#contact" },
 ] as const;
 
@@ -49,10 +49,10 @@ export function Navigation() {
         {showBackLink ? (
           <div className="flex items-center gap-6">
             <a
-              href={`/${pathname.split("/")[1]}/#projects`}
+              href={`/${pathname.split("/")[1]}/#experience`}
               className="text-sm font-medium text-foreground/70 transition-colors hover:text-foreground"
             >
-              &larr; {t("nav.back_to_projects")}
+              &larr; {t("nav.back_to_experience")}
             </a>
             <LanguageSwitcher className="text-sm font-medium text-foreground/70 transition-colors hover:text-foreground" />
           </div>

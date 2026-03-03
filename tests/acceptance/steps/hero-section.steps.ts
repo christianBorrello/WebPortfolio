@@ -37,7 +37,7 @@ test.describe("Hero Section", () => {
     await expect(getInTouch).toBeVisible();
 
     const viewWorkHref = await viewWork.getAttribute("href");
-    expect(viewWorkHref).toContain("#projects");
+    expect(viewWorkHref).toContain("#experience");
 
     const getInTouchHref = await getInTouch.getAttribute("href");
     expect(getInTouchHref).toContain("#contact");
