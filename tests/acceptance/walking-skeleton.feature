@@ -35,7 +35,7 @@ Feature: Walking Skeleton -- Infrastructure End-to-End
     Then Vercel deploys the updated site within 2 minutes
     And the production URL reflects the change
 
-  @walking-skeleton @skip
+  @walking-skeleton
   Scenario: Custom domain resolves correctly
     When a visitor navigates to christianborrello.dev
     Then the site loads over HTTPS

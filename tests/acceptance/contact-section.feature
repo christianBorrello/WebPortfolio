@@ -20,7 +20,7 @@ Feature: Contact Section -- Low-Friction Conversation Starter
 
   # --- Form structure and copy ---
 
-  @milestone-1 @skip
+  @milestone-1
   Scenario: Contact form has exactly three fields
     When the visitor sees the contact form
     Then the form has a name field that is optional
@@ -28,7 +28,7 @@ Feature: Contact Section -- Low-Friction Conversation Starter
     And the form has a message field that is optional
     And the form has no additional fields beyond these three
 
-  @milestone-1 @skip
+  @milestone-1
   Scenario: Headline and subtext welcome both recruiters and collaborators
     When the visitor reads the contact section headline
     Then the headline is conversational, such as "Let's talk"
@@ -36,7 +36,7 @@ Feature: Contact Section -- Low-Friction Conversation Starter
 
   # --- Form validation (error paths) ---
 
-  @milestone-1 @skip
+  @milestone-1
   Scenario: Submitting without email shows a clear error
     Given the visitor has typed a message but left the email field empty
     When the visitor clicks "Send message"
@@ -44,7 +44,7 @@ Feature: Contact Section -- Low-Friction Conversation Starter
     And the error message is in plain language
     And the message the visitor typed is not lost
 
-  @milestone-1 @skip
+  @milestone-1
   Scenario: Submitting an invalid email format shows an error
     Given the visitor has entered "not-an-email" in the email field
     When the visitor clicks "Send message"
@@ -53,7 +53,7 @@ Feature: Contact Section -- Low-Friction Conversation Starter
 
   # --- Form submission (happy paths) ---
 
-  @milestone-1 @skip
+  @milestone-1
   Scenario: Marco sends a message with only his email
     Given Marco enters "marco@recruiting.com" as his email
     And Marco does not fill in the name or message fields
@@ -61,7 +61,7 @@ Feature: Contact Section -- Low-Friction Conversation Starter
     Then the form is submitted successfully
     And Marco sees "Message sent. I'll get back to you within a few days."
 
-  @milestone-1 @skip
+  @milestone-1
   Scenario: Giulia sends a complete message with all fields
     Given Giulia enters "Giulia Marchetti" as her name
     And Giulia enters "giulia@startup.io" as her email
@@ -72,13 +72,13 @@ Feature: Contact Section -- Low-Friction Conversation Starter
 
   # --- Submission feedback ---
 
-  @milestone-1 @skip
+  @milestone-1
   Scenario: Submit button shows progress while sending
     Given the visitor enters "visitor@example.com" as their email
     When the visitor clicks "Send message"
     Then the submit button shows "Sending..." while the message is being delivered
 
-  @milestone-1 @skip
+  @milestone-1
   Scenario: Form is cleared after successful submission
     Given the visitor enters "Visitor" as their name
     And the visitor enters "visitor@example.com" as their email
@@ -89,7 +89,7 @@ Feature: Contact Section -- Low-Friction Conversation Starter
 
   # --- Error recovery ---
 
-  @milestone-1 @skip
+  @milestone-1
   Scenario: Submission failure preserves the visitor's input
     Given the visitor has filled in all three fields
     And the form submission service is temporarily unavailable
@@ -98,7 +98,7 @@ Feature: Contact Section -- Low-Friction Conversation Starter
     And all previously entered data remains in the form fields
     And the visitor can retry without re-entering their information
 
-  @milestone-1 @skip
+  @milestone-1
   Scenario: Network interruption shows a friendly error
     Given the visitor enters "visitor@example.com" as their email
     And the network connection is lost
@@ -108,7 +108,7 @@ Feature: Contact Section -- Low-Friction Conversation Starter
 
   # --- Miscellaneous ---
 
-  @milestone-1 @skip
+  @milestone-1
   Scenario: No CAPTCHA is shown in version one
     When the visitor views the contact form
     Then no CAPTCHA challenge is visible
