@@ -143,4 +143,35 @@ describe("experience-loader", () => {
 
     expect(() => getExperience("en")).toThrow(/start/i);
   });
+
+  it("throws descriptive error when entries is not an array", () => {
+    writeFixture("en", { entries: "not an array" });
+
+    expect(() => getExperience("en")).toThrow(/entries/i);
+  });
+
+  it("throws descriptive error when entries is null", () => {
+    writeFixture("en", { entries: null });
+
+    expect(() => getExperience("en")).toThrow(/entries/i);
+  });
+
+  it("returns empty entries array for empty YAML entries", () => {
+    writeFixture("en", { entries: [] });
+
+    const result = getExperience("en");
+
+    expect(result.entries).toHaveLength(0);
+  });
+
+  it("throws descriptive error for malformed YAML", () => {
+    fs.mkdirSync(FIXTURE_DIR, { recursive: true });
+    fs.writeFileSync(
+      path.join(FIXTURE_DIR, "en.yaml"),
+      "{ invalid yaml: [",
+      "utf-8"
+    );
+
+    expect(() => getExperience("en")).toThrow(/yaml/i);
+  });
 });
