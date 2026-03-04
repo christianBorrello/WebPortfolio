@@ -2,9 +2,20 @@
 
 import { useCallback, useEffect, useRef } from "react";
 
+const REVEAL_DURATION_S = 0.6;
+const REVEAL_STAGGER_MS = 100;
+const REVEAL_OFFSET_PX = 20;
+const OBSERVER_THRESHOLD = 0.1;
+
 type UseScrollRevealResult = {
   readonly containerRef: (element: HTMLOListElement | null) => void;
 };
+
+function revealElement(element: HTMLLIElement): void {
+  element.dataset.visible = "true";
+  element.style.opacity = "1";
+  element.style.transform = "translateY(0)";
+}
 
 export function useScrollReveal(count: number): UseScrollRevealResult {
   const containerElRef = useRef<HTMLOListElement | null>(null);
@@ -25,35 +36,31 @@ export function useScrollReveal(count: number): UseScrollRevealResult {
 
     if (prefersReducedMotion) {
       for (const child of children) {
-        child.dataset.visible = "true";
-        child.style.opacity = "1";
-        child.style.transform = "translateY(0)";
+        revealElement(child);
       }
       return;
     }
 
     for (let i = 0; i < children.length; i++) {
       const child = children[i];
+      const staggerDelay = i * REVEAL_STAGGER_MS;
       child.dataset.revealIndex = String(i);
       child.dataset.visible = "false";
       child.style.opacity = "0";
-      child.style.transform = "translateY(20px)";
-      child.style.transition = `opacity 0.6s ease-out ${i * 100}ms, transform 0.6s ease-out ${i * 100}ms`;
+      child.style.transform = `translateY(${REVEAL_OFFSET_PX}px)`;
+      child.style.transition = `opacity ${REVEAL_DURATION_S}s ease-out ${staggerDelay}ms, transform ${REVEAL_DURATION_S}s ease-out ${staggerDelay}ms`;
     }
 
     const observer = new IntersectionObserver(
       (entries) => {
         for (const ioEntry of entries) {
           if (ioEntry.isIntersecting) {
-            const target = ioEntry.target as HTMLLIElement;
-            target.dataset.visible = "true";
-            target.style.opacity = "1";
-            target.style.transform = "translateY(0)";
-            observer.unobserve(target);
+            revealElement(ioEntry.target as HTMLLIElement);
+            observer.unobserve(ioEntry.target);
           }
         }
       },
-      { threshold: 0.1 }
+      { threshold: OBSERVER_THRESHOLD }
     );
 
     for (const child of children) {

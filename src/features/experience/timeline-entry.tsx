@@ -7,7 +7,6 @@ import type { ProjectSummary } from "@/shared/types/project";
 type TimelineEntryProps = {
   readonly entry: TimelineEntryType;
   readonly matchedProjects: readonly ProjectSummary[];
-  readonly index: number;
 };
 
 const BADGE_STYLES = {

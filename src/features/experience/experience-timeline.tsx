@@ -41,12 +41,11 @@ export function ExperienceTimeline({
           ref={containerRef}
           className="relative flex flex-col gap-12 border-l-2 border-foreground/10 pl-8"
         >
-          {entries.map((entry, index) => (
+          {entries.map((entry) => (
             <TimelineEntry
               key={`${entry.type}-${entry.title}`}
               entry={entry}
               matchedProjects={resolveProjects(entry, projectSummaries)}
-              index={index}
             />
           ))}
         </ol>

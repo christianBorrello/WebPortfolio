@@ -1,6 +1,7 @@
 import { test, expect } from "@playwright/test";
 import fs from "node:fs";
 import path from "node:path";
+import yaml from "js-yaml";
 
 const CONTENT_DIR = path.join(process.cwd(), "content", "experience");
 const MESSAGES_DIR = path.join(process.cwd(), "messages");
@@ -17,7 +18,6 @@ const REQUIRED_MESSAGE_KEYS = [
 ];
 
 function loadYaml(locale: string): Record<string, unknown> {
-  const yaml = require("js-yaml");
   const filePath = path.join(CONTENT_DIR, `${locale}.yaml`);
   const content = fs.readFileSync(filePath, "utf-8");
   return yaml.load(content) as Record<string, unknown>;
@@ -37,12 +37,12 @@ function existingProjectSlugs(): string[] {
 }
 
 type Entry = {
-  type: string;
-  title: string;
-  description: string;
-  period: { start: string; end: string | null };
-  relatedProjects?: string[];
-  projectSlug?: string;
+  readonly type: string;
+  readonly title: string;
+  readonly description: string;
+  readonly period: { readonly start: string; readonly end: string | null };
+  readonly relatedProjects?: readonly string[];
+  readonly projectSlug?: string;
 };
 
 function entriesOfType(

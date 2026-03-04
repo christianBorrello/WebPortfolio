@@ -9,6 +9,8 @@ import type {
   TimelinePeriod,
 } from "@/shared/types/experience";
 
+const ERROR_PREFIX = "[experience-loader]";
+
 const VALID_ENTRY_TYPES: readonly TimelineEntryType[] = [
   "work",
   "education",
@@ -19,11 +21,13 @@ function experienceFilePath(locale: Locale): string {
   return path.join(process.cwd(), "content", "experience", `${locale}.yaml`);
 }
 
+function validationError(message: string, file: string): Error {
+  return new Error(`${ERROR_PREFIX} ${message} in ${file}`);
+}
+
 function validateString(value: unknown, field: string, file: string): string {
   if (typeof value !== "string" || value.trim().length === 0) {
-    throw new Error(
-      `[experience-loader] Missing or empty required field "${field}" in ${file}`
-    );
+    throw validationError(`Missing or empty required field "${field}"`, file);
   }
   return value.trim();
 }
@@ -33,8 +37,9 @@ function validateEntryType(
   file: string
 ): TimelineEntryType {
   if (!VALID_ENTRY_TYPES.includes(value as TimelineEntryType)) {
-    throw new Error(
-      `[experience-loader] Invalid entry type "${String(value)}" in ${file}. Expected "work", "education", or "project".`
+    throw validationError(
+      `Invalid entry type "${String(value)}". Expected "work", "education", or "project".`,
+      file
     );
   }
   return value as TimelineEntryType;
@@ -45,9 +50,7 @@ function validatePeriod(
   file: string
 ): TimelinePeriod {
   if (typeof value !== "object" || value === null) {
-    throw new Error(
-      `[experience-loader] "period" must be an object in ${file}`
-    );
+    throw validationError(`"period" must be an object`, file);
   }
   const period = value as Record<string, unknown>;
   return {
@@ -68,18 +71,23 @@ function validateOptionalStringArray(
     return undefined;
   }
   if (!Array.isArray(value)) {
-    throw new Error(
-      `[experience-loader] "${field}" must be an array in ${file}`
-    );
+    throw validationError(`"${field}" must be an array`, file);
   }
   return value.map((item, index) => {
     if (typeof item !== "string" || item.trim().length === 0) {
-      throw new Error(
-        `[experience-loader] "${field}[${index}]" must be a non-empty string in ${file}`
+      throw validationError(
+        `"${field}[${index}]" must be a non-empty string`,
+        file
       );
     }
     return item.trim();
   });
+}
+
+function optionalTrimmedString(value: unknown): string | undefined {
+  return typeof value === "string" && value.trim().length > 0
+    ? value.trim()
+    : undefined;
 }
 
 function validateEntry(
@@ -88,57 +96,27 @@ function validateEntry(
   file: string
 ): TimelineEntry {
   if (typeof value !== "object" || value === null) {
-    throw new Error(
-      `[experience-loader] "entries[${index}]" must be an object in ${file}`
-    );
+    throw validationError(`"entries[${index}]" must be an object`, file);
   }
   const entry = value as Record<string, unknown>;
   const prefix = `entries[${index}]`;
 
+  const organization = optionalTrimmedString(entry.organization);
+  const highlights = validateOptionalStringArray(entry.highlights, `${prefix}.highlights`, file);
+  const technologies = validateOptionalStringArray(entry.technologies, `${prefix}.technologies`, file);
+  const relatedProjects = validateOptionalStringArray(entry.relatedProjects, `${prefix}.relatedProjects`, file);
+  const projectSlug = optionalTrimmedString(entry.projectSlug);
+
   return {
     type: validateEntryType(entry.type, file),
     title: validateString(entry.title, `${prefix}.title`, file),
-    ...(typeof entry.organization === "string" &&
-    entry.organization.trim().length > 0
-      ? { organization: entry.organization.trim() }
-      : {}),
     period: validatePeriod(entry.period, file),
-    description: validateString(
-      entry.description,
-      `${prefix}.description`,
-      file
-    ),
-    ...(entry.highlights !== undefined
-      ? {
-          highlights: validateOptionalStringArray(
-            entry.highlights,
-            `${prefix}.highlights`,
-            file
-          ),
-        }
-      : {}),
-    ...(entry.technologies !== undefined
-      ? {
-          technologies: validateOptionalStringArray(
-            entry.technologies,
-            `${prefix}.technologies`,
-            file
-          ),
-        }
-      : {}),
-    ...(entry.relatedProjects !== undefined
-      ? {
-          relatedProjects: validateOptionalStringArray(
-            entry.relatedProjects,
-            `${prefix}.relatedProjects`,
-            file
-          ),
-        }
-      : {}),
-    ...(typeof entry.projectSlug === "string" &&
-    entry.projectSlug.trim().length > 0
-      ? { projectSlug: entry.projectSlug.trim() }
-      : {}),
+    description: validateString(entry.description, `${prefix}.description`, file),
+    ...(organization !== undefined && { organization }),
+    ...(highlights !== undefined && { highlights }),
+    ...(technologies !== undefined && { technologies }),
+    ...(relatedProjects !== undefined && { relatedProjects }),
+    ...(projectSlug !== undefined && { projectSlug }),
   };
 }
 
@@ -151,7 +129,7 @@ export function getExperience(locale: Locale): ExperienceData {
     fileContent = fs.readFileSync(filePath, "utf-8");
   } catch {
     throw new Error(
-      `[experience-loader] Could not read experience file: ${filePath}`
+      `${ERROR_PREFIX} Could not read experience file: ${filePath}`
     );
   }
 
@@ -160,20 +138,16 @@ export function getExperience(locale: Locale): ExperienceData {
     data = yaml.load(fileContent) as Record<string, unknown>;
   } catch (cause) {
     throw new Error(
-      `[experience-loader] Malformed YAML in ${fileName}: ${cause instanceof Error ? cause.message : String(cause)}`
+      `${ERROR_PREFIX} Malformed YAML in ${fileName}: ${cause instanceof Error ? cause.message : String(cause)}`
     );
   }
 
   if (typeof data !== "object" || data === null) {
-    throw new Error(
-      `[experience-loader] YAML in ${fileName} did not produce a valid object`
-    );
+    throw validationError("YAML did not produce a valid object", fileName);
   }
 
   if (!Array.isArray(data.entries)) {
-    throw new Error(
-      `[experience-loader] "entries" must be an array in ${fileName}`
-    );
+    throw validationError(`"entries" must be an array`, fileName);
   }
 
   const entries: readonly TimelineEntry[] = data.entries.map(
