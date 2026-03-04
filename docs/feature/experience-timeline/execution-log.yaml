@@ -150,5 +150,62 @@ events:
   s: EXECUTED
   sid: 03-02
   t: '2026-03-03T22:38:36Z'
+- d: PASS
+  p: COMMIT
+  s: EXECUTED
+  sid: 03-02
+  t: '2026-03-03T22:38:58Z'
+- d: PASS
+  p: PREPARE
+  s: EXECUTED
+  sid: 04-01
+  t: '2026-03-03T22:54:51Z'
+- d: PASS
+  p: RED_ACCEPTANCE
+  s: EXECUTED
+  sid: 04-01
+  t: '2026-03-03T22:55:34Z'
+- d: 'NOT_APPLICABLE: pure rename across UI and i18n files, no domain or application
+    logic. Acceptance tests cover all observable behavior.'
+  p: RED_UNIT
+  s: SKIPPED
+  sid: 04-01
+  t: '2026-03-03T22:55:41Z'
+- d: PASS
+  p: GREEN
+  s: EXECUTED
+  sid: 04-01
+  t: '2026-03-03T23:20:58Z'
+- d: PASS
+  p: COMMIT
+  s: EXECUTED
+  sid: 04-01
+  t: '2026-03-03T23:29:38Z'
+- d: PASS
+  p: PREPARE
+  s: EXECUTED
+  sid: 04-02
+  t: '2026-03-04T09:43:36Z'
+- d: 'NOT_APPLICABLE: file deletion has no behavioral change to test through driving
+    port; acceptance verified by grep (zero imports) and build success'
+  p: RED_ACCEPTANCE
+  s: SKIPPED
+  sid: 04-02
+  t: '2026-03-04T09:43:38Z'
+- d: 'NOT_APPLICABLE: no behavior to test through driving port for file deletion'
+  p: RED_UNIT
+  s: SKIPPED
+  sid: 04-02
+  t: '2026-03-04T09:43:39Z'
+- d: PASS
+  p: GREEN
+  s: EXECUTED
+  sid: 04-02
+  t: '2026-03-04T09:43:39Z'
+- d: PASS
+  p: COMMIT
+  s: EXECUTED
+  sid: 04-02
+  t: '2026-03-04T09:48:51Z'
 project_id: experience-timeline
 schema_version: '3.0'
