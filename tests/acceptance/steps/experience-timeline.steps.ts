@@ -56,7 +56,6 @@ test.describe("ExperienceTimeline -- Section with Scroll-Reveal Animation", () =
     // After scrolling into view and waiting for observer, entries should have data-visible="true"
     await expect(section).toBeAttached();
     await section.scrollIntoViewIfNeeded();
-    await page.waitForTimeout(500);
 
     const firstEntry = entries.first();
     await expect(firstEntry).toHaveAttribute("data-visible", "true");
@@ -94,7 +93,6 @@ test.describe("ExperienceTimeline -- Section with Scroll-Reveal Animation", () =
     const section = page.locator("section#experience");
     await expect(section).toBeAttached();
     await section.scrollIntoViewIfNeeded();
-    await page.waitForTimeout(500);
 
     const ol = section.locator("ol");
     const firstEntry = ol.locator(":scope > li").first();
@@ -102,12 +100,10 @@ test.describe("ExperienceTimeline -- Section with Scroll-Reveal Animation", () =
 
     // Scroll away
     await page.evaluate(() => window.scrollTo(0, 0));
-    await page.waitForTimeout(300);
+    await expect(section).not.toBeInViewport();
 
     // Scroll back -- entry should still be data-visible="true"
     await section.scrollIntoViewIfNeeded();
-    await page.waitForTimeout(300);
-
     await expect(firstEntry).toHaveAttribute("data-visible", "true");
   });
 });

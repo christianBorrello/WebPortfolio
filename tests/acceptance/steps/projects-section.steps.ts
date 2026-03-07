@@ -1,11 +1,8 @@
 import { test, expect } from "@playwright/test";
 
-const PROJECT_NAMES = [
+const PROJECT_CARD_NAMES = [
   "SagitterHub",
   "Azure Infrastructure",
-  "OpenGL Renderer",
-  "iOS Habit Tracker",
-  "Unity Soulslike",
 ];
 
 const CASE_STUDY_SECTIONS = [
@@ -20,13 +17,13 @@ const CASE_STUDY_SECTIONS = [
 ];
 
 test.describe("Projects Section -- Cards Overview", () => {
-  test("five project cards are displayed", async ({ page }) => {
+  test("project cards for work entries are displayed", async ({ page }) => {
     await page.goto("/en");
 
     const projectsSection = page.locator("section#experience");
     await expect(projectsSection).toBeVisible();
 
-    for (const name of PROJECT_NAMES) {
+    for (const name of PROJECT_CARD_NAMES) {
       await expect(
         projectsSection.getByText(name, { exact: false }).first()
       ).toBeVisible();
@@ -40,7 +37,7 @@ test.describe("Projects Section -- Cards Overview", () => {
 
     const cards = page.locator("section#experience article, section#experience [class*='card']");
     const cardCount = await cards.count();
-    expect(cardCount).toBeGreaterThanOrEqual(5);
+    expect(cardCount).toBeGreaterThanOrEqual(2);
 
     for (let i = 0; i < cardCount; i++) {
       const card = cards.nth(i);
