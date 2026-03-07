@@ -18,6 +18,10 @@ const invalidType: TimelineEntryType = "invalid";
 const ongoingPeriod: TimelinePeriod = { start: "2022", end: null };
 const completedPeriod: TimelinePeriod = { start: "2016", end: "2020" };
 
+// AC: startMonth is optional on TimelinePeriod
+const periodWithMonth: TimelinePeriod = { start: "2025", startMonth: 3, end: null };
+const periodWithoutMonth: TimelinePeriod = { start: "2023", end: "2023" };
+
 // AC4a: Optional fields on a work entry
 const workEntry: TimelineEntry = {
   type: "work",
@@ -65,4 +69,6 @@ void projectType;
 void invalidType;
 void ongoingPeriod;
 void completedPeriod;
+void periodWithMonth;
+void periodWithoutMonth;
 void experienceData;

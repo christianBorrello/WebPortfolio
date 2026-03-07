@@ -5,5 +5,17 @@
   "type_education": "Formazione",
   "type_project": "Progetto",
   "present": "Presente",
-  "read_case_study": "Leggi il case study"
+  "read_case_study": "Leggi il case study",
+  "month_1": "GEN",
+  "month_2": "FEB",
+  "month_3": "MAR",
+  "month_4": "APR",
+  "month_5": "MAG",
+  "month_6": "GIU",
+  "month_7": "LUG",
+  "month_8": "AGO",
+  "month_9": "SET",
+  "month_10": "OTT",
+  "month_11": "NOV",
+  "month_12": "DIC"
 }

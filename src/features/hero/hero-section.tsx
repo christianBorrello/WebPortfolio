@@ -6,39 +6,65 @@ export function HeroSection() {
   return (
     <section
       id="hero"
-      className="flex h-[calc(100dvh-3.5rem)] flex-col items-center justify-center gap-4 bg-[#0b0f1a] px-6 py-20 text-center text-[#f0f0f0] sm:px-10 md:py-0"
+      className="relative flex min-h-dvh flex-col justify-center overflow-hidden bg-background px-6 py-24 sm:px-10"
     >
-      <header className="flex flex-col items-center">
-        <h1 className="font-display text-5xl text-[#e0e0e0] sm:text-6xl md:text-7xl">
-          {t("name")}
-        </h1>
-        <p className="-mt-2 text-lg font-medium text-[#9ca3af] sm:-mt-3 sm:text-xl md:-mt-4 md:text-2xl">
-          {t("title")}
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,var(--accent)/0.07,transparent_50%)]" />
+
+      <div className="stagger relative mx-auto flex w-full max-w-5xl flex-col gap-8">
+        <header className="flex flex-col gap-2 animate-fade-in">
+          <h1 className="font-display text-5xl font-semibold tracking-[-0.025em] text-foreground sm:text-6xl lg:text-7xl">
+            {t("name")}
+          </h1>
+          <p className="font-mono text-sm tracking-wider text-accent/80">
+            {t("title")}
+          </p>
+        </header>
+
+        <div className="animate-fade-up w-12 h-px bg-accent/40" aria-hidden="true" />
+
+        <blockquote className="animate-fade-up max-w-4xl text-display-xl leading-display-xl tracking-display-xl font-display font-semibold text-foreground text-balance">
+          {t("statement")}
+        </blockquote>
+
+        <p className="animate-fade-up max-w-xl text-body-lg leading-[1.8] text-muted text-pretty">
+          {t("tagline")}
         </p>
-      </header>
 
-      <blockquote className="max-w-3xl text-3xl font-bold leading-snug tracking-tight sm:text-4xl md:text-5xl lg:text-6xl">
-        {t("statement")}
-      </blockquote>
+        <nav className="animate-fade-up flex items-center gap-8 pt-2" aria-label="Primary actions">
+          <a
+            href="#experience"
+            className="group flex items-center gap-2 border-b border-accent/40 pb-0.5 font-mono text-sm text-foreground transition-all duration-200 hover:border-accent hover:text-accent"
+          >
+            {t("cta_work")}
+            <span className="inline-block transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true">
+              &rarr;
+            </span>
+          </a>
+          <a
+            href="#contact"
+            className="font-mono text-sm text-muted transition-colors duration-200 hover:text-foreground"
+          >
+            {t("cta_contact")}
+          </a>
+        </nav>
+      </div>
 
-      <p className="max-w-lg text-base text-[#8b95a5] sm:text-lg md:text-xl">
-        {t("tagline")}
-      </p>
-
-      <nav className="mt-4 flex flex-col gap-4 sm:flex-row" aria-label="Primary actions">
-        <a
-          href="#experience"
-          className="rounded-lg bg-[#f0f0f0] px-7 py-3 text-sm font-semibold text-[#0b0f1a] transition-opacity hover:opacity-85 sm:text-base"
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce-slow" aria-hidden="true">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="text-muted/60"
         >
-          {t("cta_work")}
-        </a>
-        <a
-          href="#contact"
-          className="rounded-lg border border-[#f0f0f0]/20 px-7 py-3 text-sm font-semibold text-[#f0f0f0] transition-colors hover:border-[#f0f0f0]/50 hover:bg-[#f0f0f0]/5 sm:text-base"
-        >
-          {t("cta_contact")}
-        </a>
-      </nav>
+          <path d="M6 9l6 6 6-6" />
+        </svg>
+      </div>
     </section>
   );
 }

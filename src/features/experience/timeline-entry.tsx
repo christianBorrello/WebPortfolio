@@ -7,12 +7,13 @@ import type { ProjectSummary } from "@/shared/types/project";
 type TimelineEntryProps = {
   readonly entry: TimelineEntryType;
   readonly matchedProjects: readonly ProjectSummary[];
+  readonly index: number;
 };
 
 const BADGE_STYLES = {
-  work: "bg-foreground/10 text-foreground",
-  education: "bg-blue-500/10 text-blue-600 dark:text-blue-400",
-  project: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
+  work: "bg-accent/15 text-accent font-mono font-medium",
+  education: "bg-surface text-muted font-mono",
+  project: "bg-surface text-muted font-mono",
 } as const;
 
 function TypeBadge({
@@ -24,7 +25,7 @@ function TypeBadge({
 }) {
   return (
     <span
-      className={`inline-block rounded-full px-3 py-0.5 text-xs font-medium ${BADGE_STYLES[type]}`}
+      className={`inline-block rounded-md px-2.5 py-1 text-xs ${BADGE_STYLES[type]}`}
     >
       {label}
     </span>
@@ -41,7 +42,7 @@ function PeriodDisplay({
   readonly presentLabel: string;
 }) {
   return (
-    <span>
+    <span className="font-mono text-xs tracking-wider uppercase text-muted">
       {start} - {end ?? presentLabel}
     </span>
   );
@@ -57,7 +58,7 @@ function HighlightsList({
       {highlights.map((highlight) => (
         <li
           key={highlight}
-          className="text-sm leading-relaxed text-foreground/70"
+          className="text-[0.9375rem] leading-[1.7] text-muted"
         >
           {highlight}
         </li>
@@ -72,7 +73,7 @@ function TechnologyTags({ tags }: { readonly tags: readonly string[] }) {
       {tags.map((tag) => (
         <li
           key={tag}
-          className="rounded-full border border-foreground/10 px-2.5 py-0.5 text-xs text-foreground/60"
+          className="font-mono text-xs rounded-md border border-border/60 px-2 py-0.5 text-muted transition-colors duration-200 hover:border-accent/40 hover:text-accent"
         >
           {tag}
         </li>
@@ -100,56 +101,82 @@ function NestedProjectCards({
 export function TimelineEntry({
   entry,
   matchedProjects,
+  index,
 }: TimelineEntryProps) {
   const t = useTranslations("experience");
   const badgeLabel = t(`type_${entry.type}`);
   const presentLabel = t("present");
+  const displayNumber = String(index + 1).padStart(2, "0");
+  const monthLabel = entry.period.startMonth
+    ? t(`month_${entry.period.startMonth}`)
+    : undefined;
 
   return (
-    <li className="flex flex-col gap-3">
-      <TypeBadge type={entry.type} label={badgeLabel} />
+    <li className="grid grid-cols-[4.5rem_1.25rem_1fr] sm:grid-cols-[5.5rem_1.25rem_1fr]">
+      <span
+        className="self-start pt-0.5 text-right font-mono text-[0.6875rem] uppercase tracking-wider text-muted/70 sm:text-xs"
+        aria-hidden="true"
+      >
+        {monthLabel && <span className="block text-foreground/50">{monthLabel}</span>}
+        <span className="block">{entry.period.start}</span>
+      </span>
 
-      <h3 className="text-lg font-semibold tracking-tight text-foreground">
-        {entry.title}
-      </h3>
+      <div className="timeline-rail relative flex justify-center" aria-hidden="true">
+        <span className="relative z-10 mt-1 h-3 w-3 shrink-0 rounded-full bg-accent shadow-[0_0_0_4px_var(--background)]" />
+      </div>
 
-      <p className="text-sm text-foreground/60">
-        {entry.organization && <>{entry.organization} &middot; </>}
-        <PeriodDisplay
-          start={entry.period.start}
-          end={entry.period.end}
-          presentLabel={presentLabel}
-        />
-      </p>
-
-      <p className="text-sm leading-relaxed text-foreground/70">
-        {entry.description}
-      </p>
-
-      {entry.type === "work" &&
-        entry.highlights &&
-        entry.highlights.length > 0 && (
-          <HighlightsList highlights={entry.highlights} />
-        )}
-
-      {(entry.type === "work" || entry.type === "project") &&
-        entry.technologies &&
-        entry.technologies.length > 0 && (
-          <TechnologyTags tags={entry.technologies} />
-        )}
-
-      {entry.type === "work" && matchedProjects.length > 0 && (
-        <NestedProjectCards projects={matchedProjects} />
-      )}
-
-      {entry.type === "project" && entry.projectSlug && (
-        <Link
-          href={`/projects/${entry.projectSlug}`}
-          className="self-start text-sm font-medium text-foreground/80 underline underline-offset-4 transition-colors hover:text-foreground"
+      <div className="relative flex flex-col gap-3 pl-4">
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute -bottom-4 -right-4 select-none font-display text-[8rem] font-bold leading-none text-accent/[0.04] sm:text-[10rem]"
         >
-          {t("read_case_study")}
-        </Link>
-      )}
+          {displayNumber}
+        </span>
+
+        <TypeBadge type={entry.type} label={badgeLabel} />
+
+        <h3 className="font-display text-lg font-semibold tracking-[-0.015em] text-foreground">
+          {entry.title}
+        </h3>
+
+        <p className="text-sm text-muted">
+          {entry.organization && <>{entry.organization} &middot; </>}
+          <PeriodDisplay
+            start={entry.period.start}
+            end={entry.period.end}
+            presentLabel={presentLabel}
+          />
+        </p>
+
+        <p className="text-[0.9375rem] leading-[1.7] text-muted">
+          {entry.description}
+        </p>
+
+        {entry.type === "work" &&
+          entry.highlights &&
+          entry.highlights.length > 0 && (
+            <HighlightsList highlights={entry.highlights} />
+          )}
+
+        {(entry.type === "work" || entry.type === "project") &&
+          entry.technologies &&
+          entry.technologies.length > 0 && (
+            <TechnologyTags tags={entry.technologies} />
+          )}
+
+        {entry.type === "work" && matchedProjects.length > 0 && (
+          <NestedProjectCards projects={matchedProjects} />
+        )}
+
+        {entry.type === "project" && entry.projectSlug && (
+          <Link
+            href={`/projects/${entry.projectSlug}`}
+            className="font-mono text-sm text-accent underline decoration-accent/40 decoration-1 underline-offset-[3px] transition-all duration-200 hover:decoration-accent hover:decoration-2"
+          >
+            {t("read_case_study")}
+          </Link>
+        )}
+      </div>
     </li>
   );
 }

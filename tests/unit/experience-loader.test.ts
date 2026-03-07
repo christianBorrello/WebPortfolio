@@ -164,6 +164,85 @@ describe("experience-loader", () => {
     expect(result.entries).toHaveLength(0);
   });
 
+  it("parses startMonth when present and valid", () => {
+    writeFixture("en", {
+      entries: [
+        {
+          type: "work",
+          title: "Engineer",
+          period: { start: "2025", startMonth: 3, end: null },
+          description: "A description.",
+        },
+      ],
+    });
+
+    const result = getExperience("en");
+
+    expect(result.entries[0].period.startMonth).toBe(3);
+  });
+
+  it("omits startMonth when absent", () => {
+    writeFixture("en", {
+      entries: [
+        {
+          type: "work",
+          title: "Engineer",
+          period: { start: "2025", end: null },
+          description: "A description.",
+        },
+      ],
+    });
+
+    const result = getExperience("en");
+
+    expect(result.entries[0].period.startMonth).toBeUndefined();
+  });
+
+  it("throws descriptive error for startMonth out of range (0)", () => {
+    writeFixture("en", {
+      entries: [
+        {
+          type: "work",
+          title: "Engineer",
+          period: { start: "2025", startMonth: 0, end: null },
+          description: "A description.",
+        },
+      ],
+    });
+
+    expect(() => getExperience("en")).toThrow(/startMonth/i);
+  });
+
+  it("throws descriptive error for startMonth out of range (13)", () => {
+    writeFixture("en", {
+      entries: [
+        {
+          type: "work",
+          title: "Engineer",
+          period: { start: "2025", startMonth: 13, end: null },
+          description: "A description.",
+        },
+      ],
+    });
+
+    expect(() => getExperience("en")).toThrow(/startMonth/i);
+  });
+
+  it("throws descriptive error for non-numeric startMonth", () => {
+    writeFixture("en", {
+      entries: [
+        {
+          type: "work",
+          title: "Engineer",
+          period: { start: "2025", startMonth: "march", end: null },
+          description: "A description.",
+        },
+      ],
+    });
+
+    expect(() => getExperience("en")).toThrow(/startMonth/i);
+  });
+
   it("throws descriptive error for malformed YAML", () => {
     fs.mkdirSync(FIXTURE_DIR, { recursive: true });
     fs.writeFileSync(

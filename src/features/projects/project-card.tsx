@@ -10,10 +10,10 @@ function TypeBadge({ type, label }: { type: string; label: string }) {
   const isWork = type === "work";
   return (
     <span
-      className={`inline-block rounded-full px-3 py-0.5 text-xs font-medium ${
+      className={`inline-block rounded-md px-2.5 py-1 text-xs font-mono ${
         isWork
-          ? "bg-foreground/10 text-foreground"
-          : "bg-foreground/5 text-foreground/70"
+          ? "bg-accent/15 text-accent font-medium"
+          : "bg-surface text-muted"
       }`}
     >
       {label}
@@ -33,7 +33,7 @@ function MetricsList({
       {metrics.map((metric) => (
         <li
           key={metric.label}
-          className="rounded bg-foreground/[0.04] px-2 py-1 text-xs text-foreground/70"
+          className="font-mono rounded-md bg-surface px-2 py-1 text-xs text-muted"
         >
           {metric.label}: <span className="font-medium text-foreground/90">{metric.value}{metric.unit ? ` ${metric.unit}` : ""}</span>
         </li>
@@ -48,7 +48,7 @@ function TagList({ tags }: { tags: readonly string[] }) {
       {tags.map((tag) => (
         <li
           key={tag}
-          className="rounded-full border border-foreground/10 px-2.5 py-0.5 text-xs text-foreground/60"
+          className="font-mono text-xs rounded-md border border-border/60 px-2 py-0.5 text-muted"
         >
           {tag}
         </li>
@@ -63,15 +63,15 @@ export function ProjectCard({ project }: ProjectCardProps) {
     project.type === "work" ? t("type_work") : t("type_personal");
 
   return (
-    <article className="flex flex-col gap-4 rounded-lg border border-foreground/10 p-6 transition-colors hover:border-foreground/20 hover:bg-foreground/[0.02]">
+    <article className="flex flex-col gap-4 rounded-xl border border-border bg-surface p-6 transition-all duration-300 hover:border-accent/40 hover:shadow-lg hover:shadow-[var(--accent)]/5">
       <div className="flex items-start justify-between gap-3">
-        <h3 className="text-lg font-semibold tracking-tight text-foreground">
+        <h3 className="font-display text-lg font-semibold tracking-[-0.015em] text-foreground">
           {project.title}
         </h3>
         <TypeBadge type={project.type} label={typeLabel} />
       </div>
 
-      <p className="text-sm leading-relaxed text-foreground/70">
+      <p className="text-[0.9375rem] leading-[1.7] text-muted">
         {project.hook}
       </p>
 
@@ -81,7 +81,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
       <Link
         href={`/projects/${project.slug}`}
-        className="mt-auto self-start text-sm font-medium text-foreground/80 underline underline-offset-4 transition-colors hover:text-foreground"
+        className="mt-auto font-mono text-sm text-accent underline decoration-accent/40 decoration-1 underline-offset-[3px] transition-all duration-200 hover:decoration-accent hover:decoration-2"
       >
         {t("read_case_study")}
       </Link>

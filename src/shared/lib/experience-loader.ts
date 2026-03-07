@@ -45,6 +45,22 @@ function validateEntryType(
   return value as TimelineEntryType;
 }
 
+function validateOptionalStartMonth(
+  value: unknown,
+  file: string
+): number | undefined {
+  if (value === undefined || value === null) {
+    return undefined;
+  }
+  if (typeof value !== "number" || !Number.isInteger(value) || value < 1 || value > 12) {
+    throw validationError(
+      `"period.startMonth" must be an integer between 1 and 12, got "${String(value)}"`,
+      file
+    );
+  }
+  return value;
+}
+
 function validatePeriod(
   value: unknown,
   file: string
@@ -53,8 +69,10 @@ function validatePeriod(
     throw validationError(`"period" must be an object`, file);
   }
   const period = value as Record<string, unknown>;
+  const startMonth = validateOptionalStartMonth(period.startMonth, file);
   return {
     start: validateString(period.start, "period.start", file),
+    ...(startMonth !== undefined && { startMonth }),
     end:
       period.end === null || period.end === undefined
         ? null

@@ -5,24 +5,243 @@ html {
 }
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0F0E0C;
+  --foreground: #E7E0D6;
+  --muted: #B0A08A;
+  --surface: #1A1816;
+  --border: #2E2A25;
+  --accent: #E5A84B;
+  --accent-hover: #F0C060;
+  --grain-opacity: 0.04;
+}
+
+.light {
+  --background: #FDFAF6;
+  --foreground: #1C1917;
+  --muted: #6B5F4F;
+  --surface: #F5F0E8;
+  --border: #D4C8B8;
+  --accent: #B45309;
+  --accent-hover: #D97706;
+  --grain-opacity: 0.03;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-display: var(--font-dynalight);
-}
+  --color-muted: var(--muted);
+  --color-surface: var(--surface);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --font-display: var(--font-fraunces);
+  --font-body: var(--font-literata);
+  --font-mono: var(--font-jetbrains-mono);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-size-display-xl: clamp(2.5rem, 5.5vw, 5rem);
+  --font-size-display-lg: clamp(2rem, 4vw, 3.5rem);
+  --font-size-display-md: clamp(1.5rem, 3vw, 2.25rem);
+  --font-size-body-lg: 1.25rem;
+  --font-size-body: 1.0625rem;
+  --font-size-body-sm: 0.9375rem;
+
+  --leading-display-xl: 1.05;
+  --leading-display-lg: 1.1;
+  --leading-display-md: 1.15;
+
+  --tracking-display-xl: -0.03em;
+  --tracking-display-lg: -0.025em;
+  --tracking-display-md: -0.02em;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
+  font-family: var(--font-literata), Georgia, serif;
+  font-size: 1.0625rem;
+  line-height: 1.8;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: var(--grain-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+::selection {
+  background: var(--accent);
+  color: white;
+}
+
+*:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@keyframes bounce-slow {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(6px);
+    opacity: 0.5;
+  }
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 2.5s ease-in-out infinite;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.6s ease-out both;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out both;
+}
+
+.animate-slide-in {
+  animation: slide-in 0.4s ease-out both;
+}
+
+.stagger > :nth-child(1) { animation-delay: 0ms; }
+.stagger > :nth-child(2) { animation-delay: 60ms; }
+.stagger > :nth-child(3) { animation-delay: 120ms; }
+.stagger > :nth-child(4) { animation-delay: 180ms; }
+.stagger > :nth-child(5) { animation-delay: 240ms; }
+.stagger > :nth-child(6) { animation-delay: 300ms; }
+.stagger > :nth-child(7) { animation-delay: 360ms; }
+.stagger > :nth-child(8) { animation-delay: 420ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up,
+  .animate-fade-in,
+  .animate-slide-in,
+  .animate-bounce-slow {
+    animation: none;
+  }
+  .stagger > * {
+    animation-delay: 0ms !important;
+  }
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.text-pretty {
+  text-wrap: pretty;
+}
+
+.reveal-hidden {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+.reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-hidden {
+    opacity: 1;
+    transform: none;
+  }
+  .reveal-visible {
+    transition: none;
+  }
+}
+
+@media (pointer: fine) {
+  a,
+  button,
+  [role="button"],
+  input[type="submit"] {
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ccircle cx='12' cy='12' r='5' fill='%23E5A84B'/%3E%3Ccircle cx='12' cy='12' r='9' fill='none' stroke='%23E5A84B' stroke-width='1.5' opacity='0.3'/%3E%3C/svg%3E") 12 12, pointer;
+  }
+
+  .light a,
+  .light button,
+  .light [role="button"],
+  .light input[type="submit"] {
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ccircle cx='12' cy='12' r='5' fill='%23B45309'/%3E%3Ccircle cx='12' cy='12' r='9' fill='none' stroke='%23B45309' stroke-width='1.5' opacity='0.3'/%3E%3C/svg%3E") 12 12, pointer;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  a, button, [role="button"], input[type="submit"] {
+    cursor: pointer !important;
+  }
+}
+
+/* Timeline rail: vertical line segment per entry */
+.timeline-rail::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: -4rem; /* covers gap-16 (4rem) between <li> elements */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3px;
+  background: var(--accent);
+  opacity: 0.2;
+}
+
+/* Last entry: line stops below the dot */
+li:last-child .timeline-rail::before {
+  bottom: auto;
+  height: 1.125rem;
+}
+
+.accent-line {
+  position: relative;
+  display: inline-block;
+}
+
+.accent-line::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.15em;
+  width: 1.5em;
+  height: 3px;
+  background: var(--accent);
+  border-radius: 2px;
 }

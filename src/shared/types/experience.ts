@@ -2,6 +2,7 @@ export type TimelineEntryType = "work" | "education" | "project";
 
 export type TimelinePeriod = {
   readonly start: string;
+  readonly startMonth?: number;
   readonly end: string | null;
 };
 

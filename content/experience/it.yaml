@@ -1,22 +1,45 @@
 entries:
   - type: work
-    title: "Senior Software Engineer"
-    organization: "Sagitter S.p.A."
+    title: "Software Engineer"
+    organization: "Sagitter SpA"
     period:
-      start: "2022"
+      start: "2025"
+      startMonth: 3
       end: null
-    description: "Guidato l'ingegneria della piattaforma e modernizzato sistemi legacy con TDD e clean architecture."
+    description: "Ruolo piu' significativo finora. Formato sui principi XP e Software Craftsmanship da Alessandro Di Gioia. Rifattorizzazione progressiva con TDD Outside-In, walking skeleton e refactoring continuo. Workflow AI-assisted (Claude Code + nWave) integrato nel ciclo TDD."
     highlights:
-      - "Ridotto il tempo di deploy del 60% attraverso il redesign della pipeline CI/CD"
-      - "Raggiunta copertura TDD >90% sui nuovi moduli"
+      - "Creato SagitterHub, modular monolith che consolida le automazioni dell'ufficio in un'unica piattaforma"
+      - "Automatizzata l'estrazione di visure catastali e ipotecarie dai portali della PA con autenticazione multi-step e CAPTCHA solving"
+      - "Costruito RateWatch: monitoraggio tassi europei (BCE, Euribor, IRS) con storicizzazione e notifiche email a soglia"
+      - "Consolidata l'infrastruttura cloud da 46 risorse su 4 app legacy in un'architettura unificata, riducendo i costi da ~380 a 100-160 EUR/mese (-60/70%) tramite IaC"
     technologies:
+      - "C#"
       - ".NET"
       - "React"
-      - "Azure"
       - "TypeScript"
+      - "Azure"
+      - "Terraform"
+      - "xUnit"
     relatedProjects:
       - sagitterhub
       - azure-infrastructure
+
+  - type: work
+    title: "Software Developer"
+    organization: "Vis Software Solutions"
+    period:
+      start: "2024"
+      startMonth: 5
+      end: "2024"
+    description: "Sviluppo full-stack su piattaforma SaaS in ASP.NET MVC. Progettato e implementato il sistema di internazionalizzazione del portale: middleware custom di geolocalizzazione IP per il rilevamento automatico della lingua, integrato con API di traduzione esterna per la localizzazione dei contenuti."
+    highlights:
+      - "Progettato middleware custom di geolocalizzazione IP per rilevamento automatico della lingua"
+      - "Integrata API di traduzione esterna per localizzazione dinamica dei contenuti"
+    technologies:
+      - "C#"
+      - "ASP.NET MVC"
+      - "SQL Server"
+      - "JavaScript"
 
   - type: project
     title: "Unity Soulslike Game"
@@ -31,8 +54,9 @@ entries:
 
   - type: education
     title: "Laurea in Informatica"
-    organization: "Universita' degli Studi"
+    organization: "Universita' degli Studi di Milano-Bicocca"
     period:
-      start: "2016"
-      end: "2020"
-    description: "Studiato algoritmi, programmazione di sistemi e fondamenti di ingegneria del software."
+      start: "2022"
+      startMonth: 10
+      end: null
+    description: "Studio di algoritmi, programmazione di sistemi e fondamenti di ingegneria del software."

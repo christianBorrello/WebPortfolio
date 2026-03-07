@@ -10,6 +10,7 @@
   },
   "footer": {
     "copyright": "{year} Christian Borrello. Tutti i diritti riservati.",
-    "built_with": "Realizzato con Next.js e distribuito su Vercel"
+    "built_with": "Realizzato con Next.js e distribuito su Vercel",
+    "social_label": "Link social"
   }
 }

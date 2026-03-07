@@ -1,0 +1,223 @@
+journey:
+  name: sistema-centralizzato-task-tracking
+  owner: Christian Borrello
+  version: "1.0"
+  language: it
+  wave: DISCUSS
+  date: "2026-03-03"
+  feature_type: infrastructure
+  walking_skeleton: false
+
+attori:
+  - id: claude-code
+    ruolo: "Gestore primario di TASKS.yaml"
+    interazione: "Legge, scrive, aggiorna -- sempre con conferma dell'utente"
+    frequenza: "Ogni sessione"
+    job_to_be_done: "Capire rapidamente il contesto del progetto e mantenere il tracker allineato"
+
+  - id: christian
+    ruolo: "Revisore e decisore"
+    interazione: "Consulta lo stato nell'IDE, approva creazione e modifiche"
+    frequenza: "Giornaliero"
+    job_to_be_done: "Avere il punto della situazione in pochi secondi aprendo un singolo file"
+
+decisioni_confermate:
+  - id: D1
+    titolo: "Formato del file"
+    scelta: "YAML puro (TASKS.yaml nella root)"
+    fonte: "opportunity-tree.md, sezione 1-2"
+
+  - id: D2
+    titolo: "Lingua dei contenuti"
+    scelta: "Italiano per contenuti, inglese per campi e valori enum"
+    fonte: "handoff-discuss.md"
+
+  - id: D3
+    titolo: "Protocollo di conferma"
+    scelta: "Conferma obbligatoria per OGNI operazione (creazione e cambio status)"
+    fonte: "opportunity-tree.md, sezione 3 + risposte discovery DISCUSS"
+
+  - id: D4
+    titolo: "Tono della conferma"
+    scelta: "Asciutto e diretto: 'Nuovo task rilevato: [titolo]. Registro?'"
+    fonte: "risposte discovery DISCUSS"
+
+  - id: D5
+    titolo: "Archiviazione task completati"
+    scelta: "Archiviazione in docs/archive/tasks-YYYY.yaml alla conferma del completamento"
+    fonte: "risposte discovery DISCUSS (AGGIORNAMENTO: sostituisce decisione YAGNI della Discovery)"
+    nota_cambiamento: >
+      La Discovery raccomandava 'nessuna archiviazione in v1 (YAGNI)'.
+      Christian ha espresso preferenza per l'archiviazione immediata
+      per ridurre rumore e dimensione del file.
+
+  - id: D6
+    titolo: "Granularita' dei task"
+    scelta: "1+ sessione, cambiamento osservabile, descrivibile in una frase"
+    fonte: "opportunity-tree.md, sezione 4"
+
+  - id: D7
+    titolo: "Priorita' e ordinamento"
+    scelta: "3 livelli (high/normal/low) + ordine fisico nel file"
+    fonte: "opportunity-tree.md, sezione 6"
+
+  - id: D8
+    titolo: "Collegamento alla documentazione"
+    scelta: "Path relativi come puntatori, nessuna duplicazione"
+    fonte: "opportunity-tree.md, sezione 7"
+
+journeys:
+  - id: journey-a
+    nome: "Rilevamento e registrazione task"
+    attore_primario: claude-code
+    attore_secondario: christian
+    trigger: "Christian menziona un'intenzione (esplicita o implicita) durante una sessione"
+    arco_emotivo:
+      inizio:
+        stato: neutro
+        pensiero: "Sto lavorando su altro"
+      meta:
+        stato: consapevole
+        pensiero: "Claude Code ha colto qualcosa di utile"
+      fine:
+        stato: in_controllo
+        pensiero: "Decido io cosa entra nel tracker"
+
+    step:
+      - id: A1
+        nome: "Inizio sessione"
+        azione: "Claude Code legge TASKS.yaml silenziosamente"
+        dato_consumato: "TASKS.yaml"
+        dato_prodotto: "Contesto di sessione (interno)"
+        visibile_a_christian: false
+
+      - id: A2
+        nome: "Rilevamento intenzione"
+        azione: "Claude Code riconosce un'intenzione e chiede conferma SUBITO"
+        messaggio_tipo: "Nuovo task rilevato: [titolo]. Registro?"
+        interruzione: true
+        dato_consumato: "Conversazione corrente"
+        dato_prodotto: "Richiesta di conferma"
+        rischio: "Messaggio troppo verboso diventa distrazione"
+
+      - id: A3a
+        nome: "Conferma"
+        azione: "Christian approva -- Claude Code crea il task"
+        dato_prodotto: "Nuovo task in TASKS.yaml"
+        campi_generati:
+          - id: "auto-incrementale (task-NNN)"
+          - status: open
+          - priority: "normal (default)"
+          - wave: "appropriata al contesto"
+          - created: "data corrente"
+          - updated: "data corrente"
+          - context: "in italiano, dal contesto della conversazione"
+
+      - id: A3b
+        nome: "Rifiuto"
+        azione: "Christian rifiuta -- Claude Code non registra nulla"
+        dato_prodotto: "nessuno"
+
+  - id: journey-b
+    nome: "Aggiornamento stato di un task"
+    attore_primario: claude-code
+    attore_secondario: christian
+    trigger: "Claude Code lavora su un task registrato o lo completa"
+    arco_emotivo:
+      inizio:
+        stato: concentrato
+        pensiero: "Sto lavorando su questo task"
+      meta:
+        stato: informato
+        pensiero: "Claude Code mi chiede di aggiornare"
+      fine:
+        stato: in_controllo
+        pensiero: "Lo stato e' allineato, posso andare avanti"
+
+    step:
+      - id: B1
+        nome: "Riconoscimento task in corso"
+        azione: "Claude Code chiede conferma per aggiornare status"
+        messaggio_tipo: "task-003 'Correggere bug form contatto' e' open. Aggiorno a in-progress?"
+        conferma_obbligatoria: true
+
+      - id: B2
+        nome: "Completamento task"
+        azione: "Claude Code chiede conferma per segnare come done"
+        messaggio_tipo: "task-003 'Correggere bug form contatto' completato. Segno come done?"
+        conferma_obbligatoria: true
+        campi_aggiornati:
+          - status: done
+          - wave: done
+          - completed_at: "data corrente"
+
+      - id: B3
+        nome: "Archiviazione task completato"
+        azione: "Claude Code sposta il task da TASKS.yaml a docs/archive/tasks-YYYY.yaml"
+        messaggio_tipo: "task-003 archiviato in docs/archive/tasks-2026.yaml."
+        automatico_dopo_conferma_b2: true
+        dato_consumato: "TASKS.yaml"
+        dato_prodotto: "docs/archive/tasks-YYYY.yaml aggiornato"
+
+  - id: journey-c
+    nome: "Consultazione stato"
+    attore_primario: christian
+    trigger: "Christian apre TASKS.yaml nell'IDE"
+    arco_emotivo:
+      inizio:
+        stato: orientamento
+        pensiero: "Dove eravamo rimasti?"
+      meta:
+        stato: chiarezza
+        pensiero: "La situazione e' chiara"
+      fine:
+        stato: decisione
+        pensiero: "So cosa fare adesso"
+
+    step:
+      - id: C1
+        nome: "Scansione del file"
+        azione: "Christian apre TASKS.yaml e scansiona visivamente"
+        ordine_scansione:
+          - "Priorita' (blocchi high / normal / low)"
+          - "Status (in-progress prima di open)"
+          - "Wave (a che punto siamo)"
+        dato_consumato: "TASKS.yaml"
+        tempo_atteso: "<30 secondi per il quadro d'insieme"
+
+      - id: C2
+        nome: "Decisione"
+        azione: "Christian decide su cosa lavorare o approfondisce un task a meta'"
+        casi:
+          - "Inizio sessione: sceglie task da high priority / in-progress"
+          - "Durante lavoro: consulta contesto e refs di un task lasciato a meta'"
+        dato_consumato: "TASKS.yaml, file nei refs"
+
+errori:
+  - id: E1
+    nome: "Claude Code non legge TASKS.yaml all'inizio"
+    causa: "Istruzioni mancanti in CLAUDE.md"
+    effetto: "Lavora senza contesto"
+    mitigazione: "Istruzione esplicita come prima regola"
+    recupero: "Christian chiede 'leggi TASKS.yaml'"
+
+  - id: E2
+    nome: "Claude Code crea task senza conferma"
+    causa: "Bug nel comportamento"
+    effetto: "Task non desiderato nel tracker"
+    mitigazione: "Protocollo di conferma non negoziabile"
+    recupero: "Christian chiede di rimuoverlo"
+
+  - id: E3
+    nome: "Disallineamento tra TASKS.yaml e realta'"
+    causa: "Status non aggiornato dopo completamento"
+    effetto: "File mostra stato obsoleto"
+    mitigazione: "Conferma obbligatoria per ogni cambio di stato"
+    recupero: "Review periodica di Christian"
+
+  - id: E4
+    nome: "File YAML corrotto"
+    causa: "Errore di editing"
+    effetto: "Parse fallisce"
+    mitigazione: "Validazione YAML dopo ogni scrittura"
+    recupero: "Rollback via git"
