@@ -54,6 +54,7 @@ test.describe("ExperienceTimeline -- Section with Scroll-Reveal Animation", () =
     expect(count).toBeGreaterThanOrEqual(1);
 
     // After scrolling into view and waiting for observer, entries should have data-visible="true"
+    await expect(section).toBeAttached();
     await section.scrollIntoViewIfNeeded();
     await page.waitForTimeout(500);
 
@@ -91,6 +92,7 @@ test.describe("ExperienceTimeline -- Section with Scroll-Reveal Animation", () =
     await page.goto("/en");
 
     const section = page.locator("section#experience");
+    await expect(section).toBeAttached();
     await section.scrollIntoViewIfNeeded();
     await page.waitForTimeout(500);
 

@@ -50,7 +50,7 @@ test.describe("Hero Section", () => {
       page.getByRole("heading", { name: "Christian Borrello" })
     ).toBeVisible();
     const heroSection = page.locator("section").first();
-    await expect(heroSection.getByText("Software Engineer")).toBeVisible();
+    await expect(heroSection.getByText("Software Craftsmanship")).toBeVisible();
   });
 
   test("hero text is fully localized", async ({ page }) => {

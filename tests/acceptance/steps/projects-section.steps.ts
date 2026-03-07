@@ -23,7 +23,7 @@ test.describe("Projects Section -- Cards Overview", () => {
   test("five project cards are displayed", async ({ page }) => {
     await page.goto("/en");
 
-    const projectsSection = page.locator("section:has(h2:text('Projects'))");
+    const projectsSection = page.locator("section#experience");
     await expect(projectsSection).toBeVisible();
 
     for (const name of PROJECT_NAMES) {
@@ -38,7 +38,7 @@ test.describe("Projects Section -- Cards Overview", () => {
   }) => {
     await page.goto("/en");
 
-    const cards = page.locator("section:has(h2:text('Projects')) article, section:has(h2:text('Projects')) [class*='card']");
+    const cards = page.locator("section#experience article, section#experience [class*='card']");
     const cardCount = await cards.count();
     expect(cardCount).toBeGreaterThanOrEqual(5);
 
@@ -56,7 +56,7 @@ test.describe("Projects Section -- Cards Overview", () => {
   test("work projects highlight measurable outcomes", async ({ page }) => {
     await page.goto("/en");
 
-    const projectsSection = page.locator("section:has(h2:text('Projects'))");
+    const projectsSection = page.locator("section#experience");
     const projectsText = (await projectsSection.textContent()) ?? "";
 
     const hasTddMetric = projectsText.includes("TDD") || projectsText.includes(">90%");
@@ -74,7 +74,7 @@ test.describe("Projects Section -- Cards Overview", () => {
   }) => {
     await page.goto("/en");
 
-    const projectsSection = page.locator("section:has(h2:text('Projects'))");
+    const projectsSection = page.locator("section#experience");
     const text = (await projectsSection.textContent()) ?? "";
 
     expect(text).not.toMatch(/unfinished/i);

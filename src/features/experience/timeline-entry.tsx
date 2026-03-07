@@ -13,7 +13,7 @@ type TimelineEntryProps = {
 const BADGE_STYLES = {
   work: "bg-accent/15 text-accent font-mono font-medium",
   education: "bg-surface text-muted font-mono",
-  project: "bg-surface text-muted font-mono",
+  project: "bg-accent/10 text-accent/80 font-mono",
 } as const;
 
 function TypeBadge({

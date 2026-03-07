@@ -5,6 +5,7 @@ import * as yaml from "js-yaml";
 
 const IT_LOCALE_DIR = path.resolve("messages/it");
 const IT_CONTENT_DIR = path.resolve("content/projects/it");
+const IT_EXPERIENCE_DIR = path.resolve("content/experience");
 
 function loadItalianExternalizedValues(): string[] {
   const values: string[] = [];
@@ -23,6 +24,16 @@ function loadItalianExternalizedValues(): string[] {
     for (const file of yamlFiles) {
       const content = yaml.load(
         fs.readFileSync(path.join(IT_CONTENT_DIR, file), "utf-8")
+      );
+      extractStrings(content, values);
+    }
+  }
+
+  if (fs.existsSync(IT_EXPERIENCE_DIR)) {
+    const yamlFiles = fs.readdirSync(IT_EXPERIENCE_DIR).filter((f) => f.endsWith(".yaml"));
+    for (const file of yamlFiles) {
+      const content = yaml.load(
+        fs.readFileSync(path.join(IT_EXPERIENCE_DIR, file), "utf-8")
       );
       extractStrings(content, values);
     }
@@ -85,7 +96,7 @@ test.describe("Italian Localization -- Italian UI Text", () => {
     await page.goto("/it");
 
     await expect(page.getByRole("heading", { name: "Chi sono" })).toBeVisible();
-    await expect(page.getByText("Sono un Software Engineer che ragiona per sistemi")).toBeVisible();
+    await expect(page.getByText("Sto costruendo la mia carriera da Software Engineer")).toBeVisible();
     await expect(page.getByText("Come penso")).toBeVisible();
   });
 
@@ -179,7 +190,7 @@ test.describe("Italian Localization -- Italian Project Content", () => {
   }) => {
     await page.goto("/it");
 
-    await expect(page.getByRole("heading", { name: "Progetti" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Esperienze" })).toBeVisible();
     await expect(page.getByText("Leggi il caso studio").first()).toBeVisible();
   });
 
@@ -233,7 +244,7 @@ test.describe("Italian Localization -- Language Switcher", () => {
     await languageSwitcher(page).click();
 
     await expect(page).toHaveURL(/\/en\b/);
-    await expect(navigationLink(page, "Projects")).toBeVisible();
+    await expect(navigationLink(page, "Experience")).toBeVisible();
   });
 
   test("switching from English to Italian on the homepage", async ({

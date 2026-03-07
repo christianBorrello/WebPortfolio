@@ -5,6 +5,7 @@ import * as yaml from "js-yaml";
 
 const LOCALE_DIR = path.resolve("messages/en");
 const CONTENT_DIR = path.resolve("content/projects/en");
+const EXPERIENCE_DIR = path.resolve("content/experience");
 
 function loadExternalizedValues(): string[] {
   const values: string[] = [];
@@ -22,6 +23,16 @@ function loadExternalizedValues(): string[] {
     for (const file of yamlFiles) {
       const content = yaml.load(
         fs.readFileSync(path.join(CONTENT_DIR, file), "utf-8")
+      );
+      extractStrings(content, values);
+    }
+  }
+
+  if (fs.existsSync(EXPERIENCE_DIR)) {
+    const yamlFiles = fs.readdirSync(EXPERIENCE_DIR).filter((f) => f.endsWith(".yaml"));
+    for (const file of yamlFiles) {
+      const content = yaml.load(
+        fs.readFileSync(path.join(EXPERIENCE_DIR, file), "utf-8")
       );
       extractStrings(content, values);
     }

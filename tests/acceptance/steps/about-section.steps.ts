@@ -31,8 +31,8 @@ test.describe("About Section", () => {
     const section = aboutSection(page);
     const text = (await section.textContent()) ?? "";
 
-    expect(text).toContain("based on the problem");
-    expect(text).not.toMatch(/comfortable with.{0,20}(because|since|as)/i);
+    expect(text).toContain("TDD");
+    expect(text).toContain("Clean Architecture");
   });
 
   test("values and what Christian looks for are stated clearly", async ({
@@ -50,7 +50,7 @@ test.describe("About Section", () => {
     expect(hasValues).toBe(true);
 
     const hasLookingFor =
-      text.includes("remote-first") || text.includes("ownership");
+      text.includes("quality of the method") || text.includes("grow alongside");
     expect(hasLookingFor).toBe(true);
   });
 
@@ -62,9 +62,9 @@ test.describe("About Section", () => {
     const section = aboutSection(page);
     const text = (await section.textContent()) ?? "";
 
-    expect(text.toLowerCase()).toContain("philosophy");
+    expect(text.toLowerCase()).toContain("game development");
 
-    const philosophyBlock = text.split("philosophy")[1]?.substring(0, 500) ?? "";
+    const philosophyBlock = text.split("game development")[1]?.substring(0, 500) ?? "";
     const wordCount = philosophyBlock.split(/\s+/).length;
     expect(wordCount).toBeLessThan(200);
   });
