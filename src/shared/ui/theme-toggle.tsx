@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 type Theme = "dark" | "light";
 
@@ -17,24 +17,25 @@ function getSystemTheme(): Theme {
     : "dark";
 }
 
+function resolveTheme(): Theme {
+  return getStoredTheme() ?? getSystemTheme();
+}
+
 function applyTheme(theme: Theme) {
   document.documentElement.classList.toggle("light", theme === "light");
   localStorage.setItem("theme", theme);
 }
 
 export function ThemeToggle() {
-  const [theme, setTheme] = useState<Theme>("dark");
+  const [theme, setTheme] = useState<Theme>(resolveTheme);
 
   useEffect(() => {
-    const resolved = getStoredTheme() ?? getSystemTheme();
-    setTheme(resolved);
-  }, []);
+    applyTheme(theme);
+  }, [theme]);
 
-  function toggle() {
-    const next: Theme = theme === "dark" ? "light" : "dark";
-    applyTheme(next);
-    setTheme(next);
-  }
+  const toggle = useCallback(() => {
+    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
+  }, []);
 
   return (
     <button
