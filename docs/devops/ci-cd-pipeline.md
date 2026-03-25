@@ -1,5 +1,5 @@
 # CI/CD Pipeline Design -- Personal Portfolio CV Site
-# Christian Borrello
+
 # Wave: DESIGN (Infrastructure) -- 2026-03-01
 
 ---
@@ -8,7 +8,7 @@
 
 The CI pipeline serves two audiences:
 
-1. **Christian (developer)**: Catch errors before they reach production. Fast feedback.
+1. **Developer**: Catch errors before they reach production. Fast feedback.
 2. **Recruiters reviewing the GitHub repo**: Demonstrate engineering discipline -- linting, type safety, automated builds are visible proof of quality-first practice.
 
 The pipeline is intentionally lean. Three jobs. No parallelization tricks needed for a < 30s build. No staging environments. No Docker. Vercel handles deployment entirely outside GitHub Actions.
@@ -157,7 +157,7 @@ jobs:
 Vercel connects to the GitHub repository via its Git integration (configured in Vercel dashboard, not via GitHub Actions). This is a webhook-based system:
 
 1. **PR branch push**: Vercel builds and deploys a preview URL (e.g., `web-portfolio-abc123.vercel.app`)
-2. **Merge to main**: Vercel builds and deploys to production (e.g., `christianborrello.dev`)
+2. **Merge to main**: Vercel builds and deploys to production (e.g., `yourdomain.dev`)
 3. **Build failure**: Vercel keeps the previous deployment live. No downtime.
 
 ### Vercel Build Settings
@@ -198,7 +198,7 @@ Configure in GitHub (Settings > Branches > Branch protection rules > `main`):
 
 ### Why "Include Administrators"
 
-Christian is the sole developer and repo admin. Without this setting, he could bypass CI by pushing directly to `main`. Enabling it enforces the discipline of always going through PRs, even when working alone. This is visible to recruiters and demonstrates that the CI pipeline is not optional.
+The developer is the sole developer and repo admin. Without this setting, he could bypass CI by pushing directly to `main`. Enabling it enforces the discipline of always going through PRs, even when working alone. This is visible to recruiters and demonstrates that the CI pipeline is not optional.
 
 ---
 

@@ -37,6 +37,6 @@ Feature: Walking Skeleton -- Infrastructure End-to-End
 
   @walking-skeleton
   Scenario: Custom domain resolves correctly
-    When a visitor navigates to christianborrello.dev
+    When a visitor navigates to the configured domain
     Then the site loads over HTTPS
     And the browser shows no certificate warnings

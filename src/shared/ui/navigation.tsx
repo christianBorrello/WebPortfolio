@@ -7,6 +7,7 @@ import { Logo } from "./logo";
 import { ThemeToggle } from "./theme-toggle";
 import { LanguageSwitcher } from "./language-switcher";
 import { useActiveSection } from "../hooks/use-active-section";
+import { OWNER } from "@/shared/lib/owner-config";
 
 function isCaseStudyPage(pathname: string): boolean {
   return /^\/[^/]+\/projects\/[^/]+$/.test(pathname);
@@ -87,7 +88,7 @@ export function Navigation() {
 
         <div className="flex items-center gap-4">
           <a
-            href="https://www.linkedin.com/in/christianborrello99"
+            href={OWNER.linkedin}
             target="_blank"
             rel="noopener noreferrer"
             className="text-muted transition-colors duration-200 hover:text-accent"
@@ -96,7 +97,7 @@ export function Navigation() {
             <LinkedInIcon />
           </a>
           <a
-            href="https://github.com/christianBorrello"
+            href={OWNER.github}
             target="_blank"
             rel="noopener noreferrer"
             className="text-muted transition-colors duration-200 hover:text-accent"

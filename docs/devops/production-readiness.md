@@ -1,14 +1,14 @@
 # Production Readiness Checklist -- Personal Portfolio CV Site
-# Christian Borrello
+
 # Wave: DESIGN (Infrastructure) -- 2026-03-01
 
 ---
 
 ## Purpose
 
-This checklist defines everything that must be true before `christianborrello.dev` is publicly shared on LinkedIn, in job applications, and with recruiters. "Live" means intentionally shared, not just technically accessible.
+This checklist defines everything that must be true before `yourdomain.dev` is publicly shared on LinkedIn, in job applications, and with recruiters. "Live" means intentionally shared, not just technically accessible.
 
-The walking skeleton makes the site technically reachable. This checklist validates that it is ready to represent Christian professionally.
+The walking skeleton makes the site technically reachable. This checklist validates that it is ready to represent the owner professionally.
 
 ---
 
@@ -29,12 +29,12 @@ The walking skeleton makes the site technically reachable. This checklist valida
 
 | Check | Verification | Status |
 |-------|-------------|--------|
-| Custom domain `christianborrello.dev` configured | Vercel domain settings show "Valid Configuration" | [ ] |
-| DNS A record points to `76.76.21.21` | `dig christianborrello.dev` returns correct IP | [ ] |
-| DNS CNAME for www points to `cname.vercel-dns.com` | `dig www.christianborrello.dev` returns CNAME | [ ] |
-| HTTPS works | `curl -I https://christianborrello.dev` returns 200 | [ ] |
-| HTTP redirects to HTTPS | `curl -I http://christianborrello.dev` returns 301 to https | [ ] |
-| www redirects to apex domain | `curl -I https://www.christianborrello.dev` redirects | [ ] |
+| Custom domain `yourdomain.dev` configured | Vercel domain settings show "Valid Configuration" | [ ] |
+| DNS A record points to `76.76.21.21` | `dig yourdomain.dev` returns correct IP | [ ] |
+| DNS CNAME for www points to `cname.vercel-dns.com` | `dig www.yourdomain.dev` returns CNAME | [ ] |
+| HTTPS works | `curl -I https://yourdomain.dev` returns 200 | [ ] |
+| HTTP redirects to HTTPS | `curl -I http://yourdomain.dev` returns 301 to https | [ ] |
+| www redirects to apex domain | `curl -I https://www.yourdomain.dev` redirects | [ ] |
 
 ### Environment
 
@@ -75,8 +75,8 @@ The walking skeleton makes the site technically reachable. This checklist valida
 |-------|-------------|--------|
 | No hardcoded strings in React components | `grep -r ">[A-Z]" src/ --include="*.tsx"` returns only dynamic content | [ ] |
 | All user-facing text from locale files | Visual inspection + automated check | [ ] |
-| Azure metrics (savings, resource count) verified | Christian confirms numbers are accurate | [ ] |
-| Tone consistent with SA-07 (direct, not corporate) | Read all text aloud -- does it sound like Christian? | [ ] |
+| Azure metrics (savings, resource count) verified | The owner confirms numbers are accurate | [ ] |
+| Tone consistent with SA-07 (direct, not corporate) | Read all text aloud -- does it sound like you? | [ ] |
 | No apologetic framing for personal projects | Review project card descriptions | [ ] |
 | "What didn't work" sections are honest, not empty | Read each case study's honest-limits section | [ ] |
 
@@ -108,8 +108,8 @@ The walking skeleton makes the site technically reachable. This checklist valida
 
 | Check | Verification | Status |
 |-------|-------------|--------|
-| `sitemap.xml` accessible | Visit `https://christianborrello.dev/sitemap.xml` | [ ] |
-| `robots.txt` accessible | Visit `https://christianborrello.dev/robots.txt` | [ ] |
+| `sitemap.xml` accessible | Visit `https://yourdomain.dev/sitemap.xml` | [ ] |
+| `robots.txt` accessible | Visit `https://yourdomain.dev/robots.txt` | [ ] |
 | `robots.txt` allows all crawlers | Content includes `Allow: /` | [ ] |
 | Sitemap includes all pages | Home + 5 case study URLs listed | [ ] |
 
@@ -136,7 +136,7 @@ The walking skeleton makes the site technically reachable. This checklist valida
 ### How to Verify
 
 Run Lighthouse in Chrome DevTools (Incognito mode) on the production URL:
-1. Open `https://christianborrello.dev` in Chrome Incognito
+1. Open `https://yourdomain.dev` in Chrome Incognito
 2. DevTools (F12) > Lighthouse tab
 3. Categories: Performance, Accessibility, Best Practices, SEO
 4. Device: Mobile (more stringent)
@@ -170,7 +170,7 @@ Run Lighthouse in Chrome DevTools (Incognito mode) on the production URL:
 | Successful submission shows confirmation | Submit valid form, verify success message | [ ] |
 | Error state shows on Formspree failure | Disconnect network, submit, verify error message | [ ] |
 | Formspree receives the submission | Check Formspree dashboard after test submit | [ ] |
-| Christian receives email notification | Check inbox after test submit | [ ] |
+| The owner receives email notification | Check inbox after test submit | [ ] |
 | Form fields clear after successful submission | Submit, verify fields reset | [ ] |
 
 ---

@@ -1,6 +1,4 @@
 # Walking Skeleton Test Suite
-# Christian Borrello -- Personal Portfolio CV Site
-# Wave: DISTILL -- 2026-03-01
 
 ---
 
@@ -50,9 +48,9 @@ Three additional scenarios are tagged @walking-skeleton @skip. They validate inf
 
 ### 5. Custom domain resolves correctly
 
-**Prerequisite**: Domain `christianborrello.dev` purchased and DNS configured.
+**Prerequisite**: Domain `yourdomain.dev` purchased and DNS configured.
 **What it proves**: The custom domain setup works. Visitors reach the site at the intended URL.
-**Verification**: Navigate to `https://christianborrello.dev`, assert it loads with valid HTTPS.
+**Verification**: Navigate to `https://yourdomain.dev`, assert it loads with valid HTTPS.
 
 ### 6. No tracking cookies or analytics in version one
 

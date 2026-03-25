@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useSectionReveal } from "@/shared/hooks/use-section-reveal";
+import { OWNER } from "@/shared/lib/owner-config";
 
 export function AboutSection() {
   const t = useTranslations("about");
@@ -17,8 +18,8 @@ export function AboutSection() {
 
         <div className="relative mx-auto h-48 w-48 overflow-hidden rounded-2xl border-2 border-accent/20 sm:h-56 sm:w-56">
           <Image
-            src="/assets/profile.jpg"
-            alt="Christian Borrello"
+            src="/assets/profile-placeholder.svg"
+            alt={OWNER.name}
             fill
             sizes="(max-width: 640px) 192px, 224px"
             className="object-cover grayscale-[30%] sepia-[15%]"

@@ -7,11 +7,12 @@ import type { Locale } from "@/i18n/config";
 import { Navigation } from "@/shared/ui/navigation";
 import { Footer } from "@/shared/ui/footer";
 import { SITE_URL } from "@/shared/lib/site-config";
+import { OWNER } from "@/shared/lib/owner-config";
 
 export const metadata: Metadata = {
   title: {
-    template: "%s | Christian Borrello",
-    default: "Christian Borrello — Software Engineer",
+    template: `%s | ${OWNER.name}`,
+    default: `${OWNER.name} — ${OWNER.title}`,
   },
   description:
     "Software Engineer who sees architectures where others see tasks. Portfolio and case studies.",

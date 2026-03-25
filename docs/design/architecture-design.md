@@ -1,6 +1,4 @@
-# Architecture Design -- Personal Portfolio CV Site
-# Christian Borrello
-# Wave: DESIGN -- 2026-03-01
+# Architecture Design — Portfolio Template
 
 ---
 
@@ -10,10 +8,10 @@ The portfolio site is a statically generated website with two external service i
 
 ```mermaid
 C4Context
-    title System Context -- christianborrello.dev
+    title System Context -- yourdomain.dev
 
-    Person(recruiter, "Technical Recruiter", "Evaluates Christian's profile via LinkedIn referral")
-    Person(client, "Freelance Client", "Evaluates Christian via direct referral")
+    Person(recruiter, "Technical Recruiter", "Evaluates the owner's profile via LinkedIn referral")
+    Person(client, "Freelance Client", "Evaluates portfolio via direct referral")
 
     System(portfolio, "Portfolio Site", "Static Next.js site deployed via SSG. Communicates professional identity through case studies.")
 
@@ -301,7 +299,7 @@ messages/
 ```json
 {
   "primaryStatement": "I don't work for duty or money. I work to build something I'm proud of.",
-  "name": "Christian Borrello",
+  "name": "Your Name",
   "role": "Software Engineer",
   "tagline": "Systems Thinker",
   "supportingLine": "I see architectures where others see tasks.",
@@ -376,10 +374,10 @@ Long case studies (SagitterHub, Azure) include an anchor-based section navigator
 
 | Page | Title | Description |
 |------|-------|-------------|
-| Home | "Christian Borrello -- Software Engineer" | Positioning statement (from hero) |
-| SagitterHub case study | "SagitterHub -- Christian Borrello" | Case study hook |
-| Azure case study | "Azure Infrastructure -- Christian Borrello" | Case study hook |
-| Personal project | "{Project Name} -- Christian Borrello" | Project hook |
+| Home | "Your Name -- Software Engineer" | Positioning statement (from hero) |
+| SagitterHub case study | "SagitterHub -- Your Name" | Case study hook |
+| Azure case study | "Azure Infrastructure -- Your Name" | Case study hook |
+| Personal project | "{Project Name} -- Your Name" | Project hook |
 
 ### Open Graph
 
@@ -415,7 +413,7 @@ flowchart LR
     C --> D{next build succeeds?}
     D -->|Yes| E[Deploy to Vercel CDN]
     D -->|No| F[Build fails, previous deploy stays live]
-    E --> G[christianborrello.dev serves new version]
+    E --> G[yourdomain.dev serves new version]
 
     style A fill:#e1f5fe
     style E fill:#c8e6c9
@@ -431,7 +429,7 @@ flowchart LR
 | Node version | 20.x |
 | Framework preset | Next.js (auto-detected by Vercel) |
 | Environment variables | `NEXT_PUBLIC_FORMSPREE_ID` |
-| Domain | `christianborrello.dev` (custom domain on Vercel) |
+| Domain | `yourdomain.dev` (custom domain on Vercel) |
 | Preview deploys | Enabled on PR branches |
 
 ### Environment Variables

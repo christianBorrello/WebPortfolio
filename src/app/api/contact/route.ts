@@ -7,6 +7,7 @@ import type {
   ContactFieldError,
   ContactValidationErrorResponse,
 } from "@/shared/types/contact";
+import { OWNER } from "@/shared/lib/owner-config";
 
 const contactRequestSchema = z.object({
   name: z.string().max(100).default(""),
@@ -61,8 +62,8 @@ export async function POST(request: Request) {
     );
 
     await resend.emails.send({
-      from: "Portfolio Contact <contact@christianborrello.dev>",
-      to: "christian.borrello@live.it",
+      from: OWNER.contactFrom,
+      to: OWNER.email,
       subject: `Portfolio contact from ${name || "Anonymous"}`,
       html,
       replyTo: email,

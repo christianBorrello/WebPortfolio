@@ -1,5 +1,5 @@
 # Technology Stack -- Personal Portfolio CV Site
-# Christian Borrello
+
 # Wave: DESIGN -- 2026-03-01
 
 ---
@@ -17,7 +17,7 @@
 | Content parsing | js-yaml | 4.x | MIT | YAML parsing for structured project data |
 | Hosting | Vercel | Free tier | N/A (service) | CDN, automated Git deploy, preview deploys |
 | Form service | Formspree | Free tier | N/A (service) | Contact form relay, 50 submissions/month |
-| Domain | christianborrello.dev | .dev TLD | N/A | Custom domain, ~12-15 EUR/year |
+| Domain | yourdomain.dev | .dev TLD | N/A | Custom domain, ~12-15 EUR/year |
 
 ---
 
@@ -28,7 +28,7 @@
 **Why**: SSG-first framework with built-in image optimization, automatic sitemap generation, and native Vercel integration. The App Router provides file-based routing with layout nesting.
 
 **Alternatives considered**:
-- **Astro**: Strong SSG contender with smaller JS output. Rejected because Christian's professional stack includes React -- demonstrating Next.js proficiency is directly relevant to the portfolio's purpose as a showcase piece. Astro's component island model adds conceptual complexity without clear benefit for this site's scope.
+- **Astro**: Strong SSG contender with smaller JS output. Rejected because the owner's professional stack includes React -- demonstrating Next.js proficiency is directly relevant to the portfolio's purpose as a showcase piece. Astro's component island model adds conceptual complexity without clear benefit for this site's scope.
 - **plain HTML/CSS**: Zero-dependency option. Rejected because it lacks i18n routing, image optimization, and component reuse. Would require custom build tooling for YAML content and locale management.
 
 **Version pinning**: Pin major version in `package.json` (e.g., `"next": "^15.0.0"`). Minor/patch updates via Dependabot or manual `npm update`.
@@ -40,7 +40,7 @@
 **Why**: Enforces data model contracts (project content, i18n keys, form state). Catches mismatches between YAML content and component expectations at build time.
 
 **Alternatives considered**:
-- **JavaScript**: Less boilerplate. Rejected because the portfolio demonstrates engineering discipline -- type safety is a core value Christian advocates. Using JS would contradict the "quality-first" positioning.
+- **JavaScript**: Less boilerplate. Rejected because the portfolio demonstrates engineering discipline -- type safety is a core value the developer advocates. Using JS would contradict the "quality-first" positioning.
 
 ---
 

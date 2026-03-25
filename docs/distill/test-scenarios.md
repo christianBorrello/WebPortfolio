@@ -1,6 +1,4 @@
-# Test Scenarios -- Acceptance Test Map
-# Christian Borrello -- Personal Portfolio CV Site
-# Wave: DISTILL -- 2026-03-01
+# Test Scenarios — Acceptance Test Map
 
 ---
 
@@ -42,7 +40,7 @@ Enable one scenario at a time, implement, commit, repeat.
 |------|----------|-----|
 | hero-section.feature | Identity statement breaks the generic portfolio pattern | @milestone-1 @skip |
 | hero-section.feature | Clear calls to action guide the visitor forward | @milestone-1 @skip |
-| hero-section.feature | Hero displays Christian's name and role | @milestone-1 @skip |
+| hero-section.feature | Hero displays the owner's name and role | @milestone-1 @skip |
 | hero-section.feature | Hero text is fully localized | @milestone-1 @skip |
 
 **About Section (US-02)**
@@ -51,7 +49,7 @@ Enable one scenario at a time, implement, commit, repeat.
 |------|----------|-----|
 | about-section.feature | ADHD is framed as a functional pattern, not a limitation | @milestone-1 @skip |
 | about-section.feature | Technology philosophy is present and authentic | @milestone-1 @skip |
-| about-section.feature | Values and what Christian looks for are stated clearly | @milestone-1 @skip |
+| about-section.feature | Values and what the owner looks for are stated clearly | @milestone-1 @skip |
 | about-section.feature | Philosophy is present as applied thinking, not academic display | @milestone-1 @skip |
 | about-section.feature | About section is not a skills list | @milestone-1 @skip |
 | about-section.feature | About section is readable in approximately 90 seconds | @milestone-1 @skip |
@@ -136,9 +134,9 @@ Enable one scenario at a time, implement, commit, repeat.
 | AC-01-05 | Hero text is fully localized |
 | AC-02-01 | ADHD is framed as a functional pattern |
 | AC-02-02 | Technology philosophy is present and authentic |
-| AC-02-03 | Values and what Christian looks for are stated clearly |
+| AC-02-03 | Values and what the owner looks for are stated clearly |
 | AC-02-04 | Philosophy is present as applied thinking |
-| AC-02-05 | Values and what Christian looks for are stated clearly |
+| AC-02-05 | Values and what the owner looks for are stated clearly |
 | AC-02-06 | About section is not a skills list |
 | AC-02-07 | About section is not a skills list |
 | AC-02-08 | About section is readable in approximately 90 seconds |

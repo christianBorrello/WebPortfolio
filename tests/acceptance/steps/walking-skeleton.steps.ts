@@ -158,7 +158,8 @@ test.describe("Walking Skeleton", () => {
 
   test("custom domain resolves correctly over HTTPS", async ({ request }) => {
     test.skip(!!process.env.CI, "Skipped in CI -- external dependency");
-    const response = await request.get("https://christianborrello.dev", {
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://yourdomain.dev";
+    const response = await request.get(siteUrl, {
       maxRedirects: 5,
     });
 

@@ -51,10 +51,14 @@ portfolio-*.png
 # claude code
 .claude/
 
-# nwave DES session artifacts
-.nwave/des/des-task-active*
-.nwave/des/deliver-session.json
-.nwave/des/logs/
+# nwave
+.nwave/
+
+# personal/project-specific (not part of template)
+CLAUDE.md
+TASKS.yaml
+docs/profile/
+docs/archive/
 
 # typescript
 *.tsbuildinfo

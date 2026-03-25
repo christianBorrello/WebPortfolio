@@ -30,4 +30,4 @@ Client-side email sending via templates. **Rejected because**: similar to Formsp
 - **Positive**: Reply-To header enables direct inbox replies
 - **Negative**: Requires API route (minimal server-side code)
 - **Negative**: Requires Resend account and domain verification for production
-- **Mitigation**: Development uses `onboarding@resend.dev` sender; production requires verified `christianborrello.dev` domain
+- **Mitigation**: Development uses `onboarding@resend.dev` sender; production requires verified `yourdomain.dev` domain

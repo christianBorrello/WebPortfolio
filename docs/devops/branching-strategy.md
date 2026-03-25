@@ -1,5 +1,5 @@
 # Branching Strategy -- Personal Portfolio CV Site
-# Christian Borrello
+
 # Wave: DESIGN (Infrastructure) -- 2026-03-01
 
 ---
@@ -184,7 +184,7 @@ Configure on GitHub (Settings > Branches > Add rule for `main`):
 
 ### Why "Include Administrators" Matters
 
-Christian is the sole contributor and repo admin. Without this flag, branch protection is advisory -- he could push directly to `main` bypassing CI. Enabling it enforces the workflow discipline even when working alone, and is visible to recruiters as a professional practice.
+The developer is the sole contributor and repo admin. Without this flag, branch protection is advisory -- he could push directly to `main` bypassing CI. Enabling it enforces the workflow discipline even when working alone, and is visible to recruiters as a professional practice.
 
 ---
 

@@ -1,5 +1,5 @@
 # Component Boundaries -- Personal Portfolio CV Site
-# Christian Borrello
+
 # Wave: DESIGN -- 2026-03-01
 
 ---

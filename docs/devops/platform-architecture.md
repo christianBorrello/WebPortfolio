@@ -1,5 +1,5 @@
 # Platform Architecture -- Personal Portfolio CV Site
-# Christian Borrello
+
 # Wave: DESIGN (Infrastructure) -- 2026-03-01
 
 ---
@@ -12,7 +12,7 @@ The portfolio runs as a statically generated Next.js site with zero backend comp
 |-----------|---------|------|------|
 | Source control | GitHub | Free (public repo) | Git hosting, CI execution (Actions), PR workflow |
 | Hosting + CDN | Vercel | Free (Hobby) | Build, deploy, CDN edge delivery, preview deploys |
-| Contact form relay | Formspree | Free | Receives POST from browser, emails Christian |
+| Contact form relay | Formspree | Free | Receives POST from browser, emails the owner |
 
 ### Why This is Sufficient
 
@@ -38,7 +38,7 @@ flowchart TD
     G --> H[Merge PR to main]
     H --> I[Vercel production build + deploy]
     I --> J[Atomic swap -- new version live]
-    J --> K[christianborrello.dev serves new version]
+    J --> K[yourdomain.dev serves new version]
 
     H --> L[GitHub Actions CI runs on main]
     L --> M{lint + typecheck + build}
@@ -109,7 +109,7 @@ No per-environment variable differences in v1. All environments use the same For
 
 ### Target Domain
 
-`christianborrello.dev`
+`yourdomain.dev`
 
 ### DNS Records
 
@@ -128,7 +128,7 @@ Automatic via Vercel. The `.dev` TLD requires HTTPS (HSTS preloaded). Vercel pro
 2. Configure DNS at registrar
 3. Wait for DNS propagation (usually < 10 minutes)
 4. Vercel shows "Valid Configuration" in domain settings
-5. `curl -I https://christianborrello.dev` returns `200` with valid SSL
+5. `curl -I https://yourdomain.dev` returns `200` with valid SSL
 
 ### Staging
 

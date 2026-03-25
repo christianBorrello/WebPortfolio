@@ -6,7 +6,7 @@ Superseded by [ADR-006](adr-006-resend-over-formspree.md)
 
 ## Context
 
-The contact form needs to relay submissions to Christian's email. The site has no backend. The solution must work within the free tier and require zero server-side infrastructure.
+The contact form needs to relay submissions to the owner's email. The site has no backend. The solution must work within the free tier and require zero server-side infrastructure.
 
 ## Decision
 
@@ -23,7 +23,7 @@ Built-in form handling for Netlify-hosted sites. **Rejected because**: The site 
 ## Consequences
 
 - **Positive**: Zero backend code, zero API routes, zero secrets management
-- **Positive**: Immediate email notifications to Christian
+- **Positive**: Immediate email notifications to the owner
 - **Positive**: Free tier (50 submissions/month) is sufficient for portfolio traffic
 - **Negative**: 50/month limit -- could be reached if the form is spammed
 - **Negative**: No server-side validation (client-side only)

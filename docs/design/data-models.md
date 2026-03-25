@@ -1,5 +1,5 @@
 # Data Models -- Personal Portfolio CV Site
-# Christian Borrello
+
 # Wave: DESIGN -- 2026-03-01
 
 All models are TypeScript interfaces. Immutability enforced via `readonly` modifiers.
@@ -95,19 +95,19 @@ metrics:
 
 sections:
   theProblem: |
-    (Content written by Christian)
+    (Content written by the owner)
   whatISaw: |
-    (Content written by Christian)
+    (Content written by the owner)
   theDecisions: |
-    (Content written by Christian)
+    (Content written by the owner)
   beyondTheAssignment: |
-    (Content written by Christian)
+    (Content written by the owner)
   whatDidntWork: |
-    (Content written by Christian)
+    (Content written by the owner)
   theBiggerPicture: |
-    (Content written by Christian)
+    (Content written by the owner)
   forNonSpecialists: |
-    (Content written by Christian)
+    (Content written by the owner)
 
 stack:
   - .NET 8.0
@@ -127,7 +127,7 @@ stack:
 
 ## 2. Personal Info Data Model
 
-Represents Christian's public identity. Source: `messages/en/hero.json` and `messages/en/about.json`.
+Represents the owner's public identity. Source: `messages/en/hero.json` and `messages/en/about.json`.
 
 This is not a separate data file -- it is composed from i18n locale strings. The type is documented here for reference, but the actual data lives in locale JSON files.
 
@@ -140,7 +140,7 @@ This is not a separate data file -- it is composed from i18n locale strings. The
  * Documented here for reference and cross-section consistency.
  */
 interface ProfessionalIdentity {
-  readonly fullName: string;       // "Christian Borrello"
+  readonly fullName: string;       // "Your Name"
   readonly role: string;           // "Software Engineer"
   readonly tagline: string;        // "Systems Thinker"
   readonly primaryStatement: string;

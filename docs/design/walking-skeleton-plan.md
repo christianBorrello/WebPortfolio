@@ -1,5 +1,5 @@
 # Walking Skeleton Plan -- Feature 0
-# Christian Borrello
+
 # Wave: DESIGN -- 2026-03-01
 
 ---
@@ -16,7 +16,7 @@ Deploy a minimal Next.js site to Vercel with i18n structure and Formspree form w
 - [ ] GitHub account with access to create a public repository
 - [ ] Vercel account (free tier, linked to GitHub)
 - [ ] Formspree account (free tier, one form created -- note the form ID)
-- [ ] Domain `christianborrello.dev` purchased (optional -- skeleton works with Vercel subdomain first)
+- [ ] Domain `yourdomain.dev` purchased (optional -- skeleton works with Vercel subdomain first)
 
 ---
 
@@ -112,7 +112,7 @@ Create the following configuration files:
 ## Step 5: Create Placeholder Home Page
 
 The home page should render:
-1. A heading with Christian's name (from `hero.json` via `useTranslations`)
+1. A heading with the owner's name (from `hero.json` via `useTranslations`)
 2. A paragraph with the positioning statement
 3. A minimal contact form section
 
@@ -173,7 +173,7 @@ Verify the Next.js scaffold `.gitignore` includes:
 
 ### Custom domain (when ready)
 
-1. Add `christianborrello.dev` as custom domain in Vercel project settings
+1. Add `yourdomain.dev` as custom domain in Vercel project settings
 2. Update DNS records at domain registrar (Cloudflare or Google Domains):
    - `A` record: `76.76.21.21`
    - `CNAME` for `www`: `cname.vercel-dns.com`
@@ -194,7 +194,7 @@ Verify the Next.js scaffold `.gitignore` includes:
 | Form validation | Submit without email | Inline error on email field, message preserved |
 | Form submission | Submit with valid email | Formspree receives submission |
 | Success state | After valid submission | "Message sent..." message displayed |
-| Email notification | Check inbox | Christian receives email from Formspree |
+| Email notification | Check inbox | The owner receives email from Formspree |
 | Auto-deploy | Push a small change | Vercel deploys within 2 minutes |
 | Locale route | Visit `/en` | Page loads correctly |
 
@@ -261,9 +261,9 @@ All 6 criteria from AC-00 must pass:
 |----|-----------|--------------|
 | AC-00-01 | Production URL responds with status 200 | `curl -I {url}` returns 200 |
 | AC-00-02 | Push on main triggers Vercel deploy within 2 minutes | Push a README change, observe Vercel dashboard |
-| AC-00-03 | Form submission with valid email reaches Christian | Submit test form, check Formspree dashboard + email |
+| AC-00-03 | Form submission with valid email reaches the owner | Submit test form, check Formspree dashboard + email |
 | AC-00-04 | No user-facing string hardcoded in React components | `grep -r "hardcoded" src/` returns nothing; visual inspection |
-| AC-00-05 | .dev domain resolves to Vercel URL | `dig christianborrello.dev` resolves correctly (deferred if domain not yet purchased) |
+| AC-00-05 | .dev domain resolves to Vercel URL | `dig yourdomain.dev` resolves correctly (deferred if domain not yet purchased) |
 | AC-00-06 | Placeholder page loads without build errors | `next build` succeeds, page renders in browser |
 
 **Note on AC-00-05**: The walking skeleton can be considered complete without the custom domain. The Vercel subdomain (`*.vercel.app`) satisfies AC-00-01 and AC-00-02. Domain configuration is a separate step that can happen before or after feature development begins.
