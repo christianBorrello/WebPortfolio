@@ -1,7 +1,7 @@
 Feature: Italian Localization -- Full Italian Experience for Visitors
   As an Italian-speaking visitor arriving at the portfolio,
   I need all interface text and case study content available in Italian,
-  so that I can evaluate Christian's work in my native language.
+  so that I can evaluate the owner's work in my native language.
 
   # --- Walking skeleton: simplest proof that Italian locale works ---
 
@@ -18,7 +18,7 @@ Feature: Italian Localization -- Full Italian Experience for Visitors
   Scenario: Hero section displays Italian text
     Given a visitor navigates to the Italian homepage
     When the visitor reads the hero section
-    Then the hero displays the name "Christian Borrello"
+    Then the hero displays the owner's name
     And the hero displays the role in Italian
     And the call to action labels are in Italian
 

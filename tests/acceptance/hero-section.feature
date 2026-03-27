@@ -1,6 +1,6 @@
 Feature: Hero Section -- Professional Identity in 30 Seconds
   As Marco, a technical recruiter evaluating 15-20 profiles per week,
-  I need to understand who Christian is within the first few seconds,
+  I need to understand who the owner is within the first few seconds,
   so that I can decide whether to keep reading or move on.
 
   Background:
@@ -24,9 +24,9 @@ Feature: Hero Section -- Professional Identity in 30 Seconds
     And "Get in touch" scrolls to the contact section
 
   @milestone-1
-  Scenario: Hero displays Christian's name and role
+  Scenario: Hero displays the owner's name and role
     When Marco reads the hero section
-    Then he sees the name "Christian Borrello"
+    Then he sees the owner's name
     And he sees the role "Software Engineer"
 
   @milestone-1

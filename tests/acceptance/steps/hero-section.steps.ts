@@ -1,6 +1,7 @@
 import { test, expect } from "@playwright/test";
 import * as fs from "node:fs";
 import * as path from "node:path";
+import { OWNER } from "../../../src/shared/lib/owner-config";
 
 test.describe("Hero Section", () => {
   test("identity statement breaks the generic portfolio pattern", async ({
@@ -43,11 +44,11 @@ test.describe("Hero Section", () => {
     expect(getInTouchHref).toContain("#contact");
   });
 
-  test("hero displays Christian's name and role", async ({ page }) => {
+  test("hero displays the owner's name and role", async ({ page }) => {
     await page.goto("/en");
 
     await expect(
-      page.getByRole("heading", { name: "Christian Borrello" })
+      page.getByRole("heading", { name: OWNER.name })
     ).toBeVisible();
     const heroSection = page.locator("section").first();
     await expect(heroSection.getByText("Software Craftsmanship")).toBeVisible();

@@ -1,7 +1,7 @@
 Feature: About Section -- The Human and Professional Layer
   As Marco, a technical recruiter looking for cultural fit,
   and as Giulia, a freelance client looking for reliability,
-  we need to understand who Christian is beyond a CV,
+  we need to understand who the owner is beyond a CV,
   so that we can assess whether he is the kind of person we want to work with.
 
   Background:
@@ -23,10 +23,10 @@ Feature: About Section -- The Human and Professional Layer
     And the statement does not frame technology preferences as comfort-driven
 
   @milestone-1
-  Scenario: Values and what Christian looks for are stated clearly
+  Scenario: Values and what the owner looks for are stated clearly
     When the visitor reads the about section
     Then the section mentions values such as honesty, simplicity, or respect
-    And the section describes what Christian looks for in a team or collaboration
+    And the section describes what the owner looks for in a team or collaboration
     And the section mentions remote-first or ownership
 
   @milestone-1

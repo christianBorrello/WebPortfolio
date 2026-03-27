@@ -2,6 +2,7 @@ import { test, expect, type Page } from "@playwright/test";
 import * as fs from "node:fs";
 import * as path from "node:path";
 import * as yaml from "js-yaml";
+import { OWNER } from "../../../src/shared/lib/owner-config";
 
 const IT_LOCALE_DIR = path.resolve("messages/it");
 const IT_CONTENT_DIR = path.resolve("content/projects/it");
@@ -86,7 +87,7 @@ test.describe("Italian Localization -- Italian UI Text", () => {
   test("hero section displays Italian text", async ({ page }) => {
     await page.goto("/it");
 
-    await expect(page.getByRole("heading", { name: "Christian Borrello" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: OWNER.name })).toBeVisible();
     await expect(page.getByText("Vedo architetture dove gli altri vedono task.")).toBeVisible();
     await expect(page.getByRole("link", { name: "Guarda i miei lavori" })).toBeVisible();
     await expect(page.getByRole("link", { name: "Contattami" })).toBeVisible();

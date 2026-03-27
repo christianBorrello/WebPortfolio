@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { OWNER } from "../../../src/shared/lib/owner-config";
 
 // --- SEO scenarios ---
 
@@ -9,7 +10,7 @@ test.describe("Infrastructure -- SEO", () => {
     await page.goto("/en");
 
     const title = await page.title();
-    expect(title).toContain("Christian Borrello");
+    expect(title).toContain(OWNER.name);
 
     const description = await page
       .locator('meta[name="description"]')
@@ -32,7 +33,7 @@ test.describe("Infrastructure -- SEO", () => {
       .getAttribute("content");
     expect(ogImage).toBeTruthy();
 
-    expect(ogTitle).toContain("Christian Borrello");
+    expect(ogTitle).toContain(OWNER.name);
   });
 
   test("case study pages have unique meta tags", async ({ page }) => {

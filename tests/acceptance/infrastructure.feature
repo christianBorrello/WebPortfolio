@@ -2,14 +2,14 @@ Feature: Infrastructure Quality -- SEO, Performance, and Accessibility
   As a visitor arriving from LinkedIn or a search engine,
   I need the site to load fast, appear correctly in search results,
   and be accessible regardless of how I browse,
-  so that my experience reflects the professional quality Christian claims.
+  so that my experience reflects the professional quality the owner claims.
 
   # --- SEO scenarios ---
 
   @infrastructure @milestone-2  Scenario: Home page has proper meta tags for search engines
     Given a visitor navigates to the homepage
     When search engine metadata is inspected
-    Then the page has a title containing "Christian Borrello"
+    Then the page has a title containing the owner's name
     And the page has a meta description
     And the page has Open Graph tags for LinkedIn sharing
     And the Open Graph title matches the page title

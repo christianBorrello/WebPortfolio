@@ -1,11 +1,11 @@
 Feature: Projects Section -- Case Studies that Demonstrate Thinking
   As Marco, a technical recruiter who has read the hero and about,
-  I need to see concrete proof of Christian's reasoning and initiative,
+  I need to see concrete proof of the owner's reasoning and initiative,
   so that I can verify the promises made in the earlier sections.
 
   As Giulia, a freelance client evaluating reliability,
   I need to see measurable business impact and honest reflections,
-  so that I can trust Christian with my project.
+  so that I can trust the owner with my project.
 
   Background:
     Given a visitor navigates to the projects section

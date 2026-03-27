@@ -1,5 +1,5 @@
 Feature: Walking Skeleton -- Infrastructure End-to-End
-  As Christian, the site owner,
+  As the site owner,
   I need the deployment pipeline, contact form, and i18n structure working
   before building any content,
   so that I discover integration problems now, not after the site is built.
