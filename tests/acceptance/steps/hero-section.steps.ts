@@ -1,7 +1,9 @@
 import { test, expect } from "@playwright/test";
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { OWNER } from "../../../src/shared/lib/owner-config";
+const heroMessages = JSON.parse(
+  fs.readFileSync(path.resolve("messages/en/hero.json"), "utf-8"),
+);
 
 test.describe("Hero Section", () => {
   test("identity statement breaks the generic portfolio pattern", async ({
@@ -48,7 +50,7 @@ test.describe("Hero Section", () => {
     await page.goto("/en");
 
     await expect(
-      page.getByRole("heading", { name: OWNER.name })
+      page.getByRole("heading", { name: heroMessages.name })
     ).toBeVisible();
     const heroSection = page.locator("section").first();
     await expect(heroSection.getByText("Software Craftsmanship")).toBeVisible();
