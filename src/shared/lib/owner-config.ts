@@ -1,9 +1,9 @@
 export const OWNER = {
-  name: "Your Name",
-  title: "Your Title",
-  email: "your@email.com",
-  domain: "https://yoursite.dev",
-  linkedin: "https://www.linkedin.com/in/your-profile",
-  github: "https://github.com/your-username",
-  contactFrom: "Portfolio Contact <contact@yoursite.dev>",
+  name: "Christian Borrello",
+  title: "Software Engineer",
+  email: "christian.borrello@live.it",
+  domain: "https://christianborrello.dev",
+  linkedin: "https://www.linkedin.com/in/christianborrello99",
+  github: "https://github.com/christianBorrello",
+  contactFrom: "Portfolio Contact <contact@christianborrello.dev>",
 } as const;
