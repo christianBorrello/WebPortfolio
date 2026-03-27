@@ -18,7 +18,7 @@ export function AboutSection() {
 
         <div className="relative mx-auto h-48 w-48 overflow-hidden rounded-2xl border-2 border-accent/20 sm:h-56 sm:w-56">
           <Image
-            src="/assets/profile-placeholder.svg"
+            src="/assets/profile.jpg"
             alt={OWNER.name}
             fill
             sizes="(max-width: 640px) 192px, 224px"
